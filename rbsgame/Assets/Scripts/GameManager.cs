@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     // important stuff to access
+    [System.Serializable]
     public class Character
     {
         public enum CharacterNames
@@ -33,18 +34,19 @@ public class GameManager : MonoBehaviour
         }
         public CharacterNames characterName;
 
-        public Character(CharacterNames _characterName)
+        public GameObject characterProto;
+
+        public Character(CharacterNames _characterName, GameObject _characterProto)
         {
             characterName = _characterName;
+            characterProto = _characterProto;
         }
     }
 
-    public List<Character> characters = new List<Character>
-    {
-        new Character(Character.CharacterNames.Gregory),
-        new Character(Character.CharacterNames.GentlemanHumanoid)
-    };
+    [SerializeField]
+    public List<Character> characters = new List<Character> { };
 
+    public List<GameObject> stages = new List<GameObject> { };
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +59,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("Battle");
+            if(SceneManager.GetActiveScene().name == "Startup")
+            {
+                SceneManager.LoadScene("Battle");
+            }
         }
     }
 }

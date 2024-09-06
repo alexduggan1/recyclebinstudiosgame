@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     [System.Serializable]
     public class PlayerState
     {
+        public bool alive;
         public enum Dir
         {
             Left, Right
@@ -82,9 +83,19 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         // update player state
+        // TODO still have to make this ray only work for things that should be able to be jumped from
         playerState.onGround = Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f);
-        // Debug.Log(Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f));
-
+        if (playerState.onGround)
+        {
+            if (playerInputs.hMoveAxis > 0.05f)
+            {
+                playerState.facingDir = PlayerState.Dir.Right;
+            }
+            if (playerInputs.hMoveAxis < -0.05f)
+            {
+                playerState.facingDir = PlayerState.Dir.Left;
+            }
+        }
 
         // handle movement
 
@@ -95,7 +106,7 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDeceleration, rb.velocity.y);
 
         // maximum horizontal speed
-        Debug.Log(rb.velocity.x);
+        //Debug.Log(rb.velocity.x);
         if ((rb.velocity.x) > physicsAttributes.maxMoveSpeed) {
             rb.velocity = new Vector3((physicsAttributes.maxMoveSpeed), rb.velocity.y);
         }
