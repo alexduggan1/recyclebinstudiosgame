@@ -15,7 +15,7 @@ public class BattleController : MonoBehaviour
     public GameObject playerProto;
 
 
-    public List<GameManager.Character> playerChosenCharacters;
+    public List<Character> playerChosenCharacters;
 
 
     public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W);
@@ -47,11 +47,12 @@ public class BattleController : MonoBehaviour
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
         int i = 0;
-        foreach (GameManager.Character playerChosenCharacter in playerChosenCharacters)
+        foreach (Character playerChosenCharacter in playerChosenCharacters)
         {
             Player newPlayer = Instantiate(playerProto).GetComponent<Player>();
 
-            newPlayer.character = playerChosenCharacter;
+            GameObject newChar = Instantiate(playerChosenCharacter.gameObject, newPlayer.transform);
+            newPlayer.character = newChar.GetComponent<Character>();
             newPlayer.ID = i;
 
             newPlayer.transform.position = FigureOutPlayerStartPosition(newPlayer.ID, playerCount);

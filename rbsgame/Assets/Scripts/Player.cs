@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
         }
         public Dir facingDir;
         public bool onGround;
+        public bool activeDirectionalInput;
     }
 
     public State playerState;
@@ -78,7 +79,8 @@ public class Player : MonoBehaviour
 
 
     public int ID;
-    public GameManager.Character character; // can set this from the list index we get from the character select menu
+    
+    public Character character;
 
     // Start is called before the first frame update
     void Start()
@@ -92,6 +94,9 @@ public class Player : MonoBehaviour
         playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
         playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
         
+        playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
+
+        character.playerState = playerState;
     }
 
     // Update is called once per frame

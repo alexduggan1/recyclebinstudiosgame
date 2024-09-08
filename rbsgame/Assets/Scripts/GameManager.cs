@@ -24,25 +24,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // important stuff to access
-    [System.Serializable]
-    public class Character
-    {
-        public enum CharacterNames
-        {
-            Gregory, GentlemanHumanoid
-        }
-        public CharacterNames characterName;
-
-        public GameObject characterProto;
-
-        public Character(CharacterNames _characterName, GameObject _characterProto)
-        {
-            characterName = _characterName;
-            characterProto = _characterProto;
-        }
-    }
-
     [SerializeField]
     public List<Character> characters = new List<Character> { };
 
