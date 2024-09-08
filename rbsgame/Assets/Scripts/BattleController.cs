@@ -17,6 +17,12 @@ public class BattleController : MonoBehaviour
 
     public List<GameManager.Character> playerChosenCharacters;
 
+
+    public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W);
+    public Player.Controls rightPlayerControlsSignature = new Player.Controls("Arrows", KeyCode.UpArrow);
+    public Player.Controls middlePlayerControlsSignature = new Player.Controls("JL", KeyCode.I);
+    public Player.Controls middlePlayerControlsSignature2 = new Player.Controls("FH", KeyCode.T);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +55,20 @@ public class BattleController : MonoBehaviour
             newPlayer.ID = i;
 
             newPlayer.transform.position = FigureOutPlayerStartPosition(newPlayer.ID, playerCount);
+
+            if(newPlayer.ID == 0) { newPlayer.playerControls = leftPlayerControlsSignature; }
+            if (newPlayer.ID == 1)
+            {
+                if(playerCount == 2) { newPlayer.playerControls = rightPlayerControlsSignature; }
+                else if (playerCount == 3) { newPlayer.playerControls = rightPlayerControlsSignature; }
+                else { newPlayer.playerControls = middlePlayerControlsSignature2; }
+            }
+            if (newPlayer.ID == 2)
+            {
+                if (playerCount == 3) { newPlayer.playerControls = middlePlayerControlsSignature; }
+                else { newPlayer.playerControls = middlePlayerControlsSignature; }
+            }
+            if (newPlayer.ID == 3) { newPlayer.playerControls = rightPlayerControlsSignature; }
 
             players.Add(newPlayer);
             i += 1;

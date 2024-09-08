@@ -229,7 +229,7 @@ MonoBehaviour:
   - shortcut: {fileID: 7262891623927584391}
     IDFor2Player: 1
     IDFor3Player: 2
-    IDFor4Player: 0
+    IDFor4Player: 1
   - shortcut: {fileID: 7173726030897802331}
     IDFor2Player: -1
     IDFor3Player: -1

@@ -221,6 +221,10 @@ MonoBehaviour:
     characterProto: {fileID: 3897285844626070317, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
   - characterName: 0
     characterProto: {fileID: 3897285844626070317, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
+  - characterName: 0
+    characterProto: {fileID: 3897285844626070317, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
+  - characterName: 0
+    characterProto: {fileID: 3897285844626070317, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
 --- !u!1 &1715063055
 GameObject:
   m_ObjectHideFlags: 0

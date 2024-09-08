@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
     // current player state
     [System.Serializable]
-    public class PlayerState
+    public class State
     {
         public bool alive;
         public enum Dir
@@ -48,18 +48,33 @@ public class Player : MonoBehaviour
         public bool onGround;
     }
 
-    public PlayerState playerState;
+    public State playerState;
 
 
     // player's inputs
     [System.Serializable]
-    public class PlayerInputs
+    public class Inputs
     {
         public float hMoveAxis;
         public bool jumpPressed;
     }
 
-    public PlayerInputs playerInputs;
+    public Inputs playerInputs;
+
+
+    public class Controls
+    {
+        public string hMoveAxisName;
+        public KeyCode jumpButton;
+
+        public Controls(string _hMoveAxisName, KeyCode _jumpButton)
+        {
+            hMoveAxisName = _hMoveAxisName;
+            jumpButton = _jumpButton;
+        }
+    }
+
+    public Controls playerControls;
 
 
     public int ID;
@@ -74,8 +89,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         // handle player inputs
-        playerInputs.hMoveAxis = Input.GetAxis("Horizontal");
-        playerInputs.jumpPressed = Input.GetKey(KeyCode.Space);
+        playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
+        playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
         
     }
 
@@ -89,11 +104,11 @@ public class Player : MonoBehaviour
         {
             if (playerInputs.hMoveAxis > 0.05f)
             {
-                playerState.facingDir = PlayerState.Dir.Right;
+                playerState.facingDir = State.Dir.Right;
             }
             if (playerInputs.hMoveAxis < -0.05f)
             {
-                playerState.facingDir = PlayerState.Dir.Left;
+                playerState.facingDir = State.Dir.Left;
             }
         }
 
