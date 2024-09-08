@@ -50,14 +50,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   physicsAttributes:
-    moveAcceleration: 130
-    maxMoveSpeed: 12
-    autoDeceleration: 0.97
+    moveAccelerationGround: 130
+    moveAccelerationAir: 85
+    maxMoveSpeedGround: 12
+    maxMoveSpeedAir: 9
+    autoDecelerationGround: 0.95
+    autoDecelerationAir: 0.975
     jumpForce: 14
   playerState:
     alive: 0
     facingDir: 0
     onGround: 0
+    activeDirectionalInput: 0
   playerInputs:
     hMoveAxis: 0
     jumpPressed: 0

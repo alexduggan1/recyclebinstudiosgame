@@ -26,9 +26,12 @@ public class Player : MonoBehaviour
     [System.Serializable]
     public class PhysicsAttributes
     {
-        public float moveAcceleration = 20;
-        public float maxMoveSpeed = 5;
-        public float autoDeceleration = 0.9f;
+        public float moveAccelerationGround = 20;
+        public float moveAccelerationAir = 20;
+        public float maxMoveSpeedGround = 5;
+        public float maxMoveSpeedAir = 5;
+        public float autoDecelerationGround = 0.9f;
+        public float autoDecelerationAir = 0.9f;
         public float jumpForce = 10;
     }
 
@@ -120,19 +123,40 @@ public class Player : MonoBehaviour
         // handle movement
 
         // move side to side
-        rb.velocity += new Vector3 (playerInputs.hMoveAxis * physicsAttributes.moveAcceleration * Time.fixedDeltaTime, 0);
-        
         // decelerate automatically
-        rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDeceleration, rb.velocity.y);
-
         // maximum horizontal speed
-        //Debug.Log(rb.velocity.x);
-        if ((rb.velocity.x) > physicsAttributes.maxMoveSpeed) {
-            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeed), rb.velocity.y);
+        if (playerState.onGround)
+        {
+            rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationGround * Time.fixedDeltaTime, 0);
+            rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationGround, rb.velocity.y);
+
+
+            if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+            {
+                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
+            }
+            if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
+            {
+                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+            }
         }
-        if ((rb.velocity.x) < physicsAttributes.maxMoveSpeed * -1) {
-            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeed * -1), rb.velocity.y);
+        else
+        {
+            rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationAir * Time.fixedDeltaTime, 0);
+            rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationAir, rb.velocity.y);
+
+
+            if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+            {
+                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
+            }
+            if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
+            {
+                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+            }
         }
+        
+
 
         // jumping
         if (playerInputs.jumpPressed && playerState.onGround)

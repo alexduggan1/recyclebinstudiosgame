@@ -34,12 +34,6 @@ public class Character : MonoBehaviour
         public AnimationClip fatalHit;
 
         public AnimationClip dead;
-
-        public AnimationSet(AnimationClip _idle, AnimationClip _run)
-        {
-            idle = _idle;
-            run = _run;
-        }
     }
 
     public AnimationSet animationSet;
@@ -51,6 +45,8 @@ public class Character : MonoBehaviour
     public SpriteRenderer sr;
 
     public Player.State playerState;
+
+    public AnimationClip currentAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -86,6 +82,8 @@ public class Character : MonoBehaviour
             // idle
             anim.clip = animationSet.idle;
         }
+
+        currentAnimation = anim.clip;
     }
 
     void Handle3DAnimation()
