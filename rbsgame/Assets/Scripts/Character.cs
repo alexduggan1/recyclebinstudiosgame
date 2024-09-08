@@ -22,13 +22,23 @@ public class Character : MonoBehaviour
     [System.Serializable]
     public class AnimationSet
     {
-        public Animation idle;
-        public Animation walk;
+        public AnimationClip idle;
+        public AnimationClip run;
 
-        public AnimationSet(Animation _idle, Animation _walk)
+        public AnimationClip jump; // might split up into jump and jumpsquat?
+        public AnimationClip fall;
+        public AnimationClip land;
+
+        public AnimationClip hitstop;
+        public AnimationClip stunned;
+        public AnimationClip fatalHit;
+
+        public AnimationClip dead;
+
+        public AnimationSet(AnimationClip _idle, AnimationClip _run)
         {
             idle = _idle;
-            walk = _walk;
+            run = _run;
         }
     }
 
@@ -37,13 +47,23 @@ public class Character : MonoBehaviour
     public bool flat;
 
     public Animator animator;
+    public Animation anim;
+    public SpriteRenderer sr;
 
     public Player.State playerState;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (flat) { animator = transform.GetChild(0).GetComponent<Animator>(); }
+        if (flat) 
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).TryGetComponent<Animator>(out animator);
+                transform.GetChild(i).TryGetComponent<Animation>(out anim);
+                transform.GetChild(i).TryGetComponent<SpriteRenderer>(out sr);
+            }
+        }
         else { } // do something for the 3d ones idk it'll be different somehow I'm sure
     }
 
@@ -56,7 +76,16 @@ public class Character : MonoBehaviour
 
     void Handle2DAnimation()
     {
-
+        if (playerState.activeDirectionalInput)
+        {
+            // run
+            anim.clip = animationSet.run;
+        }
+        else
+        {
+            // idle
+            anim.clip = animationSet.idle;
+        }
     }
 
     void Handle3DAnimation()
