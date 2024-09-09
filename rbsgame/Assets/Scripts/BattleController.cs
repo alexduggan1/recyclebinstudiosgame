@@ -29,12 +29,13 @@ public class BattleController : MonoBehaviour
     public float itemSpawnTimer;
     public int itemsExisting;
 
-    public GameObject itemProto;
+
+    public GameObject itemPickupProto;
 
     [System.Serializable]
     public class ItemDropLoot
     {
-        public Item.ItemType loot;
+        public Item loot;
         public float weight = 1;
     }
     public List<ItemDropLoot> itemDropLootTable;
@@ -131,7 +132,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(randomWeightedSelection);
 
             float bypassedWeight = 0;
-            Item.ItemType selectedItem = null;
+            Item selectedItem = null;
 
             foreach (ItemDropLoot itemDrop in itemDropLootTable)
             {
@@ -147,6 +148,11 @@ public class BattleController : MonoBehaviour
             }
 
             Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
+
+            GameObject itemPickup = Instantiate(itemPickupProto);
+            Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
+
+            madeItem.pickedUp = false;
         }
     }
 

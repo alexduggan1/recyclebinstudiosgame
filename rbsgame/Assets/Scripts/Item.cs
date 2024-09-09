@@ -27,6 +27,10 @@ public class Item : MonoBehaviour
         }
     }
 
+    public ItemType itemType;
+
+    public bool pickedUp;
+
     // point to attach with
     // 
 
