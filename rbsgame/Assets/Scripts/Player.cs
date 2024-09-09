@@ -85,6 +85,7 @@ public class Player : MonoBehaviour
     
     public Character character;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -168,7 +169,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "ItemPickup")
+        Debug.Log("Collision Enter !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Debug.Log(collision.gameObject.layer);
+        if (collision.gameObject.layer == 8)
         {
             // pickup item
             Debug.Log("TOUCHED ITEM PICKUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

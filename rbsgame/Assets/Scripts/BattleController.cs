@@ -100,7 +100,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(pos.x);
             
             RaycastHit rayHit;
-            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f, stageLayer))
+            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f, stageLayer.value))
             {
                 if(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>())
                 {

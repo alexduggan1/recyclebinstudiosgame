@@ -67,6 +67,9 @@ MonoBehaviour:
     jumpPressed: 0
   ID: 0
   character: {fileID: 0}
+  itemPickupLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!54 &8682448806184860084
 Rigidbody:
   m_ObjectHideFlags: 0
