@@ -74,8 +74,32 @@ public class BattleController : MonoBehaviour
 
         // TODO
         // send raycasts down from sky within stage width and check if it hits something, if so drop an item there
-        // make itempickup prefab to spawn which contains a reference to the item it should spawn
+        // make itempickup prefab to spawn which contains a reference to the item it should spawn? or perhaps just instantiate the item itself but with a 
+        // flag that says its not been picked up yet? not super sure what would work best...
         // reference loot table for which item it is
+
+        float newItemXPos = 0;
+
+        int i = 0;
+        while(i < 5) // we give this 5 tries
+        {
+            Vector3 pos = new Vector3(Random.Range(-stageWidth/2.0f, stageWidth/2.0f), 60, 0); // height I put in doesn't have importance forgot word think starts with a maybe change later
+            RaycastHit rayHit;
+            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit))
+            {
+                if(rayHit.collider.gameObject.transform.parent == stage)
+                {
+                    newItemXPos = pos.x;
+                    i = 7; // break the while
+                }
+            }
+            i++;
+        }
+
+        if(i == 7)
+        {
+            // actually spawn the item here at newItemXPos
+        }
     }
 
     void BeginBattle()
