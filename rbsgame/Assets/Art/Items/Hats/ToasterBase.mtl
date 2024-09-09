@@ -1,0 +1,18 @@
+newmtl Toasterbase1Mtl
+Material Color
+Ka 0.598942 0.605484 0.645555
+Kd 0.598942 0.605484 0.645555
+Ks 0.108044 0.109225 0.116453 
+
+d 1
+
+Ns 202
+
+map_Ka Toasterbase1_diff.png
+map_Kd Toasterbase1_diff.png
+map_d Toasterbase1_diff.png
+
+map_Bump Toasterbase1_nmap.png
+
+map_Ns Toasterbase1_spec.png
+
