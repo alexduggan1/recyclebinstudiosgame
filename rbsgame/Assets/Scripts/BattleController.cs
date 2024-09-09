@@ -10,6 +10,8 @@ public class BattleController : MonoBehaviour
     public List<GameObject> stages;
     public GameObject stage;
     public GameObject stageProto;
+
+    public float stageWidth;
     
     public List<Player> players;
     public GameObject playerProto;
@@ -23,18 +25,57 @@ public class BattleController : MonoBehaviour
     public Player.Controls middlePlayerControlsSignature = new Player.Controls("JL", KeyCode.I);
     public Player.Controls middlePlayerControlsSignature2 = new Player.Controls("FH", KeyCode.T);
 
+    public float itemSpawnGap;
+    public float itemSpawnTimer;
+    public int itemsExisting;
+
+    public float battleTimer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-
         BeginBattle();
     }
 
     // Update is called once per frame
     void Update()
     {
+        itemsExisting = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
+
+        battleTimer += Time.deltaTime;
+        itemSpawnTimer += Time.deltaTime;
+
         
+        if (battleTimer < 7.5f) { itemSpawnGap = 3; }
+        else
+        {
+            if (itemsExisting < players.Count) { itemSpawnGap = 7.5f; }
+            else if (itemsExisting < players.Count * 2) { itemSpawnGap = 13; }
+            else { itemSpawnGap = 0; }
+        }
+
+
+        if(itemSpawnGap != 0)
+        {
+            if(itemSpawnTimer > itemSpawnGap)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    SpawnItem();
+                }
+                itemSpawnTimer = 0;
+            }
+        }
+    }
+
+    void SpawnItem()
+    {
+        Debug.Log(stageWidth);
+
+        // TODO
+        // send raycasts down from sky within stage width and check if it hits something, if so drop an item there
+        // make itempickup prefab to spawn which contains a reference to the item it should spawn
+        // reference loot table for which item it is
     }
 
     void BeginBattle()
@@ -42,7 +83,7 @@ public class BattleController : MonoBehaviour
         // load in the stage, then load in the players
 
         stage = Instantiate(stageProto);
-
+        stageWidth = Vector3.Scale(stage.GetComponent<Stage>().collision.GetComponent<MeshFilter>().mesh.bounds.extents, stage.GetComponent<Stage>().collision.transform.localScale * 2).x;
 
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
@@ -74,6 +115,19 @@ public class BattleController : MonoBehaviour
             players.Add(newPlayer);
             i += 1;
         }
+
+        // init item system
+
+        battleTimer = 0;
+        itemSpawnTimer = 0;
+        itemSpawnGap = 2;
+
+        // spawn an item for each player
+        for (int j = 0; j < playerChosenCharacters.Count; j++)
+        {
+            SpawnItem();
+        }
+
     }
 
     Vector3 FigureOutPlayerStartPosition(int playerID, int playerCount)

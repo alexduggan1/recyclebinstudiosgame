@@ -25,4 +25,6 @@ public class Stage : MonoBehaviour
 
     [SerializeField]
     public List<SpawnPoint> spawnPoints;
+
+    public GameObject collision;
 }
