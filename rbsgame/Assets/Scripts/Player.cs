@@ -165,4 +165,15 @@ public class Player : MonoBehaviour
             playerInputs.jumpPressed = false;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "ItemPickup")
+        {
+            // pickup item
+            Debug.Log("TOUCHED ITEM PICKUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            Debug.Log(collision.transform.GetChild(0).GetComponent<Item>().itemType.name);
+        }
+    }
 }

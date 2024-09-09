@@ -181,13 +181,14 @@ MonoBehaviour:
   itemSpawnGap: 0
   itemSpawnTimer: 0
   itemsExisting: 0
-  itemProto: {fileID: 2535488965979210328, guid: b048529741df2054e8f5b60ed7daefc1, type: 3}
+  itemPickupProto: {fileID: 7598712411896208857, guid: f8ea5fe6e98cd9846a21a6034e147518, type: 3}
   itemDropLootTable:
-  - loot:
-      attachType: 0
-      name: 0
+  - loot: {fileID: 2696348413483647919, guid: 7d1567abab8212848b3a0769b4a2fd4d, type: 3}
     weight: 1
   battleTimer: 0
+  stageLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1715063055
 GameObject:
   m_ObjectHideFlags: 0

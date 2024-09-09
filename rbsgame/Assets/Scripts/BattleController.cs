@@ -29,17 +29,20 @@ public class BattleController : MonoBehaviour
     public float itemSpawnTimer;
     public int itemsExisting;
 
-    public GameObject itemProto;
+
+    public GameObject itemPickupProto;
 
     [System.Serializable]
     public class ItemDropLoot
     {
-        public Item.ItemType loot;
+        public Item loot;
         public float weight = 1;
     }
     public List<ItemDropLoot> itemDropLootTable;
 
     public float battleTimer;
+
+    public LayerMask stageLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -97,7 +100,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(pos.x);
             
             RaycastHit rayHit;
-            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f))
+            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f, stageLayer))
             {
                 if(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>())
                 {
@@ -108,9 +111,9 @@ public class BattleController : MonoBehaviour
                 else
                 {
                     Debug.Log("hit something else");
-                    Debug.Log(rayHit.collider.name);
-                    Debug.Log(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>());
-                    Debug.Log(stage.name);
+                    //Debug.Log(rayHit.collider.name);
+                    //Debug.Log(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>());
+                    //Debug.Log(stage.name);
                 }
             }
             i++;
@@ -131,7 +134,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(randomWeightedSelection);
 
             float bypassedWeight = 0;
-            Item.ItemType selectedItem = null;
+            Item selectedItem = null;
 
             foreach (ItemDropLoot itemDrop in itemDropLootTable)
             {
@@ -147,6 +150,11 @@ public class BattleController : MonoBehaviour
             }
 
             Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
+
+            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, 60, 0), Quaternion.identity);
+            Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
+
+            madeItem.pickedUp = false;
         }
     }
 
