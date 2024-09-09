@@ -38,12 +38,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+
+    }
+
+    public void PressGoButton()
+    {
+        if (SceneManager.GetActiveScene().name == "Startup")
         {
-            if(SceneManager.GetActiveScene().name == "Startup")
-            {
-                SceneManager.LoadScene("Battle");
-            }
+            SceneManager.LoadScene("Battle");
         }
     }
 }
