@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    [System.Serializable]
     public class ItemType
     {
         public enum AttachTypes
@@ -13,7 +14,7 @@ public class Item : MonoBehaviour
 
         public enum Names
         {
-
+            Handgun
         };
 
         public AttachTypes attachType;

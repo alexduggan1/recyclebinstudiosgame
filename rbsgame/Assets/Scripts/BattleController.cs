@@ -29,6 +29,16 @@ public class BattleController : MonoBehaviour
     public float itemSpawnTimer;
     public int itemsExisting;
 
+    public GameObject itemProto;
+
+    [System.Serializable]
+    public class ItemDropLoot
+    {
+        public Item.ItemType loot;
+        public float weight = 1;
+    }
+    public List<ItemDropLoot> itemDropLootTable;
+
     public float battleTimer;
 
     // Start is called before the first frame update
@@ -84,21 +94,59 @@ public class BattleController : MonoBehaviour
         while(i < 5) // we give this 5 tries
         {
             Vector3 pos = new Vector3(Random.Range(-stageWidth/2.0f, stageWidth/2.0f), 60, 0); // height I put in doesn't have importance forgot word think starts with a maybe change later
+            Debug.Log(pos.x);
+            
             RaycastHit rayHit;
-            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit))
+            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f))
             {
-                if(rayHit.collider.gameObject.transform.parent == stage)
+                if(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>())
                 {
                     newItemXPos = pos.x;
                     i = 7; // break the while
+                    Debug.Log("hit stage");
+                }
+                else
+                {
+                    Debug.Log("hit something else");
+                    Debug.Log(rayHit.collider.name);
+                    Debug.Log(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>());
+                    Debug.Log(stage.name);
                 }
             }
             i++;
         }
 
-        if(i == 7)
+        if(i >= 7)
         {
             // actually spawn the item here at newItemXPos
+
+            float totalWeight = 0;
+
+            foreach (ItemDropLoot itemDrop in itemDropLootTable)
+            {
+                totalWeight += itemDrop.weight;
+            }
+
+            float randomWeightedSelection = Random.Range(0.0f, (float)totalWeight);
+            Debug.Log(randomWeightedSelection);
+
+            float bypassedWeight = 0;
+            Item.ItemType selectedItem = null;
+
+            foreach (ItemDropLoot itemDrop in itemDropLootTable)
+            {
+                if(selectedItem == null)
+                {
+                    if (randomWeightedSelection >= bypassedWeight && randomWeightedSelection <= (bypassedWeight + itemDrop.weight))
+                    {
+                        selectedItem = itemDrop.loot;
+                    }
+
+                    bypassedWeight += itemDrop.weight;
+                }
+            }
+
+            Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
         }
     }
 
