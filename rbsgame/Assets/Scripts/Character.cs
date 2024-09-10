@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
         //Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
         if (playerState.onGround)
         {
-            if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")))
+            if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
             {
                 if (playerState.activeDirectionalInput)
                 {

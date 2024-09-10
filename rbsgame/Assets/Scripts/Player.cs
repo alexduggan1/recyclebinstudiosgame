@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         public float autoDecelerationGround = 0.9f;
         public float autoDecelerationAir = 0.9f;
         public float jumpForce = 10;
-        public float jumpSquatTime = 0.1f;
+        public float jumpSquatTime = 0.05f;
     }
 
     public PhysicsAttributes physicsAttributes;
@@ -249,24 +249,25 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
             }
         }
-        
+
 
 
         // jumping
-        if (playerInputs.jumpPressed && playerState.onGround)
-        {
-            playerInputs.jumpPressed = false;
-
-            character.Jump();
-            playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
-        }
         if (playerState.jumpSquatCountdown > 0)
         {
             playerState.jumpSquatCountdown -= Time.fixedDeltaTime;
-            if(playerState.jumpSquatCountdown <= 0)
+            playerInputs.jumpPressed = false;
+            if (playerState.jumpSquatCountdown <= 0)
             {
+                playerInputs.jumpPressed = false;
                 rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
             }
+        }
+        if (playerInputs.jumpPressed && playerState.onGround)
+        {
+            playerInputs.jumpPressed = false;
+            character.Jump();
+            playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
         }
     }
 
