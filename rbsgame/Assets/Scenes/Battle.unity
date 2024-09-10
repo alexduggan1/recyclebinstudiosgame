@@ -183,6 +183,8 @@ MonoBehaviour:
   itemDropLootTable:
   - loot: {fileID: 2696348413483647919, guid: 7d1567abab8212848b3a0769b4a2fd4d, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 6a4a51fa0e03f174a9e21e9b1fa0c183, type: 3}
+    weight: 2
   battleTimer: 0
   stageLayer:
     serializedVersion: 2

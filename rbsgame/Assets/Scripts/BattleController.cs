@@ -197,6 +197,8 @@ public class BattleController : MonoBehaviour
 
             // do this bit start of every round
 
+            newPlayer.playerState.alive = true;
+
             newPlayer.items = new Player.Items(null, null, null);
 
             if (transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }

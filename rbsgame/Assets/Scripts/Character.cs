@@ -54,29 +54,37 @@ public class Character : MonoBehaviour
 
     void Handle2DAnimation()
     {
-        //Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
-        if (playerState.onGround)
+        if (playerState.alive)
         {
-            if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
+            if (playerState.onGround)
             {
-                if (playerState.activeDirectionalInput)
+                Debug.Log("grounded");
+                if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
                 {
-                    // run
-                    animator.Play("Run");
-                    //Debug.Log("should be running");
+                    if (playerState.activeDirectionalInput)
+                    {
+                        // run
+                        animator.Play("Run");
+                        //Debug.Log("should be running");
+                    }
+                    else
+                    {
+                        // idle
+                        animator.Play("Idle");
+                    }
+                }
+            }
+            else
+            {
+                if (playerState.yVel < 0)
+                {
+                    animator.Play("Fall");
                 }
                 else
                 {
-                    // idle
-                    animator.Play("Idle");
+                    animator.Play("AirRise");
+
                 }
-            }
-        }
-        else
-        {
-            if (playerState.yVel < 0)
-            {
-                animator.Play("Fall");
             }
         }
     }
