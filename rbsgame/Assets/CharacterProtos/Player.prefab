@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f86dadb02e9d564e9ba53dad01031a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items:
+    LeftHand: {fileID: 0}
+    RightHand: {fileID: 0}
+    Hat: {fileID: 0}
   rb: {fileID: 0}
   physicsAttributes:
     moveAccelerationGround: 130
@@ -67,9 +71,8 @@ MonoBehaviour:
     jumpPressed: 0
   ID: 0
   character: {fileID: 0}
-  itemPickupLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  itemProtos:
+  - {fileID: 2535488965979210328, guid: 7d1567abab8212848b3a0769b4a2fd4d, type: 3}
 --- !u!54 &8682448806184860084
 Rigidbody:
   m_ObjectHideFlags: 0

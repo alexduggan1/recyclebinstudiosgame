@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [System.Serializable]
     public class Items
     {
-        public Item LeftHand;
-        public Item RightHand;
-        public Item Hat;
+        public Item LeftHand = null;
+        public Item RightHand = null;
+        public Item Hat = null;
 
         public Items(Item _LeftHand, Item _RightHand, Item _Hat)
         {
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public Items items;
+    public Items items = new Items(null, null, null);
 
     public Rigidbody rb;
 
@@ -86,10 +87,14 @@ public class Player : MonoBehaviour
     public Character character;
 
 
+    public List<GameObject> itemProtos;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        items = new Items(null, null, null);
     }
 
     void Update()
@@ -176,7 +181,56 @@ public class Player : MonoBehaviour
             // pickup item
             Debug.Log("TOUCHED ITEM PICKUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-            Debug.Log(collision.transform.GetChild(0).GetComponent<Item>().itemType.name);
+            Item itemToTry = collision.transform.GetChild(0).GetComponent<Item>();
+            Debug.Log(itemToTry.itemType.name);
+
+            bool pickupSuccessful = false;
+            if(itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
+            {
+                if (items.Hat != null) { } else
+                {
+                    Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                    items.Hat = newItem;
+                    pickupSuccessful = true;
+                }
+            }
+            else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
+            {
+                // for now fill lefthand first then right, can change behavior later
+                if (items.LeftHand != null) {
+                    if (items.RightHand != null) { } else
+                    {
+                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                        items.RightHand = newItem;
+                        pickupSuccessful = true;
+                    }
+                } 
+                else
+                {
+                    Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                    items.LeftHand = newItem;
+                    pickupSuccessful = true;
+                }
+            }
+
+            Debug.Log(pickupSuccessful);
+            // decide on behavior later, for now destroy the object on touch
+            Destroy(collision.gameObject);
         }
+    }
+
+    public GameObject FindCorrectItemProto(Item.ItemType.Names itemName)
+    {
+        GameObject result = itemProtos[0];
+
+        foreach (GameObject itemProto in itemProtos)
+        {
+            if(itemProto.GetComponent<Item>().itemType.name == itemName)
+            {
+                result = itemProto;
+            }
+        }
+
+        return result;
     }
 }
