@@ -26,6 +26,9 @@ public class Character : MonoBehaviour
 
     public Player.State playerState;
 
+    public Transform anchorLH;
+    public Transform anchorRH;
+    public Transform anchorH;
 
     void Awake()
     {
@@ -51,25 +54,40 @@ public class Character : MonoBehaviour
 
     void Handle2DAnimation()
     {
-        Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
-        if (playerState.activeDirectionalInput)
+        //Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
+        if (playerState.onGround)
         {
-            // run
-            animator.Play("Run");
-            Debug.Log("should be running");
+            if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
+            {
+                if (playerState.activeDirectionalInput)
+                {
+                    // run
+                    animator.Play("Run");
+                    //Debug.Log("should be running");
+                }
+                else
+                {
+                    // idle
+                    animator.Play("Idle");
+                }
+            }
         }
         else
         {
-            // idle
-            animator.Play("Idle");
+            if (playerState.yVel < 0)
+            {
+                animator.Play("Fall");
+            }
         }
-
-        sr.flipX = playerState.facingDir == Player.State.Dir.Left;
-        
     }
 
     void Handle3DAnimation()
     {
 
+    }
+
+    public void Jump()
+    {
+        animator.Play("Jump");
     }
 }

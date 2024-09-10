@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1053828121487950836}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.08, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 2586195187252051792}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.24, y: -0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -196,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 3024494563033957729}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.06, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -249,24 +249,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 0
   characterProto: {fileID: 3897285844626070317}
-  animationSet:
-    idle: {fileID: 7400000, guid: 68181d188a4c6f44797c0d88b513d074, type: 2}
-    run: {fileID: 7400000, guid: fbead57b6904d154181e58bb166cba72, type: 2}
-    jump: {fileID: 0}
-    fall: {fileID: 0}
-    land: {fileID: 0}
-    hitstop: {fileID: 0}
-    stunned: {fileID: 0}
-    fatalHit: {fileID: 0}
-    dead: {fileID: 0}
   flat: 1
   animator: {fileID: 0}
-  anim: {fileID: 0}
   sr: {fileID: 3760325493518423147}
   playerState:
     alive: 0
     facingDir: 0
     onGround: 0
     activeDirectionalInput: 0
-  currentAnimation: 
-  prevAnimation: 
+    yVel: 0
+  anchorLH: {fileID: 6872791621886828270}
+  anchorRH: {fileID: 2308822502127236093}
+  anchorH: {fileID: 6009752935083718533}

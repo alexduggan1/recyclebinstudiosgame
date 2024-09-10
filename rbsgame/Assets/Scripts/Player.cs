@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         public float autoDecelerationGround = 0.9f;
         public float autoDecelerationAir = 0.9f;
         public float jumpForce = 10;
+        public float jumpSquatTime = 0.05f;
     }
 
     public PhysicsAttributes physicsAttributes;
@@ -51,6 +52,8 @@ public class Player : MonoBehaviour
         public Dir facingDir;
         public bool onGround;
         public bool activeDirectionalInput;
+        public float yVel;
+        public float jumpSquatCountdown;
     }
 
     public State playerState;
@@ -89,8 +92,8 @@ public class Player : MonoBehaviour
 
     public List<GameObject> itemProtos;
 
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -102,8 +105,95 @@ public class Player : MonoBehaviour
         playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
         
         playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
+        playerState.yVel = rb.velocity.y;
 
+        // debug thing
+        //character.playerState.activeDirectionalInput = true;
+
+        
         character.playerState = playerState;
+
+
+
+        if (playerState.facingDir == Player.State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
+        else { transform.localEulerAngles = new Vector3(0, 0, 0); }
+
+        // put the equipment in the correct positions based on the anchors
+        if (items.LeftHand != null) {
+            if(playerState.facingDir == State.Dir.Right)
+            {
+                items.LeftHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                items.LeftHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
+                    (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                    (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
+                    0);
+            }
+            else
+            {
+                items.LeftHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                items.LeftHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
+                    (1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                    (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
+                    0);
+            }
+        }
+        if (items.LeftHand != null)
+        {
+            if (playerState.facingDir == State.Dir.Right)
+            {
+                items.LeftHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                items.LeftHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
+                    (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                    (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
+                    0);
+            }
+            else
+            {
+                items.LeftHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                items.LeftHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
+                    (1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                    (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
+                    0);
+            }
+        }
+        if (items.RightHand != null)
+        {
+            if (playerState.facingDir == State.Dir.Right)
+            {
+                items.RightHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
+                items.RightHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
+                    (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
+                    (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
+                    0);
+            }
+            else
+            {
+                items.RightHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
+                items.RightHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
+                    (1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
+                    (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
+                    0);
+            }
+        }
+        if (items.Hat != null)
+        {
+            if (playerState.facingDir == State.Dir.Right)
+            {
+                items.Hat.transform.eulerAngles = character.anchorH.eulerAngles - items.Hat.anchorOffset.localEulerAngles;
+                items.Hat.transform.localPosition = character.anchorH.localPosition + new Vector3
+                    (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position).x,
+                    (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position)).y,
+                    0);
+            }
+            else
+            {
+                items.Hat.transform.eulerAngles = character.anchorH.eulerAngles - items.Hat.anchorOffset.localEulerAngles;
+                items.Hat.transform.localPosition = character.anchorH.localPosition + new Vector3
+                    (1 * (items.Hat.anchorOffset.position - items.Hat.transform.position).x,
+                    (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position)).y,
+                    0);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -159,14 +249,25 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
             }
         }
-        
+
 
 
         // jumping
+        if (playerState.jumpSquatCountdown > 0)
+        {
+            playerState.jumpSquatCountdown -= Time.fixedDeltaTime;
+            playerInputs.jumpPressed = false;
+            if (playerState.jumpSquatCountdown <= 0)
+            {
+                playerInputs.jumpPressed = false;
+                rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
+            }
+        }
         if (playerInputs.jumpPressed && playerState.onGround)
         {
-            rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
             playerInputs.jumpPressed = false;
+            character.Jump();
+            playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
         }
     }
 
@@ -189,6 +290,7 @@ public class Player : MonoBehaviour
                 {
                     Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
                     items.Hat = newItem;
+                    newItem.pickedUp = true;
                     pickupSuccessful = true;
                 }
             }
@@ -200,6 +302,7 @@ public class Player : MonoBehaviour
                     {
                         Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
                         items.RightHand = newItem;
+                        newItem.pickedUp = true;
                         pickupSuccessful = true;
                     }
                 } 
@@ -207,6 +310,7 @@ public class Player : MonoBehaviour
                 {
                     Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
                     items.LeftHand = newItem;
+                    newItem.pickedUp = true;
                     pickupSuccessful = true;
                 }
             }
