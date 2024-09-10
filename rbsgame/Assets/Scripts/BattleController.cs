@@ -20,10 +20,10 @@ public class BattleController : MonoBehaviour
     public List<Character> playerChosenCharacters;
 
 
-    public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W);
-    public Player.Controls rightPlayerControlsSignature = new Player.Controls("Arrows", KeyCode.UpArrow);
-    public Player.Controls middlePlayerControlsSignature = new Player.Controls("JL", KeyCode.I);
-    public Player.Controls middlePlayerControlsSignature2 = new Player.Controls("FH", KeyCode.T);
+    public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W, KeyCode.Z, KeyCode.S, KeyCode.X);
+    public Player.Controls rightPlayerControlsSignature = new Player.Controls("Arrows", KeyCode.UpArrow, KeyCode.Keypad1, KeyCode.Keypad2, KeyCode.Keypad3);
+    public Player.Controls middlePlayerControlsSignature = new Player.Controls("JL", KeyCode.I, KeyCode.M, KeyCode.K, KeyCode.Comma);
+    public Player.Controls middlePlayerControlsSignature2 = new Player.Controls("FH", KeyCode.T, KeyCode.V, KeyCode.G, KeyCode.B);
 
     public float itemSpawnGap;
     public float itemSpawnTimer;
@@ -85,7 +85,7 @@ public class BattleController : MonoBehaviour
     {
         Debug.Log(stageWidth);
 
-        // TODO
+
         // send raycasts down from sky within stage width and check if it hits something, if so drop an item there
         // make itempickup prefab to spawn which contains a reference to the item it should spawn? or perhaps just instantiate the item itself but with a 
         // flag that says its not been picked up yet? not super sure what would work best...
@@ -96,7 +96,7 @@ public class BattleController : MonoBehaviour
         int i = 0;
         while(i < 5) // we give this 5 tries
         {
-            Vector3 pos = new Vector3(Random.Range(-stageWidth, stageWidth), 40, 0); // height I put in doesn't have importance forgot word think starts with a maybe change later
+            Vector3 pos = new Vector3(Random.Range(-stageWidth, stageWidth), 25, 0); // arbitrary height, make it better later (certain height over the ground based on rayhit)
             Debug.Log(pos.x);
             
             RaycastHit rayHit;
@@ -140,7 +140,7 @@ public class BattleController : MonoBehaviour
 
             Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
 
-            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, 40, 0), Quaternion.identity);
+            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, 25, 0), Quaternion.identity);
             Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
 
             madeItem.pickedUp = false;
@@ -157,12 +157,12 @@ public class BattleController : MonoBehaviour
         Vector3 largestExtents = Vector3.zero;
         foreach (MeshFilter mesh in stage.GetComponentsInChildren<MeshFilter>())
         {
-            if (mesh.mesh.bounds.extents.x > largestExtents.x && mesh.gameObject.layer == 7)
+            if (mesh.mesh.bounds.extents.x * mesh.transform.lossyScale.x > largestExtents.x && mesh.gameObject.layer == 7)
             {
-                largestExtents = mesh.mesh.bounds.extents;
+                largestExtents = mesh.mesh.bounds.extents * mesh.transform.lossyScale.x;
             }
         }
-        Debug.Log(largestExtents);
+        Debug.Log("largestExtents: " + largestExtents);
         stageWidth = Vector3.Scale(largestExtents, stage.GetComponent<Stage>().collision.transform.localScale).x;
 
         int playerCount = playerChosenCharacters.Count;
@@ -200,8 +200,9 @@ public class BattleController : MonoBehaviour
             newPlayer.playerState.alive = true;
 
             newPlayer.items = new Player.Items(null, null, null);
+            newPlayer.playerState.activelyUsingItem = false;
 
-            if (transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }
+            if (newPlayer.transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }
             else { newPlayer.playerState.facingDir = Player.State.Dir.Right; }
 
             players.Add(newPlayer);

@@ -14,7 +14,8 @@ public class Item : MonoBehaviour
 
         public enum Names
         {
-            Handgun, BlusterBlade
+            Handgun, BlusterBlade,
+            PropellerHat
         };
 
         public AttachTypes attachType;

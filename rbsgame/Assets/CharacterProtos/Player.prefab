@@ -69,14 +69,22 @@ MonoBehaviour:
     activeDirectionalInput: 0
     yVel: 0
     jumpSquatCountdown: 0
+    activelyUsingItem: 0
   playerInputs:
     hMoveAxis: 0
     jumpPressed: 0
+    useLHand: 0
+    useRHand: 0
+    useHat: 0
   ID: 0
   character: {fileID: 0}
   itemProtos:
   - {fileID: 2535488965979210328, guid: 7d1567abab8212848b3a0769b4a2fd4d, type: 3}
   - {fileID: 2535488965979210328, guid: 6a4a51fa0e03f174a9e21e9b1fa0c183, type: 3}
+  - {fileID: 2535488965979210328, guid: a4b197241823a264babae6c94c41bd36, type: 3}
+  stageLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &8682448806184860084
 Rigidbody:
   m_ObjectHideFlags: 0

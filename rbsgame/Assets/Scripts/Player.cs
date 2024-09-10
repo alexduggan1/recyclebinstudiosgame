@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
         public bool activeDirectionalInput;
         public float yVel;
         public float jumpSquatCountdown;
+        public bool activelyUsingItem;
     }
 
     public State playerState;
@@ -65,6 +66,10 @@ public class Player : MonoBehaviour
     {
         public float hMoveAxis;
         public bool jumpPressed;
+
+        public bool useLHand;
+        public bool useRHand;
+        public bool useHat;
     }
 
     public Inputs playerInputs;
@@ -75,10 +80,17 @@ public class Player : MonoBehaviour
         public string hMoveAxisName;
         public KeyCode jumpButton;
 
-        public Controls(string _hMoveAxisName, KeyCode _jumpButton)
+        public KeyCode useLHandButton;
+        public KeyCode useHatButton;
+        public KeyCode useRHandButton;
+
+        public Controls(string _hMoveAxisName, KeyCode _jumpButton, KeyCode _useLHandButton, KeyCode _useHatButton, KeyCode _useRHandButton)
         {
             hMoveAxisName = _hMoveAxisName;
             jumpButton = _jumpButton;
+            useLHandButton = _useLHandButton;
+            useHatButton = _useHatButton;
+            useRHandButton = _useRHandButton;
         }
     }
 
@@ -93,6 +105,9 @@ public class Player : MonoBehaviour
     public List<GameObject> itemProtos;
 
 
+    public LayerMask stageLayer;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -103,7 +118,10 @@ public class Player : MonoBehaviour
         // handle player inputs
         playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
         playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
-        
+        playerInputs.useLHand = Input.GetKey(playerControls.useLHandButton);
+        playerInputs.useRHand = Input.GetKey(playerControls.useLHandButton);
+        playerInputs.useHat = Input.GetKey(playerControls.useHatButton);
+
         playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
         playerState.yVel = rb.velocity.y;
 
@@ -194,6 +212,36 @@ public class Player : MonoBehaviour
                     0);
             }
         }
+
+        
+        if (!playerState.activelyUsingItem)
+        {
+            if (playerInputs.useLHand) {
+                if (items.LeftHand != null) {
+                    UseItem(items.LeftHand);
+                }
+            }
+            if (playerInputs.useRHand)
+            {
+                if (items.RightHand != null)
+                {
+                    UseItem(items.RightHand);
+                }
+            }
+            if (playerInputs.useHat)
+            {
+                if (items.Hat != null)
+                {
+                    UseItem(items.Hat);
+                }
+            }
+        }
+    }
+
+    public void UseItem(Item item)
+    {
+        playerState.activelyUsingItem = true; // set this back at the end
+        Debug.Log("USE ITEM: " + item.itemType.name);
     }
 
     // Update is called once per frame
@@ -201,7 +249,7 @@ public class Player : MonoBehaviour
     {
         // update player state
         // TODO still have to make this ray only work for things that should be able to be jumped from
-        playerState.onGround = Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f);
+        playerState.onGround = Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f, stageLayer.value);
         if (playerState.onGround)
         {
             if (playerInputs.hMoveAxis > 0.05f)
