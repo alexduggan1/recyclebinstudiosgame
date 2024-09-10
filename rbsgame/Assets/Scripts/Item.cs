@@ -31,6 +31,8 @@ public class Item : MonoBehaviour
 
     public bool pickedUp;
 
+    public Transform anchorOffset;
+
     // point to attach with
     // 
 

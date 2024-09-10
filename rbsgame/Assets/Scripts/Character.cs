@@ -26,6 +26,9 @@ public class Character : MonoBehaviour
 
     public Player.State playerState;
 
+    public Transform anchorLH;
+    public Transform anchorRH;
+    public Transform anchorH;
 
     void Awake()
     {
@@ -51,21 +54,18 @@ public class Character : MonoBehaviour
 
     void Handle2DAnimation()
     {
-        Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
+        //Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
         if (playerState.activeDirectionalInput)
         {
             // run
             animator.Play("Run");
-            Debug.Log("should be running");
+            //Debug.Log("should be running");
         }
         else
         {
             // idle
             animator.Play("Idle");
         }
-
-        sr.flipX = playerState.facingDir == Player.State.Dir.Left;
-        
     }
 
     void Handle3DAnimation()
