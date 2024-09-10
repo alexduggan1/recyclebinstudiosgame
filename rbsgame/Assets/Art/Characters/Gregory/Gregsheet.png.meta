@@ -1,0 +1,919 @@
+fileFormatVersion: 2
+guid: 990073bb429aad242a10ab57f4a23582
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 480
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Gregsheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4587.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efa1259fe813bd648a62afd236c5b2f5
+      internalID: -784506877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_1
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 4587.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58d1a641e20e53a488ec88b1970c891c
+      internalID: -1954701738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_2
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 4587.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76108a7595890e8449d87860a9d39f01
+      internalID: -427259508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_3
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 4587.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1de9e6912bcba1d42bb2a4c97be81c1e
+      internalID: 2023832746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_4
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 4587.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc1d5018b4ee1fc4ebbcd15248e69a66
+      internalID: -945737978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_5
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 4587.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48d80838df1558a499646092dd89039d
+      internalID: 573385057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3670.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d3c7517c577f624abfadec0630d38a3
+      internalID: 255983000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_7
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 3670.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb0f7106169d21342946eca3899de679
+      internalID: 74978076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_8
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 3670.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e889f499e57f7c34f98c346929316d1a
+      internalID: -1474314503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_9
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 3670.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7012986f92696428b9039ee80fddbb
+      internalID: 1784752565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_10
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 3670.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbf4124dc854acf47806259a8994afde
+      internalID: 1760740803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_11
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 3670.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf71e90ed9c255143a6adb89d5efb90a
+      internalID: 1033159704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2753.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87399b97addfbcd4596f13e9713e50ed
+      internalID: 2041545620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_13
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 2753.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db5e3f6d9e173f4493d53d0ebc60457
+      internalID: -161813758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_14
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 2753.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5422b3450e5d6d14f874cc3d43106805
+      internalID: -897292338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_15
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 2753.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 846fc198d743f254a9713d2d33119b06
+      internalID: 1289036796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_16
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 2753.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a12086cd7a35eb429a20fe602f94963
+      internalID: -512622251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_17
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 2753.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 892de507e464e0347892457ed6b605ee
+      internalID: -1243443128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1836.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 534a4f5450117eb4081e7435599d28c1
+      internalID: 1113010241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_19
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1836.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae70240a3cdfcb4881615b1859eb0fe
+      internalID: -1377025097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_20
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1836.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d38576b0b8cb2724094125f7f521d8d2
+      internalID: 922189933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_21
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 1836.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4e0bb887df824245a4072456d81dc19
+      internalID: 1730706290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_22
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1836.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fdc5299940f92f47adecd76841ab26c
+      internalID: -2051676625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_23
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 1836.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eff0765a44d0ff6499cda6edce48ebfc
+      internalID: 1656620075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 919.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9778d1cdabb518b41b8008304e69fd68
+      internalID: 1662602974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_25
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 919.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fed1a999bcdcf441abc39ecc79d8190
+      internalID: 44188693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_26
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 919.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c68bc397bf009ad42b72b1554a24e269
+      internalID: 90944241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_27
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 919.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8f3672a05d1ecf48a8bf1947834a5a9
+      internalID: -1054475191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_28
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 919.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49c9402044bb2e14ebf0f82209c00603
+      internalID: -1668580362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_29
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 919.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 355f2231307e099419be86e98c08a4c5
+      internalID: -1777377671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e21f0afff1ebcb479824b20d6c0dce8
+      internalID: 1740853825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_31
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 2.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62c207eff192f184fb1d9254339f707c
+      internalID: -1320210135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_32
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 2.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cfa425a5855b6d46b1e3108d979ec26
+      internalID: -1012972351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_33
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 2.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab5efebebfc908a45a1b1e4058ce8c53
+      internalID: -1109548523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_34
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 2.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dc81339ecbe0e14f9384ef4708b8cdc
+      internalID: -449925791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gregsheet_35
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 2.5
+        width: 453.5
+        height: 917.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 816e9eec274f91e42b56da9e4884ed4e
+      internalID: 357489972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 7a50bd4b01ea95d42ad00362e0eb66d0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Gregsheet_0: -784506877
+      Gregsheet_1: -1954701738
+      Gregsheet_10: 1760740803
+      Gregsheet_11: 1033159704
+      Gregsheet_12: 2041545620
+      Gregsheet_13: -161813758
+      Gregsheet_14: -897292338
+      Gregsheet_15: 1289036796
+      Gregsheet_16: -512622251
+      Gregsheet_17: -1243443128
+      Gregsheet_18: 1113010241
+      Gregsheet_19: -1377025097
+      Gregsheet_2: -427259508
+      Gregsheet_20: 922189933
+      Gregsheet_21: 1730706290
+      Gregsheet_22: -2051676625
+      Gregsheet_23: 1656620075
+      Gregsheet_24: 1662602974
+      Gregsheet_25: 44188693
+      Gregsheet_26: 90944241
+      Gregsheet_27: -1054475191
+      Gregsheet_28: -1668580362
+      Gregsheet_29: -1777377671
+      Gregsheet_3: 2023832746
+      Gregsheet_30: 1740853825
+      Gregsheet_31: -1320210135
+      Gregsheet_32: -1012972351
+      Gregsheet_33: -1109548523
+      Gregsheet_34: -449925791
+      Gregsheet_35: 357489972
+      Gregsheet_4: -945737978
+      Gregsheet_5: 573385057
+      Gregsheet_6: 255983000
+      Gregsheet_7: 74978076
+      Gregsheet_8: -1474314503
+      Gregsheet_9: 1784752565
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

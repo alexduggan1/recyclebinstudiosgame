@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7346863700431724968}
   - component: {fileID: 1227514467795432128}
   - component: {fileID: 5576767526140582820}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ItemPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598712411896208857}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

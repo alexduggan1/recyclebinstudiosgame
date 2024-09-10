@@ -48,14 +48,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f86dadb02e9d564e9ba53dad01031a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items:
+    LeftHand: {fileID: 0}
+    RightHand: {fileID: 0}
+    Hat: {fileID: 0}
   rb: {fileID: 0}
   physicsAttributes:
     moveAccelerationGround: 130
     moveAccelerationAir: 85
     maxMoveSpeedGround: 12
     maxMoveSpeedAir: 9
-    autoDecelerationGround: 0.95
-    autoDecelerationAir: 0.975
+    autoDecelerationGround: 0.915
+    autoDecelerationAir: 0.945
     jumpForce: 14
   playerState:
     alive: 0
@@ -67,6 +71,8 @@ MonoBehaviour:
     jumpPressed: 0
   ID: 0
   character: {fileID: 0}
+  itemProtos:
+  - {fileID: 2535488965979210328, guid: 7d1567abab8212848b3a0769b4a2fd4d, type: 3}
 --- !u!54 &8682448806184860084
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,7 +157,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516248282364218314}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

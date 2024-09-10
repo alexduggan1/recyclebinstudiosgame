@@ -19,44 +19,23 @@ public class Character : MonoBehaviour
         characterProto = _characterProto;
     }
 
-    [System.Serializable]
-    public class AnimationSet
-    {
-        public AnimationClip idle;
-        public AnimationClip run;
-
-        public AnimationClip jump; // might split up into jump and jumpsquat?
-        public AnimationClip fall;
-        public AnimationClip land;
-
-        public AnimationClip hitstop;
-        public AnimationClip stunned;
-        public AnimationClip fatalHit;
-
-        public AnimationClip dead;
-    }
-
-    public AnimationSet animationSet;
-
     public bool flat;
 
     public Animator animator;
-    public Animation anim;
     public SpriteRenderer sr;
 
     public Player.State playerState;
 
-    public AnimationClip currentAnimation;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (flat) 
         {
+            Debug.Log("flat");
+
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).TryGetComponent<Animator>(out animator);
-                transform.GetChild(i).TryGetComponent<Animation>(out anim);
                 transform.GetChild(i).TryGetComponent<SpriteRenderer>(out sr);
             }
         }
@@ -72,18 +51,21 @@ public class Character : MonoBehaviour
 
     void Handle2DAnimation()
     {
+        Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
         if (playerState.activeDirectionalInput)
         {
             // run
-            anim.clip = animationSet.run;
+            animator.Play("Run");
+            Debug.Log("should be running");
         }
         else
         {
             // idle
-            anim.clip = animationSet.idle;
+            animator.Play("Idle");
         }
 
-        currentAnimation = anim.clip;
+        sr.flipX = playerState.facingDir == Player.State.Dir.Left;
+        
     }
 
     void Handle3DAnimation()

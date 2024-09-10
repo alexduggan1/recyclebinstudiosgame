@@ -96,25 +96,14 @@ public class BattleController : MonoBehaviour
         int i = 0;
         while(i < 5) // we give this 5 tries
         {
-            Vector3 pos = new Vector3(Random.Range(-stageWidth/2.0f, stageWidth/2.0f), 60, 0); // height I put in doesn't have importance forgot word think starts with a maybe change later
+            Vector3 pos = new Vector3(Random.Range(-stageWidth, stageWidth), 40, 0); // height I put in doesn't have importance forgot word think starts with a maybe change later
             Debug.Log(pos.x);
             
             RaycastHit rayHit;
-            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f, stageLayer))
+            if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f, stageLayer.value))
             {
-                if(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>())
-                {
-                    newItemXPos = pos.x;
-                    i = 7; // break the while
-                    Debug.Log("hit stage");
-                }
-                else
-                {
-                    Debug.Log("hit something else");
-                    //Debug.Log(rayHit.collider.name);
-                    //Debug.Log(rayHit.collider.gameObject.transform.GetComponentInParent<Stage>() == stage.GetComponent<Stage>());
-                    //Debug.Log(stage.name);
-                }
+                newItemXPos = pos.x;
+                i = 7; // break the while
             }
             i++;
         }
@@ -151,7 +140,7 @@ public class BattleController : MonoBehaviour
 
             Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
 
-            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, 60, 0), Quaternion.identity);
+            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, 40, 0), Quaternion.identity);
             Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
 
             madeItem.pickedUp = false;
@@ -163,7 +152,18 @@ public class BattleController : MonoBehaviour
         // load in the stage, then load in the players
 
         stage = Instantiate(stageProto);
-        stageWidth = Vector3.Scale(stage.GetComponent<Stage>().collision.GetComponent<MeshFilter>().mesh.bounds.extents, stage.GetComponent<Stage>().collision.transform.localScale * 2).x;
+
+        // find largest extents
+        Vector3 largestExtents = Vector3.zero;
+        foreach (MeshFilter mesh in stage.GetComponentsInChildren<MeshFilter>())
+        {
+            if (mesh.mesh.bounds.extents.x > largestExtents.x && mesh.gameObject.layer == 7)
+            {
+                largestExtents = mesh.mesh.bounds.extents;
+            }
+        }
+        Debug.Log(largestExtents);
+        stageWidth = Vector3.Scale(largestExtents, stage.GetComponent<Stage>().collision.transform.localScale).x;
 
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
@@ -191,6 +191,16 @@ public class BattleController : MonoBehaviour
                 else { newPlayer.playerControls = middlePlayerControlsSignature; }
             }
             if (newPlayer.ID == 3) { newPlayer.playerControls = rightPlayerControlsSignature; }
+
+
+
+
+            // do this bit start of every round
+
+            newPlayer.items = new Player.Items(null, null, null);
+
+            if (transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }
+            else { newPlayer.playerState.facingDir = Player.State.Dir.Right; }
 
             players.Add(newPlayer);
             i += 1;
