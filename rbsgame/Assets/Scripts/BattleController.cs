@@ -192,6 +192,16 @@ public class BattleController : MonoBehaviour
             }
             if (newPlayer.ID == 3) { newPlayer.playerControls = rightPlayerControlsSignature; }
 
+
+
+
+            // do this bit start of every round
+
+            newPlayer.items = new Player.Items(null, null, null);
+
+            if (transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }
+            else { newPlayer.playerState.facingDir = Player.State.Dir.Right; }
+
             players.Add(newPlayer);
             i += 1;
         }

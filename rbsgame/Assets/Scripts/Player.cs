@@ -93,8 +93,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        items = new Items(null, null, null);
     }
 
     void Update()
