@@ -257,6 +257,7 @@ MonoBehaviour:
     facingDir: 0
     onGround: 0
     activeDirectionalInput: 0
+    yVel: 0
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
