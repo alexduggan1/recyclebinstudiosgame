@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
         public Dir facingDir;
         public bool onGround;
         public bool activeDirectionalInput;
+        public float yVel;
     }
 
     public State playerState;
@@ -254,6 +255,8 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
             playerInputs.jumpPressed = false;
+
+            character.Jump();
         }
     }
 
