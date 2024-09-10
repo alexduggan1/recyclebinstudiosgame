@@ -58,8 +58,8 @@ MonoBehaviour:
     moveAccelerationAir: 85
     maxMoveSpeedGround: 12
     maxMoveSpeedAir: 9
-    autoDecelerationGround: 0.95
-    autoDecelerationAir: 0.975
+    autoDecelerationGround: 0.915
+    autoDecelerationAir: 0.945
     jumpForce: 14
   playerState:
     alive: 0
@@ -157,7 +157,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516248282364218314}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
