@@ -18,8 +18,14 @@ public class Item : MonoBehaviour
             PropellerHat
         };
 
+        public enum AnimType
+        {
+            Shoot, RegSwing, OverheadSwing
+        }
+
         public AttachTypes attachType;
         public Names name;
+        public AnimType animType;
 
         public ItemType(AttachTypes _attachType, Names _name)
         {

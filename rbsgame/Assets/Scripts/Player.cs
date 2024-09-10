@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
         public float yVel;
         public float jumpSquatCountdown;
         public bool activelyUsingItem;
+        public float itemAnimTime;
     }
 
     public State playerState;
@@ -218,30 +219,50 @@ public class Player : MonoBehaviour
         {
             if (playerInputs.useLHand) {
                 if (items.LeftHand != null) {
-                    UseItem(items.LeftHand);
+                    UseItem(items.LeftHand, "LH");
                 }
             }
             if (playerInputs.useRHand)
             {
                 if (items.RightHand != null)
                 {
-                    UseItem(items.RightHand);
+                    UseItem(items.RightHand, "LH");
                 }
             }
             if (playerInputs.useHat)
             {
                 if (items.Hat != null)
                 {
-                    UseItem(items.Hat);
+                    UseItem(items.Hat, "H");
                 }
+            }
+        }
+        else
+        {
+            playerState.itemAnimTime -= Time.deltaTime;
+            if (playerState.itemAnimTime <= 0)
+            {
+                playerState.activelyUsingItem = false;
             }
         }
     }
 
-    public void UseItem(Item item)
+    public void UseItem(Item item, string attachment)
     {
         playerState.activelyUsingItem = true; // set this back at the end
         Debug.Log("USE ITEM: " + item.itemType.name);
+
+        if(item.itemType.attachType == Item.ItemType.AttachTypes.Hat)
+        {
+            // hat items
+
+        }
+        else
+        {
+            // handheld items
+            playerState.itemAnimTime = character.ItemAnimation(item.itemType.animType, playerState.facingDir, attachment);
+
+        }
     }
 
     // Update is called once per frame
@@ -250,15 +271,18 @@ public class Player : MonoBehaviour
         // update player state
         // TODO still have to make this ray only work for things that should be able to be jumped from
         playerState.onGround = Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f, stageLayer.value);
-        if (playerState.onGround)
+        if (!playerState.activelyUsingItem)
         {
-            if (playerInputs.hMoveAxis > 0.05f)
+            if (playerState.onGround)
             {
-                playerState.facingDir = State.Dir.Right;
-            }
-            if (playerInputs.hMoveAxis < -0.05f)
-            {
-                playerState.facingDir = State.Dir.Left;
+                if (playerInputs.hMoveAxis > 0.05f)
+                {
+                    playerState.facingDir = State.Dir.Right;
+                }
+                if (playerInputs.hMoveAxis < -0.05f)
+                {
+                    playerState.facingDir = State.Dir.Left;
+                }
             }
         }
 

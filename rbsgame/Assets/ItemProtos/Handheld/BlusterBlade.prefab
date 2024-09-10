@@ -49,6 +49,7 @@ MonoBehaviour:
   itemType:
     attachType: 0
     name: 1
+    animType: 2
   pickedUp: 0
   anchorOffset: {fileID: 3885011803807204216}
 --- !u!1 &6541292396622105306

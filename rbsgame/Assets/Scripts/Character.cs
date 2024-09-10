@@ -56,33 +56,36 @@ public class Character : MonoBehaviour
     {
         if (playerState.alive)
         {
-            if (playerState.onGround)
+            if (!playerState.activelyUsingItem)
             {
-                Debug.Log("grounded");
-                if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
+                if (playerState.onGround)
                 {
-                    if (playerState.activeDirectionalInput)
+                    Debug.Log("grounded");
+                    if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
                     {
-                        // run
-                        animator.Play("Run");
-                        //Debug.Log("should be running");
+                        if (playerState.activeDirectionalInput)
+                        {
+                            // run
+                            animator.Play("Run");
+                            //Debug.Log("should be running");
+                        }
+                        else
+                        {
+                            // idle
+                            animator.Play("Idle");
+                        }
                     }
-                    else
-                    {
-                        // idle
-                        animator.Play("Idle");
-                    }
-                }
-            }
-            else
-            {
-                if (playerState.yVel < 0)
-                {
-                    animator.Play("Fall");
                 }
                 else
                 {
-                    animator.Play("AirRise");
+                    if (playerState.yVel < 0)
+                    {
+                        animator.Play("Fall");
+                    }
+                    else
+                    {
+                        animator.Play("AirRise");
+                    }
                 }
             }
         }
@@ -96,5 +99,58 @@ public class Character : MonoBehaviour
     public void Jump()
     {
         animator.Play("Jump");
+    }
+
+    public float ItemAnimation(Item.ItemType.AnimType animType, Player.State.Dir facingDir, string attachment)
+    {
+        float result = 0;
+
+        string clipName = "";
+        if(animType == Item.ItemType.AnimType.Shoot)
+        {
+            if (attachment == "LH") {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "ShootBack";
+                }
+                else
+                {
+                    clipName = "ShootFront";
+                }
+            }
+            if (attachment == "RH")
+            {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "ShootFront";
+                }
+                else
+                {
+                    clipName = "ShootBack";
+                }
+            }
+        }
+        if (animType == Item.ItemType.AnimType.RegSwing)
+        {
+            clipName = "ShootFront";
+        }
+        if (animType == Item.ItemType.AnimType.OverheadSwing)
+        {
+            clipName = "ShootFront";
+        }
+        RuntimeAnimatorController ac = animator.runtimeAnimatorController;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            if (ac.animationClips[i].name == clipName)
+            {
+
+                result = ac.animationClips[i].length;
+            }
+        }
+
+
+        animator.Play(clipName);
+        Debug.Log("animation length: " + result);
+        return (result);
     }
 }
