@@ -57,16 +57,19 @@ public class Character : MonoBehaviour
         //Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEE");
         if (playerState.onGround)
         {
-            if (playerState.activeDirectionalInput)
+            if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")))
             {
-                // run
-                animator.Play("Run");
-                //Debug.Log("should be running");
-            }
-            else
-            {
-                // idle
-                animator.Play("Idle");
+                if (playerState.activeDirectionalInput)
+                {
+                    // run
+                    animator.Play("Run");
+                    //Debug.Log("should be running");
+                }
+                else
+                {
+                    // idle
+                    animator.Play("Idle");
+                }
             }
         }
         else

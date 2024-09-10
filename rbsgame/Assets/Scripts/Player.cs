@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         public float autoDecelerationGround = 0.9f;
         public float autoDecelerationAir = 0.9f;
         public float jumpForce = 10;
+        public float jumpSquatTime = 0.1f;
     }
 
     public PhysicsAttributes physicsAttributes;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         public bool onGround;
         public bool activeDirectionalInput;
         public float yVel;
+        public float jumpSquatCountdown;
     }
 
     public State playerState;
@@ -103,7 +105,7 @@ public class Player : MonoBehaviour
         playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
         
         playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
-
+        playerState.yVel = rb.velocity.y;
 
         // debug thing
         //character.playerState.activeDirectionalInput = true;
@@ -253,10 +255,18 @@ public class Player : MonoBehaviour
         // jumping
         if (playerInputs.jumpPressed && playerState.onGround)
         {
-            rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
             playerInputs.jumpPressed = false;
 
             character.Jump();
+            playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
+        }
+        if (playerState.jumpSquatCountdown > 0)
+        {
+            playerState.jumpSquatCountdown -= Time.fixedDeltaTime;
+            if(playerState.jumpSquatCountdown <= 0)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
+            }
         }
     }
 
