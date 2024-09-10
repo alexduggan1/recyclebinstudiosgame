@@ -169,7 +169,7 @@ MonoBehaviour:
   cam: {fileID: 1732105780}
   stages: []
   stage: {fileID: 4690313186787259386, guid: ba80b63acb2e57c478bad9a974dc06ce, type: 3}
-  stageProto: {fileID: 4690313186787259386, guid: ba80b63acb2e57c478bad9a974dc06ce, type: 3}
+  stageProto: {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
   stageWidth: 0
   players: []
   playerProto: {fileID: 7516248282364218314, guid: 95b29dc1d71d37a4899f295b103a572c, type: 3}
