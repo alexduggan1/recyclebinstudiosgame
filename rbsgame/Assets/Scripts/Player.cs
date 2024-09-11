@@ -120,9 +120,9 @@ public class Player : MonoBehaviour
         // handle player inputs
         playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
         playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
-        playerInputs.useLHand = Input.GetKey(playerControls.useLHandButton);
-        playerInputs.useRHand = Input.GetKey(playerControls.useRHandButton);
-        playerInputs.useHat = Input.GetKey(playerControls.useHatButton);
+        playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
+        playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
+        playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
 
         playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
         playerState.yVel = rb.velocity.y;

@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade,
-            PropellerHat
+            PropellerHat, ToasterHat
         };
 
         public enum AnimType
@@ -235,6 +235,11 @@ public class Item : MonoBehaviour
 
     public void FireToast(GameObject toastToFire)
     {
-
+        Debug.Log("FIRE TOSAST?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot = Vector3.up;
+        GameObject newToast = Instantiate(toastToFire, transform.position, Quaternion.identity);
+        newToast.transform.Rotate(new Vector3(0, -45, 0));
+        newToast.GetComponent<Toast>().rb.velocity = new Vector3(0, 14);
+        newToast.GetComponent<Toast>().ownerException = myPlayer;
     }
 }

@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     public Transform visual;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -37,11 +37,9 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.layer);
-        Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10 || collision.gameObject.layer == 7)
         {
-            Debug.Log("bullet hit killbox");
+            Debug.Log("bullet hit killbox or stage");
             Destroy(gameObject);
         }
     }

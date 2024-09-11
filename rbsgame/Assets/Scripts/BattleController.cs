@@ -143,6 +143,7 @@ public class BattleController : MonoBehaviour
             GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0), Quaternion.identity);
             Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
 
+            itemPickup.GetComponent<ItemPickup>().item = madeItem;
             madeItem.pickedUp = false;
         }
     }
