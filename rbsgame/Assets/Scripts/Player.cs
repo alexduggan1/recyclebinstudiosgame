@@ -110,9 +110,13 @@ public class Player : MonoBehaviour
     public LayerMask stageLayer;
 
 
+    public List<GameObject> myProjectiles;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        myProjectiles.Clear();
     }
 
     void Update()
@@ -363,6 +367,7 @@ public class Player : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 
@@ -373,6 +378,15 @@ public class Player : MonoBehaviour
         if (items.LeftHand != null) { Destroy(items.LeftHand.gameObject); }
         if (items.RightHand != null) { Destroy(items.RightHand.gameObject); }
         if (items.Hat != null) { Destroy(items.Hat.gameObject); }
+
+        foreach (GameObject projectile in myProjectiles)
+        {
+            if(projectile != null)
+            {
+                Destroy(projectile);
+            }
+        }
+        myProjectiles.Clear();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -433,6 +447,22 @@ public class Player : MonoBehaviour
         {
             Debug.Log("player hit killbox");
             Die();
+        }
+        else if (collision.gameObject.layer == 11)
+        {
+            // is a hitbox
+            bool iAmException = false;
+            Bullet bullet;
+            Toast toast;
+            Hitbox hitbox;
+            if(collision.gameObject.TryGetComponent<Bullet>(out bullet)) { if (bullet.ownerException == this) { iAmException = true; } }
+            if(collision.gameObject.TryGetComponent<Toast>(out toast)) { if (toast.ownerException == this) { iAmException = true; } }
+            if(collision.gameObject.TryGetComponent<Hitbox>(out hitbox)) { if (hitbox.ownerException == this) { iAmException = true; } }
+
+            if(!iAmException)
+            {
+                Die();
+            }
         }
     }
 

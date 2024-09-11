@@ -254,6 +254,21 @@ public class BattleController : MonoBehaviour
     {
         // destroy old stuff
 
+
+        foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
+        {
+            Destroy(bullet.gameObject);
+        }
+        foreach (Toast toast in FindObjectsByType<Toast>(FindObjectsSortMode.None))
+        {
+            Destroy(toast.gameObject);
+        }
+        foreach (Hitbox hitbox in FindObjectsByType<Hitbox>(FindObjectsSortMode.None))
+        {
+            Destroy(hitbox.gameObject);
+        }
+
+
         foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
         {
             Destroy(player.gameObject);

@@ -137,6 +137,7 @@ public class Item : MonoBehaviour
         Vector3 dirToShoot = Vector3.right;
         if(myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
         GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
         if(bulletSpeed == 0) { bulletSpeed = 1; }
         bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<Bullet>().dir = dirToShoot;
@@ -238,6 +239,7 @@ public class Item : MonoBehaviour
         Debug.Log("FIRE TOSAST?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Vector3 dirToShoot = Vector3.up;
         GameObject newToast = Instantiate(toastToFire, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(newToast);
         newToast.transform.Rotate(new Vector3(0, -45, 0));
         newToast.GetComponent<Toast>().rb.velocity = new Vector3(0, 14);
         newToast.GetComponent<Toast>().ownerException = myPlayer;
@@ -247,13 +249,15 @@ public class Item : MonoBehaviour
     {
         Debug.Log("swing sword!");
         if(myPlayer.playerState.facingDir == Player.State.Dir.Left) { offsetPos = new Vector3(offsetPos.x * -1, offsetPos.y, offsetPos.z); }
-        IEnumerator makeHitbox = MakeHitbox(hitbox, hitboxTime, offsetPos);
+        IEnumerator makeHitbox = MakeHitbox(hitbox, hitboxTime, offsetPos, myPlayer);
         StartCoroutine(makeHitbox);
     }
 
-    public IEnumerator MakeHitbox(GameObject hitbox, float hitboxTime, Vector3 offset)
+    public IEnumerator MakeHitbox(GameObject hitbox, float hitboxTime, Vector3 offset, Player exception)
     {
         GameObject h = Instantiate(hitbox, transform.position + offset, Quaternion.identity);
+        exception.myProjectiles.Add(h);
+        h.GetComponent<Hitbox>().ownerException = exception;
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
     }
