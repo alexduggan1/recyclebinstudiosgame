@@ -259,7 +259,10 @@ public class Player : MonoBehaviour
         if(item.itemType.attachType == Item.ItemType.AttachTypes.Hat)
         {
             // hat items
-
+            playerState.itemAnimTime = item.hatAnimTime;
+            item.actionTime = 0.0f;
+            item.currentlyBeingUsed = true;
+            item.currentUse += 1;
         }
         else
         {

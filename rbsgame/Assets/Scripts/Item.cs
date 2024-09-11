@@ -74,6 +74,8 @@ public class Item : MonoBehaviour
 
     public Player myPlayer;
 
+    public float hatAnimTime;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -93,10 +95,13 @@ public class Item : MonoBehaviour
                 {
                     if ((actionTime > action.timeStamp) && (!action.done))
                     {
-                        action.function.Invoke();
+                        if(action.function != null)
+                        {
+                            action.function.Invoke();
+                        }
                         action.done = true;
 
-                        if (action == itemUses[currentUse].actions[itemUses[currentUse].actions.Count - 1])
+                        if (action == itemUses[currentUse].actions[^1])
                         {
                             // if it's the last one turn off currentlybeingused
                             currentlyBeingUsed = false;
@@ -136,5 +141,34 @@ public class Item : MonoBehaviour
         bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<Bullet>().dir = dirToShoot;
         bullet.GetComponent<Bullet>().ownerException = myPlayer;
+    }
+
+    public void PropellerJump(GameObject propellerToSpin, float jumpPower)
+    {
+        Debug.Log("PROPELLER JUMP");
+        IEnumerator spinPropeller = SpinPropeller(propellerToSpin);
+        StartCoroutine(spinPropeller);
+
+        myPlayer.rb.velocity = new Vector3(myPlayer.rb.velocity.x, jumpPower);
+    }
+
+    IEnumerator SpinPropeller(GameObject propellerToSpin)
+    {
+        float spinTime = 0;
+        while (spinTime < hatAnimTime - 1)
+        {
+            spinTime += Time.deltaTime;
+            Vector3 propellerCenterPosition = propellerToSpin.GetComponent<Renderer>().bounds.center;
+            propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (1200 - ((spinTime / (hatAnimTime - 1)) * 900)) * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        while (spinTime < hatAnimTime)
+        {
+            spinTime += Time.deltaTime;
+            Vector3 propellerCenterPosition = propellerToSpin.GetComponent<Renderer>().bounds.center;
+            propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (400 - ((spinTime / (hatAnimTime - 1)) * 200)) * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 }
