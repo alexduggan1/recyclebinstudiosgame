@@ -19,31 +19,29 @@ public class Character : MonoBehaviour
         characterProto = _characterProto;
     }
 
-    [System.Serializable]
-    public class AnimationSet
-    {
-        public Animation idle;
-        public Animation walk;
-
-        public AnimationSet(Animation _idle, Animation _walk)
-        {
-            idle = _idle;
-            walk = _walk;
-        }
-    }
-
-    public AnimationSet animationSet;
-
     public bool flat;
 
     public Animator animator;
+    public SpriteRenderer sr;
 
     public Player.State playerState;
 
-    // Start is called before the first frame update
-    void Start()
+    public Transform anchorLH;
+    public Transform anchorRH;
+    public Transform anchorH;
+
+    void Awake()
     {
-        if (flat) { animator = transform.GetChild(0).GetComponent<Animator>(); }
+        if (flat) 
+        {
+            Debug.Log("flat");
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).TryGetComponent<Animator>(out animator);
+                transform.GetChild(i).TryGetComponent<SpriteRenderer>(out sr);
+            }
+        }
         else { } // do something for the 3d ones idk it'll be different somehow I'm sure
     }
 
@@ -56,11 +54,127 @@ public class Character : MonoBehaviour
 
     void Handle2DAnimation()
     {
-
+        if (playerState.alive)
+        {
+            if (!playerState.activelyUsingItem)
+            {
+                if (playerState.onGround)
+                {
+                    Debug.Log("grounded");
+                    if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
+                    {
+                        if (playerState.activeDirectionalInput)
+                        {
+                            // run
+                            animator.Play("Run");
+                        }
+                        else
+                        {
+                            // idle
+                            animator.Play("Idle");
+                        }
+                    }
+                }
+                else
+                {
+                    if (playerState.yVel < 0)
+                    {
+                        animator.Play("Fall");
+                    }
+                    else
+                    {
+                        animator.Play("AirRise");
+                    }
+                }
+            }
+        }
+        else
+        {
+            animator.Play("Dead");
+        }
     }
 
     void Handle3DAnimation()
     {
 
+    }
+
+    public void Jump()
+    {
+        animator.Play("Jump");
+    }
+
+    public float ItemAnimation(Item.ItemType.AnimType animType, Player.State.Dir facingDir, string attachment)
+    {
+        float result = 0;
+
+        string clipName = "";
+        if(animType == Item.ItemType.AnimType.Shoot)
+        {
+            if (attachment == "LH") {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "ShootBack";
+                }
+                else
+                {
+                    clipName = "ShootFront";
+                }
+            }
+            if (attachment == "RH")
+            {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "ShootFront";
+                }
+                else
+                {
+                    clipName = "ShootBack";
+                }
+            }
+        }
+        if (animType == Item.ItemType.AnimType.OverheadSwing)
+        {
+            if (attachment == "LH")
+            {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "OverheadBack";
+                }
+                else
+                {
+                    clipName = "OverheadFront";
+                }
+            }
+            if (attachment == "RH")
+            {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "OverheadFront";
+                }
+                else
+                {
+                    clipName = "OverheadBack";
+                }
+            }
+        }
+        if (animType == Item.ItemType.AnimType.RegSwing)
+        {
+            clipName = "ShootFront";
+        }
+        RuntimeAnimatorController ac = animator.runtimeAnimatorController;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            if (ac.animationClips[i].name == clipName)
+            {
+
+                result = ac.animationClips[i].length;
+            }
+        }
+
+
+        animator.Play(clipName);
+        Debug.Log("animation length: " + result);
+        return (result);
     }
 }

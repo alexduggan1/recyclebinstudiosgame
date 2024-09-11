@@ -48,21 +48,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f86dadb02e9d564e9ba53dad01031a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items:
+    LeftHand: {fileID: 0}
+    RightHand: {fileID: 0}
+    Hat: {fileID: 0}
   rb: {fileID: 0}
   physicsAttributes:
-    moveAcceleration: 130
-    maxMoveSpeed: 12
-    autoDeceleration: 0.97
+    moveAccelerationGround: 130
+    moveAccelerationAir: 85
+    maxMoveSpeedGround: 12
+    maxMoveSpeedAir: 9
+    autoDecelerationGround: 0.915
+    autoDecelerationAir: 0.945
     jumpForce: 14
+    jumpSquatTime: 0.05
   playerState:
     alive: 0
     facingDir: 0
     onGround: 0
+    activeDirectionalInput: 0
+    yVel: 0
+    jumpSquatCountdown: 0
+    activelyUsingItem: 0
+    itemAnimTime: 0
+    itemActionTime: 0
   playerInputs:
     hMoveAxis: 0
     jumpPressed: 0
+    useLHand: 0
+    useRHand: 0
+    useHat: 0
   ID: 0
   character: {fileID: 0}
+  itemProtos:
+  - {fileID: 2535488965979210328, guid: 7d1567abab8212848b3a0769b4a2fd4d, type: 3}
+  - {fileID: 2535488965979210328, guid: 6a4a51fa0e03f174a9e21e9b1fa0c183, type: 3}
+  - {fileID: 2535488965979210328, guid: a4b197241823a264babae6c94c41bd36, type: 3}
+  - {fileID: 2535488965979210328, guid: 580d7882d65e8434da04b7bb9f174e7a, type: 3}
+  stageLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &8682448806184860084
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,7 +113,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!33 &7585982741302277649
 MeshFilter:
@@ -147,7 +172,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516248282364218314}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
