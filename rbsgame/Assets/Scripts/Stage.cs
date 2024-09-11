@@ -27,4 +27,6 @@ public class Stage : MonoBehaviour
     public List<SpawnPoint> spawnPoints;
 
     public GameObject collision;
+
+    public Transform ceiling;
 }

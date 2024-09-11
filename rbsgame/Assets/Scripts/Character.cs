@@ -67,7 +67,6 @@ public class Character : MonoBehaviour
                         {
                             // run
                             animator.Play("Run");
-                            //Debug.Log("should be running");
                         }
                         else
                         {

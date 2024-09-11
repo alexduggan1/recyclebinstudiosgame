@@ -96,7 +96,7 @@ public class BattleController : MonoBehaviour
         int i = 0;
         while(i < 5) // we give this 5 tries
         {
-            Vector3 pos = new Vector3(Random.Range(-stageWidth, stageWidth), 25, 0); // arbitrary height, make it better later (certain height over the ground based on rayhit)
+            Vector3 pos = new Vector3(Random.Range(-stageWidth, stageWidth), stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0); 
             Debug.Log(pos.x);
             
             RaycastHit rayHit;
@@ -140,7 +140,7 @@ public class BattleController : MonoBehaviour
 
             Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
 
-            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, 25, 0), Quaternion.identity);
+            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0), Quaternion.identity);
             Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
 
             madeItem.pickedUp = false;
@@ -157,9 +157,12 @@ public class BattleController : MonoBehaviour
         Vector3 largestExtents = Vector3.zero;
         foreach (MeshFilter mesh in stage.GetComponentsInChildren<MeshFilter>())
         {
-            if (mesh.mesh.bounds.extents.x * mesh.transform.lossyScale.x > largestExtents.x && mesh.gameObject.layer == 7)
+            if(mesh.gameObject.layer != 10) // don't count the killboxes
             {
-                largestExtents = mesh.mesh.bounds.extents * mesh.transform.lossyScale.x;
+                if (mesh.mesh.bounds.extents.x * mesh.transform.lossyScale.x > largestExtents.x && mesh.gameObject.layer == 7)
+                {
+                    largestExtents = mesh.mesh.bounds.extents * mesh.transform.lossyScale.x;
+                }
             }
         }
         Debug.Log("largestExtents: " + largestExtents);

@@ -137,8 +137,12 @@ public class Player : MonoBehaviour
 
 
 
-        if (playerState.facingDir == Player.State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
+        if (playerState.facingDir == State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
         else { transform.localEulerAngles = new Vector3(0, 0, 0); }
+        if(ID == 0)
+        {
+            Debug.Log(playerState.facingDir);
+        }
 
         #region item placement in anchors
         // put the equipment in the correct positions based on the anchors

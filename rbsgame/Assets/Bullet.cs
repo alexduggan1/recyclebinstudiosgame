@@ -34,4 +34,15 @@ public class Bullet : MonoBehaviour
             visual.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.layer);
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.layer == 10)
+        {
+            Debug.Log("bullet hit killbox");
+            Destroy(gameObject);
+        }
+    }
 }

@@ -149,6 +149,7 @@ public class Item : MonoBehaviour
         IEnumerator spinPropeller = SpinPropeller(propellerToSpin);
         StartCoroutine(spinPropeller);
 
+        myPlayer.character.animator.Play("AirRise");
         myPlayer.rb.velocity = new Vector3(myPlayer.rb.velocity.x, jumpPower);
     }
 
@@ -160,6 +161,33 @@ public class Item : MonoBehaviour
             spinTime += Time.deltaTime;
             Vector3 propellerCenterPosition = propellerToSpin.GetComponent<Renderer>().bounds.center;
             propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (1200 - ((spinTime / (hatAnimTime - 1)) * 900)) * Time.deltaTime);
+            if (myPlayer.playerInputs.hMoveAxis > 0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Right;
+            }
+            if (myPlayer.playerInputs.hMoveAxis < -0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Left;
+            }
+            if (myPlayer.playerState.onGround) {
+                if (myPlayer.playerState.activeDirectionalInput) {
+                    // run
+                    myPlayer.character.animator.Play("Run");
+                    //Debug.Log("should be running");
+                }
+                else {
+                    // idle
+                    myPlayer.character.animator.Play("Idle");
+                }
+            }
+            else {
+                if (myPlayer.playerState.yVel < 0) {
+                    myPlayer.character.animator.Play("Fall");
+                }
+                else {
+                    myPlayer.character.animator.Play("AirRise");
+                }
+            }
             yield return new WaitForEndOfFrame();
         }
         while (spinTime < hatAnimTime)
@@ -167,6 +195,39 @@ public class Item : MonoBehaviour
             spinTime += Time.deltaTime;
             Vector3 propellerCenterPosition = propellerToSpin.GetComponent<Renderer>().bounds.center;
             propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (400 - ((spinTime / (hatAnimTime - 1)) * 200)) * Time.deltaTime);
+            if (myPlayer.playerInputs.hMoveAxis > 0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Right;
+            }
+            if (myPlayer.playerInputs.hMoveAxis < -0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Left;
+            }
+            if (myPlayer.playerState.onGround)
+            {
+                if (myPlayer.playerState.activeDirectionalInput)
+                {
+                    // run
+                    myPlayer.character.animator.Play("Run");
+                    //Debug.Log("should be running");
+                }
+                else
+                {
+                    // idle
+                    myPlayer.character.animator.Play("Idle");
+                }
+            }
+            else
+            {
+                if (myPlayer.playerState.yVel < 0)
+                {
+                    myPlayer.character.animator.Play("Fall");
+                }
+                else
+                {
+                    myPlayer.character.animator.Play("AirRise");
+                }
+            }
             yield return new WaitForEndOfFrame();
         }
         yield return null;
