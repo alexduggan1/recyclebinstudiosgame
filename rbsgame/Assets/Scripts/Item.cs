@@ -242,4 +242,19 @@ public class Item : MonoBehaviour
         newToast.GetComponent<Toast>().rb.velocity = new Vector3(0, 14);
         newToast.GetComponent<Toast>().ownerException = myPlayer;
     }
+
+    public void SwingSword(GameObject hitbox, float hitboxTime, Vector3 offsetPos)
+    {
+        Debug.Log("swing sword!");
+        if(myPlayer.playerState.facingDir == Player.State.Dir.Left) { offsetPos = new Vector3(offsetPos.x * -1, offsetPos.y, offsetPos.z); }
+        IEnumerator makeHitbox = MakeHitbox(hitbox, hitboxTime, offsetPos);
+        StartCoroutine(makeHitbox);
+    }
+
+    public IEnumerator MakeHitbox(GameObject hitbox, float hitboxTime, Vector3 offset)
+    {
+        GameObject h = Instantiate(hitbox, transform.position + offset, Quaternion.identity);
+        yield return new WaitForSeconds(hitboxTime);
+        Destroy(h);
+    }
 }

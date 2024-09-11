@@ -49,6 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554a6941450184c4b84fd12117d8213b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerException: {fileID: 0}
+  bulletSpeed: 0
+  rb: {fileID: 0}
+  visual: {fileID: 0}
 --- !u!33 &5979025199835891612
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -145,7 +149,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!1001 &5601393968801780345
 PrefabInstance:

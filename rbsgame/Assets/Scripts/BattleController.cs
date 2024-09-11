@@ -79,6 +79,21 @@ public class BattleController : MonoBehaviour
                 itemSpawnTimer = 0;
             }
         }
+
+        if(players.Count > 0)
+        {
+            int alivePlayers = 0;
+            foreach (Player player in players)
+            {
+                if (player.playerState.alive) { alivePlayers++; }
+            }
+
+            if(alivePlayers <= 1)
+            {
+                EndRound();
+                StartRound();
+            }
+        }
     }
 
     void SpawnItem()

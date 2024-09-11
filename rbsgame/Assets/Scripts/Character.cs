@@ -88,6 +88,10 @@ public class Character : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            animator.Play("Dead");
+        }
     }
 
     void Handle3DAnimation()
@@ -129,11 +133,32 @@ public class Character : MonoBehaviour
                 }
             }
         }
-        if (animType == Item.ItemType.AnimType.RegSwing)
-        {
-            clipName = "ShootFront";
-        }
         if (animType == Item.ItemType.AnimType.OverheadSwing)
+        {
+            if (attachment == "LH")
+            {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "OverheadBack";
+                }
+                else
+                {
+                    clipName = "OverheadFront";
+                }
+            }
+            if (attachment == "RH")
+            {
+                if (facingDir == Player.State.Dir.Right)
+                {
+                    clipName = "OverheadFront";
+                }
+                else
+                {
+                    clipName = "OverheadBack";
+                }
+            }
+        }
+        if (animType == Item.ItemType.AnimType.RegSwing)
         {
             clipName = "ShootFront";
         }
