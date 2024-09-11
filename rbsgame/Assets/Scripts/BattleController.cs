@@ -168,6 +168,15 @@ public class BattleController : MonoBehaviour
         Debug.Log("largestExtents: " + largestExtents);
         stageWidth = Vector3.Scale(largestExtents, stage.GetComponent<Stage>().collision.transform.localScale).x;
 
+
+
+        // begin round?
+
+        StartRound();
+    }
+
+    public void StartRound()
+    {
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
         int i = 0;
@@ -181,10 +190,10 @@ public class BattleController : MonoBehaviour
 
             newPlayer.transform.position = FigureOutPlayerStartPosition(newPlayer.ID, playerCount);
 
-            if(newPlayer.ID == 0) { newPlayer.playerControls = leftPlayerControlsSignature; }
+            if (newPlayer.ID == 0) { newPlayer.playerControls = leftPlayerControlsSignature; }
             if (newPlayer.ID == 1)
             {
-                if(playerCount == 2) { newPlayer.playerControls = rightPlayerControlsSignature; }
+                if (playerCount == 2) { newPlayer.playerControls = rightPlayerControlsSignature; }
                 else if (playerCount == 3) { newPlayer.playerControls = rightPlayerControlsSignature; }
                 else { newPlayer.playerControls = middlePlayerControlsSignature2; }
             }
@@ -223,7 +232,27 @@ public class BattleController : MonoBehaviour
         {
             SpawnItem();
         }
+    }
 
+    public void EndRound()
+    {
+        // destroy old stuff
+
+        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        {
+            Destroy(player.gameObject);
+        }
+
+
+        foreach (ItemPickup itemPickup in FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
+        {
+            Destroy(itemPickup.gameObject);
+        }
+
+        foreach (Item item in FindObjectsByType<Item>(FindObjectsSortMode.None))
+        {
+            Destroy(item.gameObject);
+        }
     }
 
     Vector3 FigureOutPlayerStartPosition(int playerID, int playerCount)
@@ -251,12 +280,5 @@ public class BattleController : MonoBehaviour
         Debug.Log(result);
 
         return (result);
-    }
-    
-    void BeginRound()
-    {
-        // reset all the player's info
-        // should it change the stage too? idk
-        // items should be reset too
     }
 }

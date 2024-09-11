@@ -156,11 +156,11 @@ public class Item : MonoBehaviour
     IEnumerator SpinPropeller(GameObject propellerToSpin)
     {
         float spinTime = 0;
-        while (spinTime < hatAnimTime - 1)
+        while (spinTime < hatAnimTime - 0.6f)
         {
             spinTime += Time.deltaTime;
             Vector3 propellerCenterPosition = propellerToSpin.GetComponent<Renderer>().bounds.center;
-            propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (1200 - ((spinTime / (hatAnimTime - 1)) * 900)) * Time.deltaTime);
+            propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (1200 - ((spinTime / (hatAnimTime - 0.6f)) * 900)) * Time.deltaTime);
             if (myPlayer.playerInputs.hMoveAxis > 0.05f)
             {
                 myPlayer.playerState.facingDir = Player.State.Dir.Right;
@@ -194,7 +194,7 @@ public class Item : MonoBehaviour
         {
             spinTime += Time.deltaTime;
             Vector3 propellerCenterPosition = propellerToSpin.GetComponent<Renderer>().bounds.center;
-            propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (400 - ((spinTime / (hatAnimTime - 1)) * 200)) * Time.deltaTime);
+            propellerToSpin.transform.RotateAround(propellerCenterPosition, Vector3.up, (400 - ((spinTime / (hatAnimTime - 0.6f)) * 200)) * Time.deltaTime);
             if (myPlayer.playerInputs.hMoveAxis > 0.05f)
             {
                 myPlayer.playerState.facingDir = Player.State.Dir.Right;
@@ -231,5 +231,10 @@ public class Item : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         yield return null;
+    }
+
+    public void FireToast(GameObject toastToFire)
+    {
+
     }
 }

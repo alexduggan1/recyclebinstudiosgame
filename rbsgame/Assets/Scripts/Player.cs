@@ -412,6 +412,65 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Collision Enter !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Debug.Log(other.gameObject.layer);
+        if (other.gameObject.layer == 8)
+        {
+            // pickup item
+            //Debug.Log("TOUCHED ITEM PICKUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
+            Debug.Log(itemToTry.itemType.name);
+
+            bool pickupSuccessful = false;
+            if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
+            {
+                if (items.Hat != null) { }
+                else
+                {
+                    Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                    items.Hat = newItem;
+                    newItem.pickedUp = true;
+                    newItem.currentlyBeingUsed = false;
+                    newItem.myPlayer = this;
+                    pickupSuccessful = true;
+                }
+            }
+            else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
+            {
+                // for now fill lefthand first then right, can change behavior later
+                if (items.LeftHand != null)
+                {
+                    if (items.RightHand != null) { }
+                    else
+                    {
+                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                        items.RightHand = newItem;
+                        newItem.pickedUp = true;
+                        newItem.currentlyBeingUsed = false;
+                        newItem.myPlayer = this;
+                        pickupSuccessful = true;
+                    }
+                }
+                else
+                {
+                    Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                    items.LeftHand = newItem;
+                    newItem.pickedUp = true;
+                    newItem.currentlyBeingUsed = false;
+                    newItem.myPlayer = this;
+                    pickupSuccessful = true;
+                }
+            }
+
+            //Debug.Log(pickupSuccessful);
+            // decide on behavior later, for now destroy the object on touch
+            Destroy(other.gameObject);
+        }
+    }
+
     public GameObject FindCorrectItemProto(Item.ItemType.Names itemName)
     {
         GameObject result = itemProtos[0];

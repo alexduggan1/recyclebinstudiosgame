@@ -77,7 +77,7 @@ MonoBehaviour:
             _W: 0
             _Object: {fileID: 0}
       done: 0
-    - timeStamp: 2.3
+    - timeStamp: 1.7
       function:
         _PersistentCalls: []
       done: 0
