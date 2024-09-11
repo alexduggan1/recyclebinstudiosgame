@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         public float jumpSquatCountdown;
         public bool activelyUsingItem;
         public float itemAnimTime;
+        public float itemActionTime;
     }
 
     public State playerState;
@@ -120,11 +121,13 @@ public class Player : MonoBehaviour
         playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
         playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
         playerInputs.useLHand = Input.GetKey(playerControls.useLHandButton);
-        playerInputs.useRHand = Input.GetKey(playerControls.useLHandButton);
+        playerInputs.useRHand = Input.GetKey(playerControls.useRHandButton);
         playerInputs.useHat = Input.GetKey(playerControls.useHatButton);
 
         playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
         playerState.yVel = rb.velocity.y;
+
+        playerState.itemActionTime += Time.deltaTime;
 
         // debug thing
         //character.playerState.activeDirectionalInput = true;
@@ -137,6 +140,7 @@ public class Player : MonoBehaviour
         if (playerState.facingDir == Player.State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
         else { transform.localEulerAngles = new Vector3(0, 0, 0); }
 
+        #region item placement in anchors
         // put the equipment in the correct positions based on the anchors
         if (items.LeftHand != null) {
             if(playerState.facingDir == State.Dir.Right)
@@ -213,8 +217,8 @@ public class Player : MonoBehaviour
                     0);
             }
         }
+        #endregion
 
-        
         if (!playerState.activelyUsingItem)
         {
             if (playerInputs.useLHand) {
@@ -226,7 +230,7 @@ public class Player : MonoBehaviour
             {
                 if (items.RightHand != null)
                 {
-                    UseItem(items.RightHand, "LH");
+                    UseItem(items.RightHand, "RH");
                 }
             }
             if (playerInputs.useHat)
@@ -261,7 +265,9 @@ public class Player : MonoBehaviour
         {
             // handheld items
             playerState.itemAnimTime = character.ItemAnimation(item.itemType.animType, playerState.facingDir, attachment);
-
+            item.actionTime = 0.0f;
+            item.currentlyBeingUsed = true;
+            item.currentUse += 1;
         }
     }
 
@@ -350,7 +356,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 8)
         {
             // pickup item
-            Debug.Log("TOUCHED ITEM PICKUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //Debug.Log("TOUCHED ITEM PICKUP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             Item itemToTry = collision.transform.GetChild(0).GetComponent<Item>();
             Debug.Log(itemToTry.itemType.name);
@@ -363,6 +369,8 @@ public class Player : MonoBehaviour
                     Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
                     items.Hat = newItem;
                     newItem.pickedUp = true;
+                    newItem.currentlyBeingUsed = false;
+                    newItem.myPlayer = this;
                     pickupSuccessful = true;
                 }
             }
@@ -375,6 +383,8 @@ public class Player : MonoBehaviour
                         Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
                         items.RightHand = newItem;
                         newItem.pickedUp = true;
+                        newItem.currentlyBeingUsed = false;
+                        newItem.myPlayer = this;
                         pickupSuccessful = true;
                     }
                 } 
@@ -383,11 +393,13 @@ public class Player : MonoBehaviour
                     Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
                     items.LeftHand = newItem;
                     newItem.pickedUp = true;
+                    newItem.currentlyBeingUsed = false;
+                    newItem.myPlayer = this;
                     pickupSuccessful = true;
                 }
             }
 
-            Debug.Log(pickupSuccessful);
+            //Debug.Log(pickupSuccessful);
             // decide on behavior later, for now destroy the object on touch
             Destroy(collision.gameObject);
         }

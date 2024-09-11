@@ -49,8 +49,170 @@ MonoBehaviour:
   itemType:
     attachType: 0
     name: 0
+    animType: 0
+  itemUses:
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 10
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 0
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 10
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 0
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 10
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 0
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 10
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 0
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 10
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 0
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 15
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 0
+  currentUse: 0
+  actionTime: 0
   pickedUp: 0
+  currentlyBeingUsed: 0
   anchorOffset: {fileID: 3885011803807204216}
+  myPlayer: {fileID: 0}
 --- !u!1 &6541292396622105306
 GameObject:
   m_ObjectHideFlags: 0
