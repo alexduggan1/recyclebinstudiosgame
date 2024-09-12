@@ -368,6 +368,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            playerState.facingDir = State.Dir.Right; transform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
 
