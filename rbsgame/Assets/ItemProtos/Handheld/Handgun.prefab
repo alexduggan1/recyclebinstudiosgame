@@ -213,6 +213,7 @@ MonoBehaviour:
   currentlyBeingUsed: 0
   anchorOffset: {fileID: 3885011803807204216}
   myPlayer: {fileID: 0}
+  hatAnimTime: 0
 --- !u!1 &6541292396622105306
 GameObject:
   m_ObjectHideFlags: 0
