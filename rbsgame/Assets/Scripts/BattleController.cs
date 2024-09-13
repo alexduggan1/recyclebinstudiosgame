@@ -182,7 +182,7 @@ public class BattleController : MonoBehaviour
             }
         }
         Debug.Log("largestExtents: " + largestExtents);
-        stageWidth = Vector3.Scale(largestExtents, stage.GetComponent<Stage>().collision.transform.localScale).x;
+        stageWidth = largestExtents.x;
 
 
 

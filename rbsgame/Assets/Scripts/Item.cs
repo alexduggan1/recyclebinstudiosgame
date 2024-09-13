@@ -170,7 +170,10 @@ public class Item : MonoBehaviour
             {
                 myPlayer.playerState.facingDir = Player.State.Dir.Left;
             }
+            myPlayer.playerState.onGround = Physics.Raycast(new Ray(myPlayer.transform.position + (Vector3.down * 0.75f), Vector3.down), 1f, myPlayer.stageLayer.value);
+
             if (myPlayer.playerState.onGround) {
+                Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 if (myPlayer.playerState.activeDirectionalInput) {
                     // run
                     myPlayer.character.animator.Play("Run");
@@ -204,8 +207,11 @@ public class Item : MonoBehaviour
             {
                 myPlayer.playerState.facingDir = Player.State.Dir.Left;
             }
+            myPlayer.playerState.onGround = Physics.Raycast(new Ray(myPlayer.transform.position + (Vector3.down * 0.75f), Vector3.down), 1f, myPlayer.stageLayer.value);
+
             if (myPlayer.playerState.onGround)
             {
+                Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 if (myPlayer.playerState.activeDirectionalInput)
                 {
                     // run
