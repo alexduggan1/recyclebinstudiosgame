@@ -104,19 +104,20 @@ public class Player : MonoBehaviour
     public Character character;
 
 
-    public List<GameObject> itemProtos;
-
-
     public LayerMask stageLayer;
 
 
     public List<GameObject> myProjectiles;
+
+    public BattleController battleController;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
         myProjectiles.Clear();
+
+        battleController = FindAnyObjectByType<BattleController>();
     }
 
     void Update()
@@ -591,13 +592,13 @@ public class Player : MonoBehaviour
 
     public GameObject FindCorrectItemProto(Item.ItemType.Names itemName)
     {
-        GameObject result = itemProtos[0];
+        GameObject result = battleController.itemDropLootTable[0].loot.gameObject;
 
-        foreach (GameObject itemProto in itemProtos)
+        foreach (BattleController.ItemDropLoot itemDropLoot in battleController.itemDropLootTable)
         {
-            if(itemProto.GetComponent<Item>().itemType.name == itemName)
+            if(itemDropLoot.loot.itemType.name == itemName)
             {
-                result = itemProto;
+                result = itemDropLoot.loot.gameObject;
             }
         }
 

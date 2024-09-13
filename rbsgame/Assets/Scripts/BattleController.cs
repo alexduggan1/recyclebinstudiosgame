@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BattleController : MonoBehaviour
 {
-    public Camera cam;
+    public GameManager gameManager;
 
+
+    public Camera cam;
+    // TODO CAMERA FOLLOWING PLAYRES THING
 
     public List<GameObject> stages;
     public GameObject stage;
@@ -47,6 +50,8 @@ public class BattleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+
         BeginBattle();
     }
 

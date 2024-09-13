@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Startup")
         {
-            SceneManager.LoadScene("Battle");
+            SceneManager.LoadScene("Menu");
         }
     }
 }
