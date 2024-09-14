@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
 {
     public enum CharacterNames
     {
-        Gregory, GentlemanHumanoid
+        Gregory, Kneecaps
     }
     public CharacterNames characterName;
 
@@ -22,7 +22,6 @@ public class Character : MonoBehaviour
     public bool flat;
 
     public Animator animator;
-    public SpriteRenderer sr;
 
     public Player.State playerState;
 
@@ -39,7 +38,7 @@ public class Character : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).TryGetComponent<Animator>(out animator);
-                transform.GetChild(i).TryGetComponent<SpriteRenderer>(out sr);
+                
             }
         }
         else { } // do something for the 3d ones idk it'll be different somehow I'm sure
