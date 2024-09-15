@@ -174,7 +174,7 @@ MonoBehaviour:
   players: []
   playerProto: {fileID: 7516248282364218314, guid: 95b29dc1d71d37a4899f295b103a572c, type: 3}
   playerChosenCharacters:
-  - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
+  - {fileID: 5483133159943521038, guid: 033b2532432db2c4198047d657413ca0, type: 3}
   - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
   - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
   itemSpawnGap: 0

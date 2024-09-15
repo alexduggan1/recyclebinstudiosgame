@@ -22,7 +22,7 @@ public class Item : MonoBehaviour
 
         public enum AnimType
         {
-            Shoot, RegSwing, OverheadSwing
+            Shoot, OverheadSwing
         }
 
         public AttachTypes attachType;
