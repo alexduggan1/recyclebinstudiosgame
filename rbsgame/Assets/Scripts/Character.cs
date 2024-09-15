@@ -59,7 +59,7 @@ public class Character : MonoBehaviour
             {
                 if (playerState.onGround)
                 {
-                    Debug.Log("grounded");
+                    //Debug.Log("grounded");
                     if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
                     {
                         if (playerState.activeDirectionalInput)
@@ -156,10 +156,6 @@ public class Character : MonoBehaviour
                     clipName = "OverheadBack";
                 }
             }
-        }
-        if (animType == Item.ItemType.AnimType.RegSwing)
-        {
-            clipName = "ShootFront";
         }
         RuntimeAnimatorController ac = animator.runtimeAnimatorController;
         for (int i = 0; i < ac.animationClips.Length; i++)
