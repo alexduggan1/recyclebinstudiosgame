@@ -9,7 +9,9 @@ public class MenuManager : MonoBehaviour
     public GameManager gameManager;
 
     public Canvas canv;
-    
+
+    public List<Character> playerChosenChars = new List<Character> { };
+
 
     void Start()
     {
@@ -20,6 +22,8 @@ public class MenuManager : MonoBehaviour
     void Update()
     {
         
+
+        gameManager.playerChosenChars = playerChosenChars;
     }
 
     public void GoButtonPressed()

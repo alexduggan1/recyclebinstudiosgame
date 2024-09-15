@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> stages = new List<GameObject> { };
 
+    public List<Character> playerChosenChars = new List<Character> { };
+
     // Start is called before the first frame update
     void Start()
     {
