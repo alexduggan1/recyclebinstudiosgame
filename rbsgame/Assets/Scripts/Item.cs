@@ -17,7 +17,8 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade,
-            PropellerHat, ToasterHat
+            PropellerHat, ToasterHat,
+            Fish
         };
 
         public enum AnimType
