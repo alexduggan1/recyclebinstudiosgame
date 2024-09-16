@@ -16,6 +16,10 @@ public class UIElm : MonoBehaviour
 
     public PanelType panelType;
 
+    public Character attachedCharacter;
+    public GameObject attachedStage;
+    public BattleController.ItemDropLoot attachedItemDropLoot;
+
     // Start is called before the first frame update
     void Start()
     {

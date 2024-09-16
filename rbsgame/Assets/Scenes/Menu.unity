@@ -700,8 +700,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  canv: {fileID: 0}
+  canv: {fileID: 265676932}
   playerChosenChars: []
+  elmStageProto: {fileID: 8573518578623766336, guid: fbcc228deaaa1a644a98ff50f9456ad2, type: 3}
+  elmItemWeightProto: {fileID: 0}
 --- !u!1 &1262028681
 GameObject:
   m_ObjectHideFlags: 0
