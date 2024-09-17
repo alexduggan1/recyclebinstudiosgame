@@ -16,7 +16,6 @@ public class Hitbox : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        Physics.IgnoreCollision(GetComponent<Collider>(), ownerException.GetComponent<Collider>(), true);
     }
 
     // Update is called once per frame

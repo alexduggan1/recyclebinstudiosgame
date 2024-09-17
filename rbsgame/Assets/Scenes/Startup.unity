@@ -419,6 +419,10 @@ MonoBehaviour:
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 580d7882d65e8434da04b7bb9f174e7a, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 04e675f978e609d4590daca7e8d23364, type: 3}
+    weight: 1
+  - loot: {fileID: 2956349212448185863, guid: 86ba891db26a92248b30b82bf0c7df9d, type: 3}
+    weight: 1
 --- !u!1 &1619329607
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
 
 
     public GameObject menuPlayerProto;
+    public List<Sprite> mpReps;
 
     public UIElm starterUIElm;
 
@@ -35,7 +36,9 @@ public class MenuManager : MonoBehaviour
 
     public void GenerateMenu()
     {
+        // generate list of stages
         int i = 0;
+        stageElms.Clear();
         foreach (GameObject stage in gameManager.stages)
         {
             UIElm newElm = Instantiate(elmStageProto, canv.transform).GetComponent<UIElm>();
@@ -51,16 +54,36 @@ public class MenuManager : MonoBehaviour
             if(j > 0) { stageElms[j].elmAbove = stageElms[j - 1]; }
             if(j < stageElms.Count - 1) { stageElms[j].elmBelow = stageElms[j + 1]; }
         }
+        
+        // generate list of item weights
+        i = 0;
+        itemWeightElms.Clear();
+        foreach (BattleController.ItemDropLoot idl in gameManager.chosenItemDropLoots)
+        {
+            UIElm newElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
+            newElm.attachedItemDropLoot = idl;
 
+            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 1) * 25), 0);
+
+            itemWeightElms.Add(newElm);
+            i++;
+        }
+        for (int j = 0; j < itemWeightElms.Count; j++)
+        {
+            if (j > 0) { itemWeightElms[j].elmAbove = itemWeightElms[j - 1]; }
+            if (j < itemWeightElms.Count - 1) { itemWeightElms[j].elmBelow = itemWeightElms[j + 1]; }
+        }
 
         // create menu players automatically for now I guess
 
         for (int j = 0; j < 2; j++)
         {
-            MenuPlayer newMP = Instantiate(menuPlayerProto).GetComponent<MenuPlayer>();
+            MenuPlayer newMP = Instantiate(menuPlayerProto, canv.transform).GetComponent<MenuPlayer>();
             newMP.menuManager = this;
             newMP.ID = j;
             newMP.currentUIElm = starterUIElm;
+
+            newMP.mpRep.sprite = mpReps[j];
 
             if(j == 0)
             {
@@ -84,6 +107,8 @@ public class MenuManager : MonoBehaviour
 
     public void GoButtonPressed()
     {
+        Debug.Log("go button pressed!");
+
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             bool valid = true;

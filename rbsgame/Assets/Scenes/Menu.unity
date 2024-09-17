@@ -290,7 +290,9 @@ RectTransform:
   - {fileID: 1311992521}
   - {fileID: 1544781494}
   - {fileID: 1163553603}
-  - {fileID: 1841289500}
+  - {fileID: 6510620948971452644}
+  - {fileID: 449212228}
+  - {fileID: 1158516033}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -453,6 +455,8 @@ MonoBehaviour:
   attachedItemDropLoot:
     loot: {fileID: 0}
     weight: 1
+  weightSlider: {fileID: 0}
+  visualItem: {fileID: 0}
 --- !u!1 &449212227
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,11 +488,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1841289500}
+  m_Father: {fileID: 265676933}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45, y: 45}
+  m_AnchoredPosition: {x: -165, y: 75}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &449212229
@@ -546,11 +550,13 @@ MonoBehaviour:
   elmLeft: {fileID: 0}
   elmRight: {fileID: 1158516036}
   panelType: 0
-  attachedCharacter: {fileID: 0}
+  attachedCharacter: {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
   attachedStage: {fileID: 0}
   attachedItemDropLoot:
     loot: {fileID: 0}
     weight: 1
+  weightSlider: {fileID: 0}
+  visualItem: {fileID: 0}
 --- !u!1 &1014785152
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,11 +680,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1841289500}
+  m_Father: {fileID: 265676933}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 45}
+  m_AnchoredPosition: {x: -120, y: 75}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158516034
@@ -736,11 +742,13 @@ MonoBehaviour:
   elmLeft: {fileID: 449212231}
   elmRight: {fileID: 0}
   panelType: 0
-  attachedCharacter: {fileID: 0}
+  attachedCharacter: {fileID: 5483133159943521038, guid: 033b2532432db2c4198047d657413ca0, type: 3}
   attachedStage: {fileID: 0}
   attachedItemDropLoot:
     loot: {fileID: 0}
     weight: 1
+  weightSlider: {fileID: 0}
+  visualItem: {fileID: 0}
 --- !u!1 &1163553602
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,8 +931,11 @@ MonoBehaviour:
   canv: {fileID: 265676932}
   playerChosenChars: []
   elmStageProto: {fileID: 8573518578623766336, guid: fbcc228deaaa1a644a98ff50f9456ad2, type: 3}
-  elmItemWeightProto: {fileID: 0}
+  elmItemWeightProto: {fileID: 8573518578623766336, guid: 31b56ed6b834eb347851c1a183ed22cd, type: 3}
   menuPlayerProto: {fileID: 4181916213393848441, guid: 22f44f4425382de4498cbb8d82eb1fa5, type: 3}
+  mpReps:
+  - {fileID: 21300000, guid: 3c30b3f682ff2db499e13fdb28617360, type: 3}
+  - {fileID: 21300000, guid: 3c30b3f682ff2db499e13fdb28617360, type: 3}
   starterUIElm: {fileID: 5443675199892403152}
   stageElms: []
   itemWeightElms: []
@@ -1366,44 +1377,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544781493}
   m_CullTransparentMesh: 1
---- !u!1 &1841289499
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1841289500}
-  m_Layer: 5
-  m_Name: CharacterSelect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1841289500
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841289499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6510620948971452644}
-  - {fileID: 449212228}
-  - {fileID: 1158516033}
-  m_Father: {fileID: 265676933}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: 30}
-  m_SizeDelta: {x: 130, y: 130}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1081108760170836404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,6 +1429,8 @@ MonoBehaviour:
   attachedItemDropLoot:
     loot: {fileID: 0}
     weight: 1
+  weightSlider: {fileID: 0}
+  visualItem: {fileID: 0}
 --- !u!224 &6510620948971452644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1468,11 +1443,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1841289500}
+  m_Father: {fileID: 265676933}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -120, y: 30}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8123058383003761827

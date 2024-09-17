@@ -42,6 +42,8 @@ public class MenuPlayer : MonoBehaviour
 
     public bool hasChar;
 
+    public Image mpRep;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -52,36 +54,63 @@ public class MenuPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(menuControls.leftButton)) {
-            if (currentUIElm.elmLeft != null) {
-                if(currentPanel != UIElm.PanelType.ItemWeight)
+        RectTransform elmRectOn = currentUIElm.gameObject.GetComponent<RectTransform>();
+        if (ID == 0)
+        {
+            Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
+            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[1];
+            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[1];
+        }
+        if (ID == 1)
+        {
+            Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
+            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+        }
+
+        if (! ((ID != 0) && hasChar))
+        {
+            if (Input.GetKeyDown(menuControls.leftButton))
+            {
+                if (currentUIElm.elmLeft != null)
                 {
-                    currentUIElm = currentUIElm.elmLeft;
-                }
-                else
-                {
-                    // change the item weight
+                    if (currentPanel != UIElm.PanelType.ItemWeight)
+                    {
+                        currentUIElm = currentUIElm.elmLeft;
+                    }
+                    else
+                    {
+                        // change the item weight
+                        currentUIElm.weightSlider.value -= 1;
+                    }
                 }
             }
-        }
-        if (Input.GetKeyDown(menuControls.rightButton)) {
-            if (currentUIElm.elmRight != null) {
-                if (currentPanel != UIElm.PanelType.ItemWeight)
+            if (Input.GetKeyDown(menuControls.rightButton))
+            {
+                if (currentUIElm.elmRight != null)
                 {
-                    currentUIElm = currentUIElm.elmRight;
-                }
-                else
-                {
-                    // change the item weight
+                    if (currentPanel != UIElm.PanelType.ItemWeight)
+                    {
+                        currentUIElm = currentUIElm.elmRight;
+                    }
+                    else
+                    {
+                        // change the item weight
+                        currentUIElm.weightSlider.value += 1;
+                    }
                 }
             }
+
+
+            if (Input.GetKeyDown(menuControls.upButton))
+            {
+                if (currentUIElm.elmAbove != null) { currentUIElm = currentUIElm.elmAbove; }
+            }
+            if (Input.GetKeyDown(menuControls.downButton))
+            {
+                if (currentUIElm.elmBelow != null) { currentUIElm = currentUIElm.elmBelow; }
+            }
         }
-        
-        
-        if (Input.GetKeyDown(menuControls.upButton)) {
-            if (currentUIElm.elmAbove != null) { currentUIElm = currentUIElm.elmAbove; }}
-        if (Input.GetKeyDown(menuControls.downButton)) {
-            if (currentUIElm.elmBelow != null) { currentUIElm = currentUIElm.elmBelow; }}
 
         if (Input.GetKeyDown(menuControls.confirmButton))
         {

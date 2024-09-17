@@ -23,7 +23,6 @@ public class Bananarang : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         IEnumerator bananaReturn = BananaReturn();
         StartCoroutine(bananaReturn);
-        Physics.IgnoreCollision(GetComponent<Collider>(), ownerException.GetComponent<Collider>(), true);
     }
 
 

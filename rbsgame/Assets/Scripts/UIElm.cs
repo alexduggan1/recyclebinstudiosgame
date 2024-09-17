@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIElm : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class UIElm : MonoBehaviour
     public Character attachedCharacter;
     public GameObject attachedStage;
     public BattleController.ItemDropLoot attachedItemDropLoot;
+
+    public Slider weightSlider;
+    public GameObject visualItem;
 
     // Start is called before the first frame update
     void Start()

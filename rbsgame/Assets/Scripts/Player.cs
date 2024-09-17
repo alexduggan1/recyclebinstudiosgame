@@ -407,7 +407,7 @@ public class Player : MonoBehaviour
         GetComponent<Collider>().isTrigger = true;
     }
 
-    /*
+    
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("Collision Enter !!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -488,7 +488,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    */
+    
 
     private void OnTriggerEnter(Collider other)
     {
