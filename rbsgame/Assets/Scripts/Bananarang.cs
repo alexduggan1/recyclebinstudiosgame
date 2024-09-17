@@ -13,6 +13,7 @@ public class Bananarang : MonoBehaviour
     public Vector3 dir;
 
     public Transform visual;
+    public Transform visualRotatePoint;
 
     public float startingBulletSpeed;
 
@@ -22,6 +23,7 @@ public class Bananarang : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         IEnumerator bananaReturn = BananaReturn();
         StartCoroutine(bananaReturn);
+        Physics.IgnoreCollision(GetComponent<Collider>(), ownerException.GetComponent<Collider>(), true);
     }
 
 
@@ -33,12 +35,12 @@ public class Bananarang : MonoBehaviour
         if (dir == Vector3.right)
         {
             visual.transform.localEulerAngles = new Vector3(0, 180, visual.transform.localEulerAngles.z);
-            visual.transform.localEulerAngles += new Vector3(0, 0, 720*Time.fixedDeltaTime);
+            visual.transform.RotateAround(visualRotatePoint.position, Vector3.forward, -1440 * Time.fixedDeltaTime);
         }
         else
         {
             visual.transform.localEulerAngles = new Vector3(0, 0, visual.transform.localEulerAngles.z);
-            visual.transform.localEulerAngles += new Vector3(0, 0, -720 * Time.fixedDeltaTime);
+            visual.transform.RotateAround(visualRotatePoint.position, Vector3.forward, 1440 * Time.fixedDeltaTime);
         }
     }
 

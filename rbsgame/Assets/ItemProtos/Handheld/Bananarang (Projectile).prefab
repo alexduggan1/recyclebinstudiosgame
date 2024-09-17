@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6493665799710059316}
   - component: {fileID: 5120733581543570483}
   - component: {fileID: 4660806620647345408}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bananarang (Projectile)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   visual: {fileID: 708443000195355542}
+  visualRotatePoint: {fileID: 5392080755127542096}
   startingBulletSpeed: 0
 --- !u!23 &-6493665799710059316
 MeshRenderer:
@@ -144,6 +145,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
+--- !u!1 &6609619720773156479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5392080755127542096}
+  m_Layer: 0
+  m_Name: center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5392080755127542096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609619720773156479}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0086, y: 0.0287, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 708443000195355542}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1035366509263516797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,23 +186,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 49.41461
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 65.584
+      value: 39.816563
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 57.573997
+      value: 34.95363
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.459
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.145
+      value: -0.845
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -214,7 +246,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5392080755127542096}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46140c826d819ee4fb6d1589c3dc1ab2, type: 3}
 --- !u!4 &708443000195355542 stripped

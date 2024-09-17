@@ -144,6 +144,7 @@ public class Item : MonoBehaviour
         bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<Bullet>().dir = dirToShoot;
         bullet.GetComponent<Bullet>().ownerException = myPlayer;
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
     }
 
     public void ShootBanana(GameObject objToShoot, float bulletSpeed)
@@ -167,6 +168,13 @@ public class Item : MonoBehaviour
             bullet.GetComponent<Bananarang>().visual.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
         bullet.GetComponent<Bananarang>().ownerException = myPlayer;
+
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void DeleteBanana()
+    {
+        Destroy(gameObject);
     }
 
     public void PropellerJump(GameObject propellerToSpin, float jumpPower)
@@ -289,6 +297,7 @@ public class Item : MonoBehaviour
         GameObject h = Instantiate(hitbox, transform.position + offset, Quaternion.identity);
         exception.myProjectiles.Add(h);
         h.GetComponent<Hitbox>().ownerException = exception;
+        Physics.IgnoreCollision(h.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
     }
