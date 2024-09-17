@@ -52,6 +52,10 @@ public class BattleController : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
+        playerChosenCharacters = gameManager.playerChosenChars;
+        stageProto = gameManager.chosenStage;
+        itemDropLootTable = gameManager.chosenItemDropLoots;
+
         BeginBattle();
     }
 
@@ -139,32 +143,35 @@ public class BattleController : MonoBehaviour
                 totalWeight += itemDrop.weight;
             }
 
-            float randomWeightedSelection = Random.Range(0.0f, (float)totalWeight);
-            Debug.Log(randomWeightedSelection);
-
-            float bypassedWeight = 0;
-            Item selectedItem = null;
-
-            foreach (ItemDropLoot itemDrop in itemDropLootTable)
+            if (totalWeight > 0)
             {
-                if(selectedItem == null)
+                float randomWeightedSelection = Random.Range(0.0f, (float)totalWeight);
+                Debug.Log(randomWeightedSelection);
+
+                float bypassedWeight = 0;
+                Item selectedItem = null;
+
+                foreach (ItemDropLoot itemDrop in itemDropLootTable)
                 {
-                    if (randomWeightedSelection >= bypassedWeight && randomWeightedSelection <= (bypassedWeight + itemDrop.weight))
+                    if (selectedItem == null)
                     {
-                        selectedItem = itemDrop.loot;
+                        if (randomWeightedSelection >= bypassedWeight && randomWeightedSelection <= (bypassedWeight + itemDrop.weight))
+                        {
+                            selectedItem = itemDrop.loot;
+                        }
+
+                        bypassedWeight += itemDrop.weight;
                     }
-
-                    bypassedWeight += itemDrop.weight;
                 }
+
+                Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
+
+                GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0), Quaternion.identity);
+                Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
+
+                itemPickup.GetComponent<ItemPickup>().item = madeItem;
+                madeItem.pickedUp = false;
             }
-
-            Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
-
-            GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0), Quaternion.identity);
-            Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
-
-            itemPickup.GetComponent<ItemPickup>().item = madeItem;
-            madeItem.pickedUp = false;
         }
     }
 

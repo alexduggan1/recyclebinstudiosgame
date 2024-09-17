@@ -409,14 +409,14 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision Enter !!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        Debug.Log(collision.gameObject.layer);
+        //Debug.Log("Collision Enter !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == 8)
         {
             if (playerState.alive)
             {
                 Item itemToTry = collision.transform.GetChild(0).GetComponent<Item>();
-                Debug.Log(itemToTry.itemType.name);
+                //Debug.Log(itemToTry.itemType.name);
 
                 bool pickupSuccessful = false;
                 if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
@@ -495,7 +495,7 @@ public class Player : MonoBehaviour
             if (playerState.alive)
             {
                 Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
-                Debug.Log(itemToTry.itemType.name);
+                //Debug.Log(itemToTry.itemType.name);
 
                 bool pickupSuccessful = false;
                 if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)

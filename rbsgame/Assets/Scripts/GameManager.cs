@@ -29,6 +29,12 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> stages = new List<GameObject> { };
 
+    public List<Character> playerChosenChars = new List<Character> { };
+
+    public GameObject chosenStage;
+
+    public List<BattleController.ItemDropLoot> chosenItemDropLoots = new List<BattleController.ItemDropLoot> { };
+
     // Start is called before the first frame update
     void Start()
     {

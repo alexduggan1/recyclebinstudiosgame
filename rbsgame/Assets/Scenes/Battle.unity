@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da669709534ea2a4e8cba09d738647c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   cam: {fileID: 1732105780}
   stages: []
   stage: {fileID: 0}
@@ -189,7 +190,9 @@ MonoBehaviour:
   - loot: {fileID: 2696348413483647919, guid: a4b197241823a264babae6c94c41bd36, type: 3}
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 580d7882d65e8434da04b7bb9f174e7a, type: 3}
-    weight: 10
+    weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 04e675f978e609d4590daca7e8d23364, type: 3}
+    weight: 3
   battleTimer: 0
   stageLayer:
     serializedVersion: 2
