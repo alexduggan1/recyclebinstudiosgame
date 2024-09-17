@@ -76,7 +76,7 @@ MonoBehaviour:
             _W: 0
             _Object: {fileID: 0}
       done: 0
-    done: 0
+    done: 1
   - actions:
     - timeStamp: 0.3666667
       function:

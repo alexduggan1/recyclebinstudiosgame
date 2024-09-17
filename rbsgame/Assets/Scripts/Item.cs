@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UltEvents;
+using TMPro.Examples;
+using static Player.State;
 
 public class Item : MonoBehaviour
 {
@@ -16,8 +18,8 @@ public class Item : MonoBehaviour
 
         public enum Names
         {
-            Handgun, BlusterBlade,
-            PropellerHat, ToasterHat
+            Handgun, BlusterBlade, 
+            PropellerHat, ToasterHat, Fish, Bananarang
         };
 
         public enum AnimType
@@ -142,6 +144,29 @@ public class Item : MonoBehaviour
         bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<Bullet>().dir = dirToShoot;
         bullet.GetComponent<Bullet>().ownerException = myPlayer;
+    }
+
+    public void ShootBanana(GameObject objToShoot, float bulletSpeed)
+    {
+        Debug.Log("BANAAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot = Vector3.right;
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
+        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
+        if (bulletSpeed == 0) { bulletSpeed = 1; }
+        Debug.Log(bulletSpeed);
+        bullet.GetComponent<Bananarang>().bulletSpeed = bulletSpeed;
+        bullet.GetComponent<Bananarang>().startingBulletSpeed = bulletSpeed;
+        bullet.GetComponent<Bananarang>().dir = dirToShoot;
+        if (dirToShoot == Vector3.right)
+        {
+            bullet.GetComponent<Bananarang>().visual.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            bullet.GetComponent<Bananarang>().visual.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        bullet.GetComponent<Bananarang>().ownerException = myPlayer;
     }
 
     public void PropellerJump(GameObject propellerToSpin, float jumpPower)
