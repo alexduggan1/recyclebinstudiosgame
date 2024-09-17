@@ -279,6 +279,11 @@ public class BattleController : MonoBehaviour
         {
             Destroy(hitbox.gameObject);
         }
+        foreach (Bananarang bananarang in FindObjectsByType<Bananarang>(FindObjectsSortMode.None))
+        {
+            Destroy(bananarang.gameObject);
+        }
+
 
 
         foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))

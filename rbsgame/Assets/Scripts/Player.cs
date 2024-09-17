@@ -407,6 +407,7 @@ public class Player : MonoBehaviour
         GetComponent<Collider>().isTrigger = true;
     }
 
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("Collision Enter !!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -487,6 +488,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+    */
 
     private void OnTriggerEnter(Collider other)
     {
@@ -546,6 +548,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 8)
@@ -603,6 +606,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+    */
 
     public GameObject FindCorrectItemProto(Item.ItemType.Names itemName)
     {
