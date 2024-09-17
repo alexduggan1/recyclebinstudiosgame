@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Player",
+            "name": "Controller",
             "id": "aeae308b-01af-413f-b0d6-942ecd859797",
             "actions": [
                 {
@@ -54,17 +54,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "6ea9384a-28db-4ab5-bdb5-3f4a5d39e80f",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c1538229-fc1f-486f-97d8-ad538d0f0791",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -106,9 +95,37 @@
                     "action": "RightHand",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac49011d-c55f-4850-bf47-f76307238d90",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Control Scheme",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Control Scheme",
+            "bindingGroup": "Control Scheme",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
