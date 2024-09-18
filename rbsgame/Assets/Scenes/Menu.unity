@@ -457,6 +457,8 @@ MonoBehaviour:
     weight: 1
   weightSlider: {fileID: 0}
   visualItem: {fileID: 0}
+  resetVisual: {fileID: 0}
+  stageQuestionMarkThumb: {fileID: 0}
 --- !u!1 &449212227
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +559,8 @@ MonoBehaviour:
     weight: 1
   weightSlider: {fileID: 0}
   visualItem: {fileID: 0}
+  resetVisual: {fileID: 0}
+  stageQuestionMarkThumb: {fileID: 0}
 --- !u!1 &1014785152
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +753,8 @@ MonoBehaviour:
     weight: 1
   weightSlider: {fileID: 0}
   visualItem: {fileID: 0}
+  resetVisual: {fileID: 0}
+  stageQuestionMarkThumb: {fileID: 0}
 --- !u!1 &1163553602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ee8d7836ce074744888f1e3ddd050ccc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1433,6 +1439,8 @@ MonoBehaviour:
     weight: 1
   weightSlider: {fileID: 0}
   visualItem: {fileID: 0}
+  resetVisual: {fileID: 0}
+  stageQuestionMarkThumb: {fileID: 0}
 --- !u!224 &6510620948971452644
 RectTransform:
   m_ObjectHideFlags: 0

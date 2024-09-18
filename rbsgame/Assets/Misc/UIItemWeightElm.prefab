@@ -705,8 +705,9 @@ MonoBehaviour:
     loot: {fileID: 0}
     weight: 1
   weightSlider: {fileID: 7876099781923715427}
-  visualItem: {fileID: 0}
+  visualItem: {fileID: 7888357873416111195}
   resetVisual: {fileID: 2826009827845440782}
+  stageQuestionMarkThumb: {fileID: 0}
 --- !u!222 &8176626395226060424
 CanvasRenderer:
   m_ObjectHideFlags: 0

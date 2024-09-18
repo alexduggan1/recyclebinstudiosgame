@@ -22,9 +22,11 @@ public class UIElm : MonoBehaviour
     public BattleController.ItemDropLoot attachedItemDropLoot;
 
     public Slider weightSlider;
-    public GameObject visualItem;
+    public Image visualItem;
 
     public GameObject resetVisual;
+
+    public Sprite stageQuestionMarkThumb;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,10 @@ public class UIElm : MonoBehaviour
                 if(attachedItemDropLoot.loot != null)
                 {
                     weightSlider.value = 1;
+                    if(attachedItemDropLoot.loot.thumbnail != null)
+                    {
+                        visualItem.sprite = attachedItemDropLoot.loot.thumbnail;
+                    }
                 }
                 else
                 {
@@ -45,6 +51,24 @@ public class UIElm : MonoBehaviour
             else
             {
                 resetVisual.SetActive(true);
+            }
+        }
+        else if(panelType == PanelType.Stage)
+        {
+            if(attachedStage != null)
+            {
+                Stage stageObj;
+                if (attachedStage.TryGetComponent<Stage>(out stageObj))
+                {
+                    if (stageObj.thumbnail != null)
+                    {
+                        visualItem.sprite = stageObj.thumbnail;
+                    }
+                }
+            }
+            else
+            {
+                visualItem.sprite = stageQuestionMarkThumb;
             }
         }
     }

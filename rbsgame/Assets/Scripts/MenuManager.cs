@@ -58,7 +58,7 @@ public class MenuManager : MonoBehaviour
         // generate list of item weights
         i = 0;
         itemWeightElms.Clear();
-        // TODO add a reset one here
+
         UIElm resetElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
         resetElm.attachedItemDropLoot = null;
         resetElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 1) * 22), 0);
@@ -106,8 +106,6 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         gameManager.playerChosenChars = playerChosenChars;
     }
 
@@ -153,7 +151,7 @@ public class MenuManager : MonoBehaviour
                 // resolving random stages
                 if (gameManager.chosenStage == null)
                 {
-                    gameManager.chosenStage = gameManager.stages[Random.Range((int)0, (int)gameManager.stages.Count)];
+                    gameManager.chosenStage = gameManager.stages[Random.Range((int)1, (int)gameManager.stages.Count)];
                 }
 
                 // resolving random characters

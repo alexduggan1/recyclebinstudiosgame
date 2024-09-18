@@ -78,6 +78,8 @@ public class Item : MonoBehaviour
 
     public float hatAnimTime;
 
+    public Sprite thumbnail;
+
     // Start is called before the first frame update
     void Awake()
     {
