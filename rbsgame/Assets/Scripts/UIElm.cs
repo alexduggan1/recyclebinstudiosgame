@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIElm : MonoBehaviour
 {
@@ -24,7 +25,12 @@ public class UIElm : MonoBehaviour
     public Slider weightSlider;
     public Image visualItem;
 
-    public GameObject resetVisual;
+    public GameObject otherVisual;
+    public enum IWButtonTypes
+    {
+        Confirm, Reset
+    }
+    public IWButtonTypes iWButtonType;
 
     public Sprite stageQuestionMarkThumb;
 
@@ -45,12 +51,28 @@ public class UIElm : MonoBehaviour
                 }
                 else
                 {
-                    resetVisual.SetActive(true);
+                    otherVisual.SetActive(true);
+                    if(iWButtonType == IWButtonTypes.Confirm)
+                    {
+                        otherVisual.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Confirm";
+                    }
+                    else
+                    {
+                        otherVisual.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Reset";
+                    }
                 }
             }
             else
             {
-                resetVisual.SetActive(true);
+                otherVisual.SetActive(true); 
+                if (iWButtonType == IWButtonTypes.Confirm)
+                {
+                    otherVisual.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Confirm";
+                }
+                else
+                {
+                    otherVisual.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Reset";
+                }
             }
         }
         else if(panelType == PanelType.Stage)

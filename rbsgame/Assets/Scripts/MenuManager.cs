@@ -27,6 +27,8 @@ public class MenuManager : MonoBehaviour
     public List<UIElm> itemWeightElms = new List<UIElm> { };
     public UIElm confirmElm;
 
+    public RectTransform stageCheckMark;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -59,9 +61,14 @@ public class MenuManager : MonoBehaviour
         i = 0;
         itemWeightElms.Clear();
 
+        UIElm confirmElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
+        confirmElm.attachedItemDropLoot = null; confirmElm.iWButtonType = UIElm.IWButtonTypes.Confirm;
+        confirmElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 1) * 22), 0);
+        itemWeightElms.Add(confirmElm);
+
         UIElm resetElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
-        resetElm.attachedItemDropLoot = null;
-        resetElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 1) * 22), 0);
+        resetElm.attachedItemDropLoot = null; resetElm.iWButtonType = UIElm.IWButtonTypes.Reset;
+        resetElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 2) * 22), 0);
         itemWeightElms.Add(resetElm);
 
         foreach (BattleController.ItemDropLoot idl in gameManager.chosenItemDropLoots)
@@ -69,7 +76,7 @@ public class MenuManager : MonoBehaviour
             UIElm newElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
             newElm.attachedItemDropLoot = idl;
 
-            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 2) * 22), 0);
+            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 3) * 22), 0);
 
             itemWeightElms.Add(newElm);
             i++;
@@ -79,6 +86,9 @@ public class MenuManager : MonoBehaviour
             if (j > 0) { itemWeightElms[j].elmAbove = itemWeightElms[j - 1]; }
             if (j < itemWeightElms.Count - 1) { itemWeightElms[j].elmBelow = itemWeightElms[j + 1]; }
         }
+
+
+
 
         // create menu players automatically for now I guess
 
@@ -101,6 +111,10 @@ public class MenuManager : MonoBehaviour
             }
             playerChosenChars.Add(null);
         }
+
+
+
+        stageCheckMark.transform.SetAsLastSibling();
     }
 
     // Update is called once per frame

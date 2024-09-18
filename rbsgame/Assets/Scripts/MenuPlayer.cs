@@ -127,6 +127,8 @@ public class MenuPlayer : MonoBehaviour
                 else if (currentPanel == UIElm.PanelType.Stage)
                 {
                     menuManager.gameManager.chosenStage = currentUIElm.attachedStage;
+                    menuManager.stageCheckMark.anchoredPosition = currentUIElm.GetComponent<RectTransform>().anchoredPosition;
+                    menuManager.stageCheckMark.gameObject.SetActive(true);
                     currentPanel = UIElm.PanelType.ItemWeight;
                     currentUIElm = menuManager.itemWeightElms[0];
                 }
@@ -139,7 +141,15 @@ public class MenuPlayer : MonoBehaviour
                     }
                     else
                     {
-                        menuManager.ResetItemWeights();
+                        if(currentUIElm.iWButtonType == UIElm.IWButtonTypes.Confirm)
+                        {
+                            currentPanel = UIElm.PanelType.Confirm;
+                            currentUIElm = menuManager.confirmElm;
+                        }
+                        else
+                        {
+                            menuManager.ResetItemWeights();
+                        }
                     }
                 }
                 else if (currentPanel == UIElm.PanelType.Confirm)
@@ -167,11 +177,13 @@ public class MenuPlayer : MonoBehaviour
                 {
                     currentPanel = UIElm.PanelType.Character;
                     menuManager.gameManager.chosenStage = null;
+                    menuManager.stageCheckMark.gameObject.SetActive(false);
                     currentUIElm = menuManager.starterUIElm;
                 }
                 else if (currentPanel == UIElm.PanelType.ItemWeight)
                 {
                     currentPanel = UIElm.PanelType.Stage;
+                    menuManager.stageCheckMark.gameObject.SetActive(false);
                     currentUIElm = menuManager.stageElms[0];
                 }
                 else if (currentPanel == UIElm.PanelType.Confirm)
