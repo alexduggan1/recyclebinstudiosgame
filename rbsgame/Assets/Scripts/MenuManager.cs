@@ -58,12 +58,18 @@ public class MenuManager : MonoBehaviour
         // generate list of item weights
         i = 0;
         itemWeightElms.Clear();
+        // TODO add a reset one here
+        UIElm resetElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
+        resetElm.attachedItemDropLoot = null;
+        resetElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 1) * 22), 0);
+        itemWeightElms.Add(resetElm);
+
         foreach (BattleController.ItemDropLoot idl in gameManager.chosenItemDropLoots)
         {
             UIElm newElm = Instantiate(elmItemWeightProto, canv.transform).GetComponent<UIElm>();
             newElm.attachedItemDropLoot = idl;
 
-            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 1) * 25), 0);
+            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((i + 2) * 22), 0);
 
             itemWeightElms.Add(newElm);
             i++;
@@ -105,6 +111,26 @@ public class MenuManager : MonoBehaviour
         gameManager.playerChosenChars = playerChosenChars;
     }
 
+    public void ResetItemWeights()
+    {
+        gameManager.chosenItemDropLoots.Clear();
+        foreach (BattleController.ItemDropLoot idl in gameManager.defaultItemDropLoots)
+        {
+            BattleController.ItemDropLoot nidl = new BattleController.ItemDropLoot();
+            nidl.loot = idl.loot;
+            nidl.weight = idl.weight;
+            gameManager.chosenItemDropLoots.Add(nidl);
+        }
+
+        foreach (UIElm iwe in itemWeightElms)
+        {
+            if(iwe.attachedItemDropLoot != null)
+            {
+                iwe.weightSlider.value = 1;
+            }
+        }
+    }
+
     public void GoButtonPressed()
     {
         Debug.Log("go button pressed!");
@@ -138,6 +164,22 @@ public class MenuManager : MonoBehaviour
                         gameManager.playerChosenChars[i] = gameManager.characters[Random.Range((int)0, (int)gameManager.characters.Count)];
                     }
                 }
+
+                // item drop loots
+                foreach (BattleController.ItemDropLoot idl in gameManager.chosenItemDropLoots)
+                {
+                    foreach (UIElm iwe in itemWeightElms)
+                    {
+                        if(iwe.attachedItemDropLoot != null)
+                        {
+                            if(iwe.attachedItemDropLoot.loot == idl.loot)
+                            {
+                                idl.weight = iwe.attachedItemDropLoot.weight;
+                            }
+                        }
+                    }
+                }
+
 
                 SceneManager.LoadScene("Battle");
             }

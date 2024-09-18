@@ -24,15 +24,43 @@ public class UIElm : MonoBehaviour
     public Slider weightSlider;
     public GameObject visualItem;
 
+    public GameObject resetVisual;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(panelType == PanelType.ItemWeight)
+        {
+            if(attachedItemDropLoot != null)
+            {
+                if(attachedItemDropLoot.loot != null)
+                {
+                    weightSlider.value = 1;
+                }
+                else
+                {
+                    resetVisual.SetActive(true);
+                }
+            }
+            else
+            {
+                resetVisual.SetActive(true);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (panelType == PanelType.ItemWeight)
+        {
+            if (attachedItemDropLoot != null)
+            {
+                if (attachedItemDropLoot.loot != null)
+                {
+                    attachedItemDropLoot.weight = weightSlider.value;
+                }
+            }
+        }
     }
 }

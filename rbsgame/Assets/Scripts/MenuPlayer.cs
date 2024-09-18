@@ -72,32 +72,32 @@ public class MenuPlayer : MonoBehaviour
         {
             if (Input.GetKeyDown(menuControls.leftButton))
             {
-                if (currentUIElm.elmLeft != null)
+                if (currentPanel != UIElm.PanelType.ItemWeight)
                 {
-                    if (currentPanel != UIElm.PanelType.ItemWeight)
+                    if (currentUIElm.elmLeft != null)
                     {
                         currentUIElm = currentUIElm.elmLeft;
                     }
-                    else
-                    {
-                        // change the item weight
-                        currentUIElm.weightSlider.value -= 1;
-                    }
+                }
+                else
+                {
+                    // change the item weight
+                    currentUIElm.weightSlider.value -= 1;
                 }
             }
             if (Input.GetKeyDown(menuControls.rightButton))
             {
-                if (currentUIElm.elmRight != null)
+                if (currentPanel != UIElm.PanelType.ItemWeight)
                 {
-                    if (currentPanel != UIElm.PanelType.ItemWeight)
+                    if (currentUIElm.elmRight != null)
                     {
                         currentUIElm = currentUIElm.elmRight;
                     }
-                    else
-                    {
-                        // change the item weight
-                        currentUIElm.weightSlider.value += 1;
-                    }
+                }
+                else
+                {
+                    // change the item weight
+                    currentUIElm.weightSlider.value += 1;
                 }
             }
 
@@ -132,8 +132,15 @@ public class MenuPlayer : MonoBehaviour
                 }
                 else if (currentPanel == UIElm.PanelType.ItemWeight)
                 {
-                    currentPanel = UIElm.PanelType.Confirm;
-                    currentUIElm = menuManager.confirmElm;
+                    if(currentUIElm.attachedItemDropLoot != null)
+                    {
+                        currentPanel = UIElm.PanelType.Confirm;
+                        currentUIElm = menuManager.confirmElm;
+                    }
+                    else
+                    {
+                        menuManager.ResetItemWeights();
+                    }
                 }
                 else if (currentPanel == UIElm.PanelType.Confirm)
                 {
@@ -151,7 +158,27 @@ public class MenuPlayer : MonoBehaviour
             // back button stuff
             if (ID == 0)
             {
-
+                if (currentPanel == UIElm.PanelType.Character)
+                {
+                    menuManager.playerChosenChars[ID] = null;
+                    hasChar = false;
+                }
+                else if (currentPanel == UIElm.PanelType.Stage)
+                {
+                    currentPanel = UIElm.PanelType.Character;
+                    menuManager.gameManager.chosenStage = null;
+                    currentUIElm = menuManager.starterUIElm;
+                }
+                else if (currentPanel == UIElm.PanelType.ItemWeight)
+                {
+                    currentPanel = UIElm.PanelType.Stage;
+                    currentUIElm = menuManager.stageElms[0];
+                }
+                else if (currentPanel == UIElm.PanelType.Confirm)
+                {
+                    currentPanel = UIElm.PanelType.ItemWeight;
+                    currentUIElm = menuManager.itemWeightElms[0];
+                }
             }
             else
             {
