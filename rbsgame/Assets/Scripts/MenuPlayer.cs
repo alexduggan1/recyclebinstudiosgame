@@ -67,6 +67,18 @@ public class MenuPlayer : MonoBehaviour
             GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
             //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
         }
+        if (ID == 2)
+        {
+            Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
+            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[0];
+            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+        }
+        if (ID == 3)
+        {
+            Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
+            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[3];
+            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+        }
 
         if (! ((ID != 0) && hasChar))
         {

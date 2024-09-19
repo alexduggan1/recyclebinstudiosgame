@@ -92,7 +92,7 @@ public class MenuManager : MonoBehaviour
 
         // create menu players automatically for now I guess
 
-        for (int j = 0; j < 2; j++)
+        for (int j = 0; j < 4; j++)
         {
             MenuPlayer newMP = Instantiate(menuPlayerProto, canv.transform).GetComponent<MenuPlayer>();
             newMP.menuManager = this;
@@ -107,7 +107,15 @@ public class MenuManager : MonoBehaviour
             }
             if (j == 1)
             {
-                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.Keypad1, KeyCode.Keypad3);
+                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.F, KeyCode.H, KeyCode.T, KeyCode.G, KeyCode.V, KeyCode.B);
+            }
+            if (j == 2)
+            {
+                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.J, KeyCode.L, KeyCode.I, KeyCode.K, KeyCode.M, KeyCode.Comma);
+            }
+            if (j == 3)
+            {
+                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.E, KeyCode.R);
             }
             playerChosenChars.Add(null);
         }

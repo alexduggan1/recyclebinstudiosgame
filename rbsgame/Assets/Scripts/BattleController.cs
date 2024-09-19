@@ -10,6 +10,11 @@ public class BattleController : MonoBehaviour
     public Camera cam;
     public List<Transform> objsToTrackCam = new List<Transform> { };
     public Vector3 camOffset;
+    private Vector3 camVelocity;
+    public float camMinZoom = 80f; 
+    public float camMaxZoom = 40f;
+    public float camZoomLimiter = 50f;
+
     public bool cameraMove;
 
     public List<GameObject> stages;
@@ -91,16 +96,7 @@ public class BattleController : MonoBehaviour
             }
         }
 
-        objsToTrackCam.Clear();
-        objsToTrackCam.Add(stage.transform);
-        if (players.Count > 0)
-        {
-            foreach (Player player in players)
-            {
-                if (player.playerState.alive) { objsToTrackCam.Add(player.transform); }
-            }
-        }
-
+        
 
         if(players.Count > 0)
         {
@@ -126,12 +122,36 @@ public class BattleController : MonoBehaviour
 
             Vector3 newPosition = centerPoint + camOffset;
 
-            cam.transform.position = newPosition;
+            cam.transform.position = Vector3.SmoothDamp(cam.transform.position, newPosition, ref camVelocity, 0.5f);
+
+            float newZoom = Mathf.Lerp(camMaxZoom, camMinZoom, GetGreatestDistance() / camZoomLimiter);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
         }
+    }
+
+    float GetGreatestDistance()
+    {
+        var bounds = new Bounds(objsToTrackCam[0].position, Vector3.zero);
+        for (int i = 0; i < objsToTrackCam.Count; i++)
+        {
+            bounds.Encapsulate(objsToTrackCam[i].position);
+        }
+
+        return bounds.size.x;
     }
 
     Vector3 GetCenterPoint()
     {
+        objsToTrackCam.Clear();
+        objsToTrackCam.Add(stage.transform);
+        if (players.Count > 0)
+        {
+            foreach (Player player in players)
+            {
+                if (player.playerState.alive && player.transform.position.y > -5) { objsToTrackCam.Add(player.transform); }
+            }
+        }
+
         if (objsToTrackCam.Count == 1)
         {
             return objsToTrackCam[0].position;
