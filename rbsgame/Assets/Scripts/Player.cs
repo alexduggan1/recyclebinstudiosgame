@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     {
         public float hMoveAxis;
         public bool jumpPressed;
+        public bool dropPressed;
 
         public bool useLHand;
         public bool useRHand;
@@ -85,14 +86,16 @@ public class Player : MonoBehaviour
         public KeyCode useLHandButton;
         public KeyCode useHatButton;
         public KeyCode useRHandButton;
+        public KeyCode dropButton;
 
-        public Controls(string _hMoveAxisName, KeyCode _jumpButton, KeyCode _useLHandButton, KeyCode _useHatButton, KeyCode _useRHandButton)
+        public Controls(string _hMoveAxisName, KeyCode _jumpButton, KeyCode _useLHandButton, KeyCode _useHatButton, KeyCode _useRHandButton, KeyCode _dropButton)
         {
             hMoveAxisName = _hMoveAxisName;
             jumpButton = _jumpButton;
             useLHandButton = _useLHandButton;
             useHatButton = _useHatButton;
             useRHandButton = _useRHandButton;
+            dropButton = _dropButton;
         }
     }
 
@@ -130,6 +133,7 @@ public class Player : MonoBehaviour
             playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
             playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
             playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
+            playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
 
             playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
             playerState.yVel = rb.velocity.y;
