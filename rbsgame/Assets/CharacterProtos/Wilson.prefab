@@ -251,7 +251,7 @@ MonoBehaviour:
   characterProto: {fileID: 3897285844626070317}
   flat: 1
   animator: {fileID: 0}
-  sr: {fileID: 0}
+  sr: {fileID: 4026903989324074969}
   playerState:
     alive: 0
     facingDir: 0
