@@ -8,7 +8,9 @@ public class BattleController : MonoBehaviour
 
 
     public Camera cam;
-    // TODO CAMERA FOLLOWING PLAYRES THING
+    public List<Transform> objsToTrackCam = new List<Transform> { };
+    public Vector3 camOffset;
+    public bool cameraMove;
 
     public List<GameObject> stages;
     public GameObject stage;
@@ -89,6 +91,17 @@ public class BattleController : MonoBehaviour
             }
         }
 
+        objsToTrackCam.Clear();
+        objsToTrackCam.Add(stage.transform);
+        if (players.Count > 0)
+        {
+            foreach (Player player in players)
+            {
+                if (player.playerState.alive) { objsToTrackCam.Add(player.transform); }
+            }
+        }
+
+
         if(players.Count > 0)
         {
             int alivePlayers = 0;
@@ -103,6 +116,34 @@ public class BattleController : MonoBehaviour
                 StartRound();
             }
         }
+    }
+
+    void LateUpdate()
+    {
+        if (cameraMove)
+        {
+            Vector3 centerPoint = GetCenterPoint();
+
+            Vector3 newPosition = centerPoint + camOffset;
+
+            cam.transform.position = newPosition;
+        }
+    }
+
+    Vector3 GetCenterPoint()
+    {
+        if (objsToTrackCam.Count == 1)
+        {
+            return objsToTrackCam[0].position;
+        }
+
+        var bounds = new Bounds(objsToTrackCam[0].position, Vector3.zero);
+        for (int i = 0; i < objsToTrackCam.Count; i++)
+        {
+            bounds.Encapsulate(objsToTrackCam[i].position);
+        }
+
+        return bounds.center;
     }
 
     void SpawnItem()
