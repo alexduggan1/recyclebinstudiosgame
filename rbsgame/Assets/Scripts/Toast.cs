@@ -28,8 +28,34 @@ public class Toast : MonoBehaviour
     {
         if (collision.gameObject.layer == 10 || collision.gameObject.layer == 7)
         {
-            Debug.Log("TOAST BECOME DIE");
-            Destroy(gameObject);
+            bool UpThruPlat = false;
+            SemisolidPlat hope;
+            if(collision.gameObject.TryGetComponent<SemisolidPlat>(out hope))
+            {
+                if(rb.velocity.y > 0.03f) { UpThruPlat = true; }
+            }
+
+            if(!UpThruPlat)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.layer == 10 || collision.gameObject.layer == 7)
+        {
+            bool UpThruPlat = false;
+            SemisolidPlat hope;
+            if (collision.gameObject.TryGetComponent<SemisolidPlat>(out hope))
+            {
+                if (rb.velocity.y > 0.03f) { UpThruPlat = true; }
+            }
+
+            if (!UpThruPlat)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

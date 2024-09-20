@@ -29,4 +29,6 @@ public class Stage : MonoBehaviour
     public GameObject collision;
 
     public Transform ceiling;
+
+    public Sprite thumbnail;
 }

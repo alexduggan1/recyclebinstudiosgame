@@ -166,7 +166,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da669709534ea2a4e8cba09d738647c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   cam: {fileID: 1732105780}
+  objsToTrackCam: []
+  camOffset: {x: 0, y: 1, z: -15}
+  camMinZoom: 80
+  camMaxZoom: 30
+  camZoomLimiter: 50
+  cameraMove: 1
   stages: []
   stage: {fileID: 0}
   stageProto: {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
@@ -174,7 +181,7 @@ MonoBehaviour:
   players: []
   playerProto: {fileID: 7516248282364218314, guid: 95b29dc1d71d37a4899f295b103a572c, type: 3}
   playerChosenCharacters:
-  - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
+  - {fileID: 5483133159943521038, guid: 033b2532432db2c4198047d657413ca0, type: 3}
   - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
   - {fileID: 5483133159943521038, guid: dd2a19c2ebf4b15459b3ada15aaad487, type: 3}
   itemSpawnGap: 0
@@ -189,7 +196,9 @@ MonoBehaviour:
   - loot: {fileID: 2696348413483647919, guid: a4b197241823a264babae6c94c41bd36, type: 3}
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 580d7882d65e8434da04b7bb9f174e7a, type: 3}
-    weight: 10
+    weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 04e675f978e609d4590daca7e8d23364, type: 3}
+    weight: 3
   battleTimer: 0
   stageLayer:
     serializedVersion: 2

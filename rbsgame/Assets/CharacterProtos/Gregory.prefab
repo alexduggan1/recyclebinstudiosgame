@@ -251,7 +251,6 @@ MonoBehaviour:
   characterProto: {fileID: 3897285844626070317}
   flat: 1
   animator: {fileID: 0}
-  sr: {fileID: 3760325493518423147}
   playerState:
     alive: 0
     facingDir: 0
@@ -265,3 +264,4 @@ MonoBehaviour:
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
+  render: {fileID: 21300000, guid: f2d717dfb6c3b624aa769e65908ffb5a, type: 3}

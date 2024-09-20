@@ -49,7 +49,7 @@ MonoBehaviour:
   itemType:
     attachType: 0
     name: 1
-    animType: 2
+    animType: 1
   itemUses:
   - actions:
     - timeStamp: 0.4833333
