@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968182111174102408}
   - component: {fileID: 7864565711015656373}
+  - component: {fileID: 6896199610425438684}
   m_Layer: 0
   m_Name: MenuPlayer
   m_TagString: Untagged
@@ -226,6 +227,36 @@ MonoBehaviour:
   mpStatusBar: {fileID: 9011824237948578113}
   mpStatusCircle: {fileID: 5477027090681730447}
   mpStatusChar: {fileID: 2608059522995272332}
+--- !u!114 &6896199610425438684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4181916213393848441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3c06b5c84ce6cb64d9b8fc0b4a9a095c, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 4403b557-3a14-480c-a6a7-4a11ff060794
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7017331196505603554
 GameObject:
   m_ObjectHideFlags: 0
