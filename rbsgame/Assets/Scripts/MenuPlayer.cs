@@ -44,6 +44,9 @@ public class MenuPlayer : MonoBehaviour
 
     public Image mpRep;
 
+    public Image mpStatusBar;
+    public Image mpStatusCircle;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,26 +61,34 @@ public class MenuPlayer : MonoBehaviour
         if (ID == 0)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[1];
-            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[1];
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -60);
+            mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[1] - GetComponent<RectTransform>().anchoredPosition3D;
+            mpStatusBar.color = Color.red;
+            mpStatusCircle.color = Color.red;
         }
         if (ID == 1)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
-            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-80, -60);
+            mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2] - GetComponent<RectTransform>().anchoredPosition3D;
+            mpStatusBar.color = Color.blue;
+            mpStatusCircle.color = Color.blue;
         }
         if (ID == 2)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[0];
-            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -100);
+            mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[0] - GetComponent<RectTransform>().anchoredPosition3D;
+            mpStatusBar.color = Color.green;
+            mpStatusCircle.color = Color.green;
         }
         if (ID == 3)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = elmRectOn.anchoredPosition3D + v[3];
-            //mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2];
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-80, -100);
+            mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[3] - GetComponent<RectTransform>().anchoredPosition3D;
+            mpStatusBar.color = Color.yellow;
+            mpStatusCircle.color = Color.yellow;
         }
 
         if (! ((ID != 0) && hasChar))
