@@ -955,6 +955,7 @@ MonoBehaviour:
   itemWeightElms: []
   confirmElm: {fileID: 444992420}
   stageCheckMark: {fileID: 2038303353}
+  randomCharacterIcon: {fileID: 21300000, guid: ee8d7836ce074744888f1e3ddd050ccc, type: 3}
 --- !u!1 &1262028681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,14 +1006,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6981132, g: 0.541367, b: 0.6607847, a: 1}
+  m_Color: {r: 0.6221502, g: 0.645283, b: 0.6406564, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a964b4d8715985d4ea2eeb9dad0d0f49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 232ed39424f51a54c9bbc5ec9357b092, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

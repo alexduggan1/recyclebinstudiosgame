@@ -46,6 +46,7 @@ public class MenuPlayer : MonoBehaviour
 
     public Image mpStatusBar;
     public Image mpStatusCircle;
+    public Image mpStatusChar;
 
     // Start is called before the first frame update
     void Awake()
@@ -61,7 +62,7 @@ public class MenuPlayer : MonoBehaviour
         if (ID == 0)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -60);
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-180, -65);
             mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[1] - GetComponent<RectTransform>().anchoredPosition3D;
             mpStatusBar.color = Color.red;
             mpStatusCircle.color = Color.red;
@@ -69,7 +70,7 @@ public class MenuPlayer : MonoBehaviour
         if (ID == 1)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = new Vector2(-80, -60);
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-100, -65);
             mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[2] - GetComponent<RectTransform>().anchoredPosition3D;
             mpStatusBar.color = Color.blue;
             mpStatusCircle.color = Color.blue;
@@ -77,7 +78,7 @@ public class MenuPlayer : MonoBehaviour
         if (ID == 2)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -100);
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-180, -100);
             mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[0] - GetComponent<RectTransform>().anchoredPosition3D;
             mpStatusBar.color = Color.green;
             mpStatusCircle.color = Color.green;
@@ -85,10 +86,30 @@ public class MenuPlayer : MonoBehaviour
         if (ID == 3)
         {
             Vector3[] v = new Vector3[4]; elmRectOn.GetLocalCorners(v);
-            GetComponent<RectTransform>().anchoredPosition = new Vector2(-80, -100);
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-100, -100);
             mpRep.rectTransform.anchoredPosition = elmRectOn.anchoredPosition3D + v[3] - GetComponent<RectTransform>().anchoredPosition3D;
             mpStatusBar.color = Color.yellow;
             mpStatusCircle.color = Color.yellow;
+        }
+
+        if (hasChar)
+        {
+            chosenChar = menuManager.playerChosenChars[ID];
+            if (chosenChar != null)
+            {
+                mpStatusChar.sprite = chosenChar.render;
+            }
+            else
+            {
+                mpStatusChar.sprite = menuManager.randomCharacterIcon;
+            }
+            mpStatusChar.preserveAspect = true;
+            mpStatusChar.enabled = true;
+        }
+        else
+        {
+            mpStatusChar.sprite = null;
+            mpStatusChar.enabled = false;
         }
 
         if (! ((ID != 0) && hasChar))

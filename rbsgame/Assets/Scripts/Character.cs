@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
     public Transform anchorRH;
     public Transform anchorH;
 
+    public Sprite render;
     void Awake()
     {
         if (flat) 

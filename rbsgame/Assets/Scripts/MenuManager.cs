@@ -29,6 +29,8 @@ public class MenuManager : MonoBehaviour
 
     public RectTransform stageCheckMark;
 
+    public Sprite randomCharacterIcon;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
