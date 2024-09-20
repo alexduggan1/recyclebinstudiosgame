@@ -77,6 +77,7 @@ public class Item : MonoBehaviour
     public Player myPlayer;
 
     public float hatAnimTime;
+    public float handheldAnimSpeed = 1;
 
     public Sprite thumbnail;
 
@@ -95,22 +96,33 @@ public class Item : MonoBehaviour
             actionTime += Time.deltaTime;
             if(itemUses.Count > 0)
             {
-                foreach (ItemAction action in itemUses[currentUse].actions)
+                if(itemUses.Count > currentUse)
                 {
-                    if ((actionTime > action.timeStamp) && (!action.done))
+                    foreach (ItemAction action in itemUses[currentUse].actions)
                     {
-                        if(action.function != null)
+                        if ((actionTime > action.timeStamp) && (!action.done))
                         {
-                            action.function.Invoke();
-                        }
-                        action.done = true;
+                            if (action.function != null)
+                            {
+                                action.function.Invoke();
+                            }
+                            action.done = true;
 
-                        if (action == itemUses[currentUse].actions[^1])
-                        {
-                            // if it's the last one turn off currentlybeingused
-                            currentlyBeingUsed = false;
-                            itemUses[currentUse].done = true;
+                            if (action == itemUses[currentUse].actions[^1])
+                            {
+                                // if it's the last one turn off currentlybeingused
+                                currentlyBeingUsed = false;
+                                itemUses[currentUse].done = true;
+                            }
                         }
+                    }
+                }
+                else
+                {
+                    currentlyBeingUsed = false;
+                    foreach (ItemUse itemUse in itemUses)
+                    {
+                        if (!itemUse.done) { itemUse.done = true; }
                     }
                 }
             }

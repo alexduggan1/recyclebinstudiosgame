@@ -58,6 +58,7 @@ public class Character : MonoBehaviour
         {
             if (!playerState.activelyUsingItem)
             {
+                animator.speed = 1;
                 if (playerState.onGround)
                 {
                     //Debug.Log("grounded");
@@ -104,9 +105,11 @@ public class Character : MonoBehaviour
         animator.Play("Jump");
     }
 
-    public float ItemAnimation(Item.ItemType.AnimType animType, Player.State.Dir facingDir, string attachment)
+    public float ItemAnimation(Item theItem, Player.State.Dir facingDir, string attachment)
     {
         float result = 0;
+
+        Item.ItemType.AnimType animType = theItem.itemType.animType;
 
         string clipName = "";
         if(animType == Item.ItemType.AnimType.Shoot)
@@ -158,19 +161,23 @@ public class Character : MonoBehaviour
                 }
             }
         }
+
+        Debug.Log(animator.speed);
+        Debug.Log("should be:   " + theItem.handheldAnimSpeed.ToString());
+        animator.speed = theItem.handheldAnimSpeed;
+
         RuntimeAnimatorController ac = animator.runtimeAnimatorController;
         for (int i = 0; i < ac.animationClips.Length; i++)
         {
             if (ac.animationClips[i].name == clipName)
             {
-
-                result = ac.animationClips[i].length;
+                result = ac.animationClips[i].length / theItem.handheldAnimSpeed;
             }
         }
 
 
         animator.Play(clipName);
-        Debug.Log("animation length: " + result);
+        //Debug.Log("animation length: " + result);
         return (result);
     }
 }

@@ -18,6 +18,11 @@ public class ItemPickup : MonoBehaviour
 
         rb.useGravity = true;
         hitGround = false;
+
+        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(col, player.GetComponent<Collider>(), true);
+        }
     }
 
     // Update is called once per frame

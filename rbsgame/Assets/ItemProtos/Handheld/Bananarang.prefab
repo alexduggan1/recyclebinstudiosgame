@@ -83,7 +83,7 @@ MonoBehaviour:
     animType: 1
   itemUses:
   - actions:
-    - timeStamp: 0.4666667
+    - timeStamp: 0.2592593
       function:
         _PersistentCalls:
         - _Target: {fileID: 2956349212448185863}
@@ -107,7 +107,7 @@ MonoBehaviour:
             _W: 0
             _Object: {fileID: 0}
       done: 0
-    - timeStamp: 0.4666667
+    - timeStamp: 0.2592593
       function:
         _PersistentCalls:
         - _Target: {fileID: 2956349212448185863}
@@ -122,6 +122,8 @@ MonoBehaviour:
   anchorOffset: {fileID: 2942452023898893252}
   myPlayer: {fileID: 0}
   hatAnimTime: 0
+  handheldAnimSpeed: 1.8
+  thumbnail: {fileID: 0}
 --- !u!1001 &1035366509263516797
 PrefabInstance:
   m_ObjectHideFlags: 0
