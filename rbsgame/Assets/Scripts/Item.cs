@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang
+            PropellerHat, ToasterHat, Fish, Bananarang, SpikeHat
         };
 
         public enum AnimType
@@ -282,6 +282,23 @@ public class Item : MonoBehaviour
         newToast.transform.Rotate(new Vector3(0, -45, 0));
         newToast.GetComponent<Toast>().rb.velocity = new Vector3(0, 14);
         newToast.GetComponent<Toast>().ownerException = myPlayer;
+    }
+
+    public void FireSpikes(GameObject spikeToFire, GameObject spikeToFire2)
+    {
+        Debug.Log("FIRE SPIEKS?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot2 = Vector3.up;
+        GameObject newSpike1 = Instantiate(spikeToFire, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(newSpike1);
+        newSpike1.transform.Rotate(new Vector3(45, 0, 0));
+        newSpike1.GetComponent<Spike>().rb.velocity = new Vector3(10, 10);
+        newSpike1.GetComponent<Spike>().ownerException = myPlayer;
+        Vector3 dirToShoot3 = Vector3.up;
+        GameObject newSpike2 = Instantiate(spikeToFire2, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(newSpike2);
+        newSpike2.transform.Rotate(new Vector3(-45, 0, 0));
+        newSpike2.GetComponent<Spike>().rb.velocity = new Vector3(-10, 10);
+        newSpike2.GetComponent<Spike>().ownerException = myPlayer;
     }
 
     public void SwingSword(GameObject hitbox, float hitboxTime, Vector3 offsetPos)
