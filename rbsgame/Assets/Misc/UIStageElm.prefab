@@ -60,6 +60,10 @@ MonoBehaviour:
   attachedItemDropLoot:
     loot: {fileID: 0}
     weight: 1
+  weightSlider: {fileID: 0}
+  visualItem: {fileID: 1063709730552232863}
+  resetVisual: {fileID: 0}
+  stageQuestionMarkThumb: {fileID: 21300000, guid: 36d2f9d8f1b039d4f9721ae47793366c, type: 3}
 --- !u!222 &8176626395226060424
 CanvasRenderer:
   m_ObjectHideFlags: 0

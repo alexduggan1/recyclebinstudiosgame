@@ -34,11 +34,19 @@ public class GameManager : MonoBehaviour
     public GameObject chosenStage;
 
     public List<BattleController.ItemDropLoot> chosenItemDropLoots = new List<BattleController.ItemDropLoot> { };
+    public List<BattleController.ItemDropLoot> defaultItemDropLoots = new List<BattleController.ItemDropLoot> { };
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        defaultItemDropLoots.Clear();
+        foreach (BattleController.ItemDropLoot idl in chosenItemDropLoots)
+        {
+            BattleController.ItemDropLoot nidl = new BattleController.ItemDropLoot();
+            nidl.loot = idl.loot;
+            nidl.weight = idl.weight;
+            defaultItemDropLoots.Add(nidl);
+        }
     }
 
     // Update is called once per frame

@@ -405,7 +405,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characters:
   - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
+  - {fileID: 5483133159943521038, guid: 033b2532432db2c4198047d657413ca0, type: 3}
   stages:
+  - {fileID: 0}
   - {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
   - {fileID: 4690313186787259386, guid: ba80b63acb2e57c478bad9a974dc06ce, type: 3}
   playerChosenChars: []
@@ -419,6 +421,11 @@ MonoBehaviour:
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 580d7882d65e8434da04b7bb9f174e7a, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 04e675f978e609d4590daca7e8d23364, type: 3}
+    weight: 1
+  - loot: {fileID: 2956349212448185863, guid: 86ba891db26a92248b30b82bf0c7df9d, type: 3}
+    weight: 1
+  defaultItemDropLoots: []
 --- !u!1 &1619329607
 GameObject:
   m_ObjectHideFlags: 0

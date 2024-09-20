@@ -8,7 +8,14 @@ public class BattleController : MonoBehaviour
 
 
     public Camera cam;
-    // TODO CAMERA FOLLOWING PLAYRES THING
+    public List<Transform> objsToTrackCam = new List<Transform> { };
+    public Vector3 camOffset;
+    private Vector3 camVelocity;
+    public float camMinZoom = 80f; 
+    public float camMaxZoom = 40f;
+    public float camZoomLimiter = 50f;
+
+    public bool cameraMove;
 
     public List<GameObject> stages;
     public GameObject stage;
@@ -23,10 +30,10 @@ public class BattleController : MonoBehaviour
     public List<Character> playerChosenCharacters;
 
 
-    public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W, KeyCode.Z, KeyCode.S, KeyCode.X);
-    public Player.Controls rightPlayerControlsSignature = new Player.Controls("Arrows", KeyCode.UpArrow, KeyCode.Keypad1, KeyCode.Keypad2, KeyCode.Keypad3);
-    public Player.Controls middlePlayerControlsSignature = new Player.Controls("JL", KeyCode.I, KeyCode.M, KeyCode.K, KeyCode.Comma);
-    public Player.Controls middlePlayerControlsSignature2 = new Player.Controls("FH", KeyCode.T, KeyCode.V, KeyCode.G, KeyCode.B);
+    public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W, KeyCode.Z, KeyCode.S, KeyCode.X, KeyCode.Q);
+    public Player.Controls rightPlayerControlsSignature = new Player.Controls("Arrows", KeyCode.UpArrow, KeyCode.Keypad1, KeyCode.Keypad2, KeyCode.Keypad3, KeyCode.Q);
+    public Player.Controls middlePlayerControlsSignature = new Player.Controls("JL", KeyCode.I, KeyCode.M, KeyCode.K, KeyCode.Comma, KeyCode.Q);
+    public Player.Controls middlePlayerControlsSignature2 = new Player.Controls("FH", KeyCode.T, KeyCode.V, KeyCode.G, KeyCode.B, KeyCode.Q);
 
     public float itemSpawnGap;
     public float itemSpawnTimer;
@@ -89,6 +96,8 @@ public class BattleController : MonoBehaviour
             }
         }
 
+        
+
         if(players.Count > 0)
         {
             int alivePlayers = 0;
@@ -103,6 +112,58 @@ public class BattleController : MonoBehaviour
                 StartRound();
             }
         }
+    }
+
+    void LateUpdate()
+    {
+        if (cameraMove)
+        {
+            Vector3 centerPoint = GetCenterPoint();
+
+            Vector3 newPosition = centerPoint + camOffset;
+
+            cam.transform.position = Vector3.SmoothDamp(cam.transform.position, newPosition, ref camVelocity, 0.5f);
+
+            float newZoom = Mathf.Lerp(camMaxZoom, camMinZoom, GetGreatestDistance() / camZoomLimiter);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
+        }
+    }
+
+    float GetGreatestDistance()
+    {
+        var bounds = new Bounds(objsToTrackCam[0].position, Vector3.zero);
+        for (int i = 0; i < objsToTrackCam.Count; i++)
+        {
+            bounds.Encapsulate(objsToTrackCam[i].position);
+        }
+
+        return bounds.size.x;
+    }
+
+    Vector3 GetCenterPoint()
+    {
+        objsToTrackCam.Clear();
+        objsToTrackCam.Add(stage.transform);
+        if (players.Count > 0)
+        {
+            foreach (Player player in players)
+            {
+                if (player.playerState.alive && player.transform.position.y > -5) { objsToTrackCam.Add(player.transform); }
+            }
+        }
+
+        if (objsToTrackCam.Count == 1)
+        {
+            return objsToTrackCam[0].position;
+        }
+
+        var bounds = new Bounds(objsToTrackCam[0].position, Vector3.zero);
+        for (int i = 0; i < objsToTrackCam.Count; i++)
+        {
+            bounds.Encapsulate(objsToTrackCam[i].position);
+        }
+
+        return bounds.center;
     }
 
     void SpawnItem()
@@ -279,6 +340,11 @@ public class BattleController : MonoBehaviour
         {
             Destroy(hitbox.gameObject);
         }
+        foreach (Bananarang bananarang in FindObjectsByType<Bananarang>(FindObjectsSortMode.None))
+        {
+            Destroy(bananarang.gameObject);
+        }
+
 
 
         foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))

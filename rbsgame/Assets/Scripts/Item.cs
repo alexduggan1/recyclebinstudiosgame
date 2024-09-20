@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UltEvents;
+using TMPro.Examples;
+using static Player.State;
 
 public class Item : MonoBehaviour
 {
@@ -16,9 +18,8 @@ public class Item : MonoBehaviour
 
         public enum Names
         {
-            Handgun, BlusterBlade,
-            PropellerHat, ToasterHat,
-            Fish
+            Handgun, BlusterBlade, 
+            PropellerHat, ToasterHat, Fish, Bananarang
         };
 
         public enum AnimType
@@ -76,6 +77,8 @@ public class Item : MonoBehaviour
     public Player myPlayer;
 
     public float hatAnimTime;
+
+    public Sprite thumbnail;
 
     // Start is called before the first frame update
     void Awake()
@@ -143,6 +146,37 @@ public class Item : MonoBehaviour
         bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<Bullet>().dir = dirToShoot;
         bullet.GetComponent<Bullet>().ownerException = myPlayer;
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void ShootBanana(GameObject objToShoot, float bulletSpeed)
+    {
+        Debug.Log("BANAAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot = Vector3.right;
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
+        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
+        if (bulletSpeed == 0) { bulletSpeed = 1; }
+        Debug.Log(bulletSpeed);
+        bullet.GetComponent<Bananarang>().bulletSpeed = bulletSpeed;
+        bullet.GetComponent<Bananarang>().startingBulletSpeed = bulletSpeed;
+        bullet.GetComponent<Bananarang>().dir = dirToShoot;
+        if (dirToShoot == Vector3.right)
+        {
+            bullet.GetComponent<Bananarang>().visual.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            bullet.GetComponent<Bananarang>().visual.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        bullet.GetComponent<Bananarang>().ownerException = myPlayer;
+
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void DeleteBanana()
+    {
+        Destroy(gameObject);
     }
 
     public void PropellerJump(GameObject propellerToSpin, float jumpPower)
@@ -265,6 +299,7 @@ public class Item : MonoBehaviour
         GameObject h = Instantiate(hitbox, transform.position + offset, Quaternion.identity);
         exception.myProjectiles.Add(h);
         h.GetComponent<Hitbox>().ownerException = exception;
+        Physics.IgnoreCollision(h.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
     }

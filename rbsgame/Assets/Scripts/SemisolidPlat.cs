@@ -12,6 +12,20 @@ public class SemisolidPlat : MonoBehaviour
 
     private BoxCollider collisionCheckTrigger = null;
 
+    public class DropPlayer
+    {
+        public Player player;
+        public bool dropping;
+
+        public DropPlayer(Player _player, bool _dropping)
+        {
+            player = _player;
+            dropping = _dropping;
+        }
+    }
+
+    public List<DropPlayer> dropPlayers;
+
     private void Awake()
     {
         collider = GetComponent<BoxCollider>();
@@ -21,10 +35,39 @@ public class SemisolidPlat : MonoBehaviour
         collisionCheckTrigger.size = Vector3.Scale(collider.size, triggerScale);
         collisionCheckTrigger.center = collider.center;
         collisionCheckTrigger.isTrigger = true;
+
+        dropPlayers = new List<DropPlayer> { };
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        bool playerPressingDrop = false;
+        Player playerInQuestion;
+        if (other.TryGetComponent<Player>(out playerInQuestion))
+        {
+            DropPlayer foundDropPlayer = null;
+            foreach (DropPlayer dp in dropPlayers)
+            {
+                if(dp.player == playerInQuestion)
+                {
+                    foundDropPlayer = dp;
+                }
+            }
+            if(foundDropPlayer != null)
+            {
+                if (!foundDropPlayer.dropping)
+                {
+                    foundDropPlayer.dropping = playerInQuestion.playerInputs.dropPressed;
+                }
+            }
+            else
+            {
+                foundDropPlayer = new DropPlayer(playerInQuestion, playerInQuestion.playerInputs.dropPressed);
+                dropPlayers.Add(foundDropPlayer);
+            }
+            playerPressingDrop = foundDropPlayer.dropping;
+        }
+
         if (Physics.ComputePenetration(
             collisionCheckTrigger, transform.position, transform.rotation,
             other, other.transform.position, other.transform.rotation,
@@ -33,7 +76,7 @@ public class SemisolidPlat : MonoBehaviour
         {
             float dot = Vector3.Dot(entryDirection, collisionDirection);
 
-            if (dot < 0)
+            if (dot < 0 && (!playerPressingDrop))
             {
                 Physics.IgnoreCollision(collider, other, false);
             }
@@ -46,21 +89,68 @@ public class SemisolidPlat : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(Physics.ComputePenetration(
+        bool playerPressingDrop = false;
+        Player playerInQuestion;
+        if (other.TryGetComponent<Player>(out playerInQuestion))
+        {
+            DropPlayer foundDropPlayer = null;
+            foreach (DropPlayer dp in dropPlayers)
+            {
+                if (dp.player == playerInQuestion)
+                {
+                    foundDropPlayer = dp;
+                }
+            }
+            if (foundDropPlayer != null)
+            {
+                if (!foundDropPlayer.dropping)
+                {
+                    foundDropPlayer.dropping = playerInQuestion.playerInputs.dropPressed;
+                }
+            }
+            else
+            {
+                foundDropPlayer = new DropPlayer(playerInQuestion, playerInQuestion.playerInputs.dropPressed);
+                dropPlayers.Add(foundDropPlayer);
+            }
+            playerPressingDrop = foundDropPlayer.dropping;
+        }
+
+        if (Physics.ComputePenetration(
             collisionCheckTrigger, transform.position, transform.rotation,
             other, other.transform.position, other.transform.rotation,
             out Vector3 collisionDirection, out float penetrationDepth
             ))
         {
             float dot = Vector3.Dot(entryDirection, collisionDirection);
-            
-            if(dot < 0)
+
+            if (dot < 0 && (!playerPressingDrop))
             {
                 Physics.IgnoreCollision(collider, other, false);
             }
             else
             {
                 Physics.IgnoreCollision(collider, other, true);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Player playerInQuestion;
+        if (other.TryGetComponent<Player>(out playerInQuestion))
+        {
+            DropPlayer foundDropPlayer = null;
+            foreach (DropPlayer dp in dropPlayers)
+            {
+                if (dp.player == playerInQuestion)
+                {
+                    foundDropPlayer = dp;
+                }
+            }
+            if (foundDropPlayer != null)
+            {
+                dropPlayers.Remove(foundDropPlayer);
             }
         }
     }

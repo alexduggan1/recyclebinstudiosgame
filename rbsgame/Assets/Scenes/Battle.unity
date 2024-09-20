@@ -168,6 +168,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   cam: {fileID: 1732105780}
+  objsToTrackCam: []
+  camOffset: {x: 0, y: 1, z: -15}
+  camMinZoom: 80
+  camMaxZoom: 30
+  camZoomLimiter: 50
+  cameraMove: 1
   stages: []
   stage: {fileID: 0}
   stageProto: {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
