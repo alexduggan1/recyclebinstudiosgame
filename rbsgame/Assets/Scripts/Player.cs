@@ -552,65 +552,67 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
             if (playerState.alive)
             {
-                Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
-                Debug.Log(itemToTry.itemType.name);
+                if (pickupDelay <= 0)
+                {
+                    Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
+                    //Debug.Log(itemToTry.itemType.name);
 
-                bool pickupSuccessful = false;
-                if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
-                {
-                    if (items.Hat != null) { }
-                    else
+                    bool pickupSuccessful = false;
+                    if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
                     {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.Hat = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
-                    }
-                }
-                else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
-                {
-                    // for now fill lefthand first then right, can change behavior later
-                    if (items.LeftHand != null)
-                    {
-                        if (items.RightHand != null) { }
+                        if (items.Hat != null) { }
                         else
                         {
                             Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                            items.RightHand = newItem;
+                            items.Hat = newItem;
                             newItem.pickedUp = true;
                             newItem.currentlyBeingUsed = false;
                             newItem.myPlayer = this;
                             pickupSuccessful = true;
                         }
                     }
-                    else
+                    else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
                     {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.LeftHand = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
+                        // for now fill lefthand first then right, can change behavior later
+                        if (items.LeftHand != null)
+                        {
+                            if (items.RightHand != null) { }
+                            else
+                            {
+                                Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                                items.RightHand = newItem;
+                                newItem.pickedUp = true;
+                                newItem.currentlyBeingUsed = false;
+                                newItem.myPlayer = this;
+                                pickupSuccessful = true;
+                            }
+                        }
+                        else
+                        {
+                            Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                            items.LeftHand = newItem;
+                            newItem.pickedUp = true;
+                            newItem.currentlyBeingUsed = false;
+                            newItem.myPlayer = this;
+                            pickupSuccessful = true;
+                        }
                     }
-                }
 
-                if (pickupSuccessful)
-                {
-                    Destroy(other.gameObject);
+                    if (pickupSuccessful)
+                    {
+                        Destroy(other.gameObject);
+                        pickupDelay = 0f;
+                    }
                 }
             }
         }
     }
-    */
 
     public GameObject FindCorrectItemProto(Item.ItemType.Names itemName)
     {

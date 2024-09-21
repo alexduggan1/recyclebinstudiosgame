@@ -122,6 +122,8 @@ MonoBehaviour:
   anchorOffset: {fileID: 2942452023898893252}
   myPlayer: {fileID: 0}
   hatAnimTime: 0
+  handheldAnimSpeed: 1.8
+  thumbnail: {fileID: 21300000, guid: 898b0af9f65c50b4eabdac322e589a9d, type: 3}
 --- !u!1001 &1035366509263516797
 PrefabInstance:
   m_ObjectHideFlags: 0
