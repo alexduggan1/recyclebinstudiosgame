@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon
         };
 
         public enum AnimType
@@ -77,6 +77,7 @@ public class Item : MonoBehaviour
     public Player myPlayer;
 
     public float hatAnimTime;
+    public float handheldAnimSpeed = 1;
 
     public Sprite thumbnail;
 
@@ -95,22 +96,33 @@ public class Item : MonoBehaviour
             actionTime += Time.deltaTime;
             if(itemUses.Count > 0)
             {
-                foreach (ItemAction action in itemUses[currentUse].actions)
+                if(itemUses.Count > currentUse)
                 {
-                    if ((actionTime > action.timeStamp) && (!action.done))
+                    foreach (ItemAction action in itemUses[currentUse].actions)
                     {
-                        if(action.function != null)
+                        if ((actionTime > action.timeStamp) && (!action.done))
                         {
-                            action.function.Invoke();
-                        }
-                        action.done = true;
+                            if (action.function != null)
+                            {
+                                action.function.Invoke();
+                            }
+                            action.done = true;
 
-                        if (action == itemUses[currentUse].actions[^1])
-                        {
-                            // if it's the last one turn off currentlybeingused
-                            currentlyBeingUsed = false;
-                            itemUses[currentUse].done = true;
+                            if (action == itemUses[currentUse].actions[^1])
+                            {
+                                // if it's the last one turn off currentlybeingused
+                                currentlyBeingUsed = false;
+                                itemUses[currentUse].done = true;
+                            }
                         }
+                    }
+                }
+                else
+                {
+                    currentlyBeingUsed = false;
+                    foreach (ItemUse itemUse in itemUses)
+                    {
+                        if (!itemUse.done) { itemUse.done = true; }
                     }
                 }
             }
@@ -302,5 +314,37 @@ public class Item : MonoBehaviour
         Physics.IgnoreCollision(h.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
+    }
+
+    public void OrigamiDragon()
+    {
+        IEnumerator dragonFire = DragonFire();
+        StartCoroutine(dragonFire);
+    }
+
+    public IEnumerator DragonFire()
+    {
+        float realTime = 0;
+        while (realTime < (7f/60f))
+        {
+            myPlayer.character.animator.speed = 1;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        while (realTime < ((7f + (15f * (1f / 0.2f))) / 60f))
+        {
+            myPlayer.character.animator.speed = 0.2f;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        while (realTime < ((7f + (15f * (1f / 0.2f)) + 10f) / 60f))
+        {
+            myPlayer.character.animator.speed = 1f;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+
+        yield return null;
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2972319000077905058}
   - component: {fileID: 1494407781942298233}
   - component: {fileID: 2044892009954739849}
+  - component: {fileID: 823247028572469085}
   - component: {fileID: 7346863700431724968}
   - component: {fileID: 1227514467795432128}
   - component: {fileID: 5576767526140582820}
@@ -48,6 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ac2390d41882b41ac9f928b6d07220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  col: {fileID: 2044892009954739849}
+  trigger: {fileID: 823247028572469085}
+  item: {fileID: 0}
+  hitGround: 0
 --- !u!65 &2044892009954739849
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -58,13 +64,34 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &823247028572469085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598712411896208857}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
