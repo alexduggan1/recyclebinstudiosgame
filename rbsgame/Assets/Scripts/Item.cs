@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon
         };
 
         public enum AnimType
@@ -314,5 +314,37 @@ public class Item : MonoBehaviour
         Physics.IgnoreCollision(h.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
+    }
+
+    public void OrigamiDragon()
+    {
+        IEnumerator dragonFire = DragonFire();
+        StartCoroutine(dragonFire);
+    }
+
+    public IEnumerator DragonFire()
+    {
+        float realTime = 0;
+        while (realTime < (7f/60f))
+        {
+            myPlayer.character.animator.speed = 1;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        while (realTime < ((7f + (15f * (1f / 0.2f))) / 60f))
+        {
+            myPlayer.character.animator.speed = 0.2f;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        while (realTime < ((7f + (15f * (1f / 0.2f)) + 10f) / 60f))
+        {
+            myPlayer.character.animator.speed = 1f;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+
+        yield return null;
     }
 }
