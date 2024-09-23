@@ -247,11 +247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce340662ac7cd244a5eafe1d2ff62f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 0
+  characterName: 2
   characterProto: {fileID: 3897285844626070317}
   flat: 1
   animator: {fileID: 0}
-  sr: {fileID: 4026903989324074969}
   playerState:
     alive: 0
     facingDir: 0
@@ -265,3 +264,4 @@ MonoBehaviour:
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
+  render: {fileID: 192038088, guid: 356c5cf49cb0c304f90c86169c34975b, type: 3}

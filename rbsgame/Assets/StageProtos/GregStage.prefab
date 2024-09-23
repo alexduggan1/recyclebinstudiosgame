@@ -278,6 +278,7 @@ MonoBehaviour:
     IDFor4Player: 3
   collision: {fileID: 0}
   ceiling: {fileID: 429169111640950362}
+  thumbnail: {fileID: 21300000, guid: bde854fc60d8c494d8205234fc29ac53, type: 3}
 --- !u!1 &4984906270173104854
 GameObject:
   m_ObjectHideFlags: 0

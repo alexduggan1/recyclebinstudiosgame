@@ -70,7 +70,33 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 10
+            _X: 14
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
+      done: 0
+    done: 1
+  - actions:
+    - timeStamp: 0.3666667
+      function:
+        _PersistentCalls:
+        - _Target: {fileID: 2696348413483647919}
+          _MemberName: Shoot
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 14
             _Y: 0
             _Z: 0
             _W: 0
@@ -96,7 +122,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 10
+            _X: 14
             _Y: 0
             _Z: 0
             _W: 0
@@ -122,7 +148,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 10
+            _X: 14
             _Y: 0
             _Z: 0
             _W: 0
@@ -148,7 +174,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 10
+            _X: 14
             _Y: 0
             _Z: 0
             _W: 0
@@ -174,33 +200,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 10
-            _Y: 0
-            _Z: 0
-            _W: 0
-            _Object: {fileID: 0}
-      done: 0
-    done: 0
-  - actions:
-    - timeStamp: 0.3666667
-      function:
-        _PersistentCalls:
-        - _Target: {fileID: 2696348413483647919}
-          _MemberName: Shoot
-          _PersistentArguments:
-          - _Type: 13
-            _Int: 0
-            _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-            _X: 0
-            _Y: 0
-            _Z: 0
-            _W: 0
-            _Object: {fileID: 5713312011306155346, guid: 38e8e1a7a0404554aa767684511bead8, type: 3}
-          - _Type: 5
-            _Int: 0
-            _String: 
-            _X: 15
+            _X: 18
             _Y: 0
             _Z: 0
             _W: 0
