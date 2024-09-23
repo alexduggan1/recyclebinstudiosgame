@@ -130,12 +130,12 @@ public class Player : MonoBehaviour
         if (playerState.alive)
         {
             // handle player inputs
-            playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
-            playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
-            playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
-            playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
-            playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
-            playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
+            //playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
+            //playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
+            //playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
+            //playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
+            //playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
+            //playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
 
             playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
             playerState.yVel = rb.velocity.y;
@@ -255,6 +255,7 @@ public class Player : MonoBehaviour
                         if (items.LeftHand != null)
                         {
                             UseItem(items.LeftHand, "LH");
+                            playerInputs.useLHand = false;
                         }
                     }
                     if (playerInputs.useRHand)
@@ -262,6 +263,7 @@ public class Player : MonoBehaviour
                         if (items.RightHand != null)
                         {
                             UseItem(items.RightHand, "RH");
+                            playerInputs.useRHand = false;
                         }
                     }
                     if (playerInputs.useHat)
@@ -269,6 +271,7 @@ public class Player : MonoBehaviour
                         if (items.Hat != null)
                         {
                             UseItem(items.Hat, "H");
+                            playerInputs.useHat = false;
                         }
                     }
                 }
@@ -641,5 +644,25 @@ public class Player : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void Jump()
+    {
+        playerInputs.jumpPressed = true;
+    }
+
+    public void LeftHand()
+    {
+        playerInputs.useLHand = true;
+    }
+
+    public void RightHand()
+    {
+        playerInputs.useRHand = true;
+    }
+
+    public void Hat()
+    {
+        playerInputs.useHat = true;
     }
 }

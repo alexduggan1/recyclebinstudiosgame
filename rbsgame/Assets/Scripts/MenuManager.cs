@@ -38,12 +38,13 @@ public class MenuManager : MonoBehaviour
 
 
 
-
-    public MenuPlayer mp1;
+    public List<MenuPlayer> menuPlayers;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
+        DontDestroyOnLoad(canv.gameObject);
 
         GenerateMenu();
     }
@@ -109,9 +110,12 @@ public class MenuManager : MonoBehaviour
         sectionIWScrollAmount = 0;
 
 
-        // create menu players automatically for now I guess
+        // create menu player 1
 
-        for (int j = 0; j < 4; j++)
+        menuPlayers.Clear();
+
+        /*
+        for (int j = 0; j < 1; j++)
         {
             MenuPlayer newMP = Instantiate(menuPlayerProto, canv.transform).GetComponent<MenuPlayer>();
             newMP.menuManager = this;
@@ -120,10 +124,9 @@ public class MenuManager : MonoBehaviour
 
             newMP.mpRep.sprite = mpReps[j];
 
-            if(j == 0)
+            if (j == 0)
             {
                 newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S, KeyCode.Z, KeyCode.X);
-                mp1 = newMP;
             }
             if (j == 1)
             {
@@ -137,9 +140,12 @@ public class MenuManager : MonoBehaviour
             {
                 newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.E, KeyCode.R);
             }
+
+            menuPlayers.Add(newMP);
+
             playerChosenChars.Add(null);
         }
-
+        */
 
 
         stageCheckMark.transform.SetAsLastSibling();
@@ -150,38 +156,42 @@ public class MenuManager : MonoBehaviour
     {
         gameManager.playerChosenChars = playerChosenChars;
 
-        if (mp1.currentPanel == UIElm.PanelType.ItemWeight)
+        if (menuPlayers.Count > 0)
         {
-            int currentHover = 0;
-            int i = 0;
-            foreach (UIElm iwe in itemWeightElms)
+            if (menuPlayers[0].currentPanel == UIElm.PanelType.ItemWeight)
             {
-                if(iwe == mp1.currentUIElm) { currentHover = i; }
-                i += 1;
-            }
+                int currentHover = 0;
+                int i = 0;
+                foreach (UIElm iwe in itemWeightElms)
+                {
+                    if (iwe == menuPlayers[0].currentUIElm) { currentHover = i; }
+                    i += 1;
+                }
 
-            if (currentHover > 4)
-            {
-                sectionIWScrollAmount = currentHover - 4;
+                if (currentHover > 4)
+                {
+                    sectionIWScrollAmount = currentHover - 4;
+                }
+                else { sectionIWScrollAmount = 0; }
             }
-            else { sectionIWScrollAmount = 0; }
-        }
-        else if (mp1.currentPanel == UIElm.PanelType.Stage)
-        {
-            int currentHover = 0;
-            int i = 0;
-            foreach (UIElm se in stageElms)
+            else if (menuPlayers[0].currentPanel == UIElm.PanelType.Stage)
             {
-                if (se == mp1.currentUIElm) { currentHover = i; }
-                i += 1;
-            }
+                int currentHover = 0;
+                int i = 0;
+                foreach (UIElm se in stageElms)
+                {
+                    if (se == menuPlayers[0].currentUIElm) { currentHover = i; }
+                    i += 1;
+                }
 
-            if (currentHover > 4)
-            {
-                sectionSScrollAmount = currentHover - 4;
+                if (currentHover > 4)
+                {
+                    sectionSScrollAmount = currentHover - 4;
+                }
+                else { sectionSScrollAmount = 0; }
             }
-            else { sectionSScrollAmount = 0; }
         }
+        
 
         for (int j = 2; j < itemWeightElms.Count; j++)
         {
@@ -263,6 +273,14 @@ public class MenuManager : MonoBehaviour
                     }
                 }
 
+                gameManager.listOfMenuPlayers.Clear();
+                foreach (MenuPlayer mp in menuPlayers)
+                {
+                    gameManager.listOfMenuPlayers.Add(mp);
+                    //DontDestroyOnLoad(mp.gameObject);
+                    //mp.gameObject.SetActive(false);
+                }
+
                 // item drop loots
                 foreach (BattleController.ItemDropLoot idl in gameManager.chosenItemDropLoots)
                 {
@@ -278,9 +296,16 @@ public class MenuManager : MonoBehaviour
                     }
                 }
 
+                canv.enabled = false;
 
                 SceneManager.LoadScene("Battle");
             }
         }
+    }
+
+
+    public void PlayerJoined()
+    {
+        Debug.Log("player joined!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 }

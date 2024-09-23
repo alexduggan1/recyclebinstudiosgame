@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BattleController : MonoBehaviour
 {
@@ -293,8 +294,8 @@ public class BattleController : MonoBehaviour
             }
             if (newPlayer.ID == 3) { newPlayer.playerControls = rightPlayerControlsSignature; }
 
-
-
+            //gameManager.listOfMenuPlayers[i].GetComponent<PlayerInput>().currentActionMap = gameManager.listOfMenuPlayers[i].GetComponent<PlayerInput>().actions.FindActionMap("Ingame");
+            gameManager.listOfMenuPlayers[i].myPlayer = newPlayer;
 
             // do this bit start of every round
 

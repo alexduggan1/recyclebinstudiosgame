@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     public List<BattleController.ItemDropLoot> chosenItemDropLoots = new List<BattleController.ItemDropLoot> { };
     public List<BattleController.ItemDropLoot> defaultItemDropLoots = new List<BattleController.ItemDropLoot> { };
 
+    public List<MenuPlayer> listOfMenuPlayers;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +55,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (SceneManager.GetActiveScene().name == "Startup")
+        {
+            if (Input.anyKeyDown) { PressGoButton(); }
+        }
     }
 
     public void PressGoButton()
