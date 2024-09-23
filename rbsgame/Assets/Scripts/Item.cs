@@ -316,27 +316,44 @@ public class Item : MonoBehaviour
         Destroy(h);
     }
 
-    public void OrigamiDragon()
+    public void OrigamiDragon(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
     {
-        IEnumerator dragonFire = DragonFire();
+        IEnumerator dragonFire = DragonFire(fireParticles, smokeParticles, hitbox);
         StartCoroutine(dragonFire);
     }
 
-    public IEnumerator DragonFire()
+    public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
     {
         float realTime = 0;
+
+        Physics.IgnoreCollision(hitbox.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+
+        fireParticles.Stop();
+        smokeParticles.Stop();
+        hitbox.SetActive(false);
+
         while (realTime < (7f/60f))
         {
             myPlayer.character.animator.speed = 1;
             realTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        fireParticles.Play();
+        smokeParticles.Play();
+        hitbox.SetActive(true);
+
         while (realTime < ((7f + (15f * (1f / 0.2f))) / 60f))
         {
             myPlayer.character.animator.speed = 0.2f;
             realTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        fireParticles.Stop();
+        smokeParticles.Stop();
+        hitbox.SetActive(false);
+
         while (realTime < ((7f + (15f * (1f / 0.2f)) + 10f) / 60f))
         {
             myPlayer.character.animator.speed = 1f;

@@ -491,6 +491,8 @@ public class Player : MonoBehaviour
             if(collision.gameObject.TryGetComponent<Toast>(out toast)) { if (toast.ownerException == this) { iAmException = true; } }
             if(collision.gameObject.TryGetComponent<Hitbox>(out hitbox)) { if (hitbox.ownerException == this) { iAmException = true; } }
 
+            Debug.Log("hit with hitbox");
+
             if(!iAmException)
             {
                 Die();

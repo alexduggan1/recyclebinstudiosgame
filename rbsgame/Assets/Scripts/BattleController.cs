@@ -168,7 +168,7 @@ public class BattleController : MonoBehaviour
 
     void SpawnItem()
     {
-        Debug.Log(stageWidth);
+        //Debug.Log(stageWidth);
 
 
         // send raycasts down from sky within stage width and check if it hits something, if so drop an item there
@@ -182,7 +182,7 @@ public class BattleController : MonoBehaviour
         while(i < 5) // we give this 5 tries
         {
             Vector3 pos = new Vector3(Random.Range(-stageWidth, stageWidth), stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0); 
-            Debug.Log(pos.x);
+            //Debug.Log(pos.x);
             
             RaycastHit rayHit;
             if(Physics.Raycast(new Ray(pos, Vector3.down), out rayHit, 100.0f, stageLayer.value))
@@ -207,7 +207,7 @@ public class BattleController : MonoBehaviour
             if (totalWeight > 0)
             {
                 float randomWeightedSelection = Random.Range(0.0f, (float)totalWeight);
-                Debug.Log(randomWeightedSelection);
+                //Debug.Log(randomWeightedSelection);
 
                 float bypassedWeight = 0;
                 Item selectedItem = null;
@@ -225,7 +225,7 @@ public class BattleController : MonoBehaviour
                     }
                 }
 
-                Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
+                //Debug.Log("MADE ITEM!!!!!!!!!!!!!!!!!");
 
                 GameObject itemPickup = Instantiate(itemPickupProto, position: new Vector3(newItemXPos, stage.GetComponent<Stage>().ceiling.position.y - 1.2f, 0), Quaternion.identity);
                 Item madeItem = Instantiate(selectedItem.gameObject, itemPickup.transform).GetComponent<Item>();
@@ -254,7 +254,7 @@ public class BattleController : MonoBehaviour
                 }
             }
         }
-        Debug.Log("largestExtents: " + largestExtents);
+        //Debug.Log("largestExtents: " + largestExtents);
         stageWidth = largestExtents.x;
 
 
@@ -386,7 +386,7 @@ public class BattleController : MonoBehaviour
             }
         }
 
-        Debug.Log(result);
+        //Debug.Log(result);
 
         return (result);
     }

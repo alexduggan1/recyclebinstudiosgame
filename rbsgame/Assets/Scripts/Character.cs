@@ -162,8 +162,8 @@ public class Character : MonoBehaviour
             }
         }
 
-        Debug.Log(animator.speed);
-        Debug.Log("should be:   " + theItem.handheldAnimSpeed.ToString());
+        //Debug.Log(animator.speed);
+        //Debug.Log("should be:   " + theItem.handheldAnimSpeed.ToString());
         animator.speed = theItem.handheldAnimSpeed;
 
         RuntimeAnimatorController ac = animator.runtimeAnimatorController;
