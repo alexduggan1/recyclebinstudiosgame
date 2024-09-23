@@ -32,6 +32,15 @@ public class MenuManager : MonoBehaviour
 
     public Sprite randomCharacterIcon;
 
+
+    public int sectionIWScrollAmount;
+    public int sectionSScrollAmount;
+
+
+
+
+    public MenuPlayer mp1;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -58,8 +67,13 @@ public class MenuManager : MonoBehaviour
         {
             if(j > 0) { stageElms[j].elmAbove = stageElms[j - 1]; }
             if(j < stageElms.Count - 1) { stageElms[j].elmBelow = stageElms[j + 1]; }
+            else { stageElms[j].elmBelow = stageElms[0]; }
         }
-        
+        stageElms[0].elmAbove = stageElms[^1];
+
+        sectionSScrollAmount = 0;
+
+
         // generate list of item weights
         i = 0;
         itemWeightElms.Clear();
@@ -88,9 +102,11 @@ public class MenuManager : MonoBehaviour
         {
             if (j > 0) { itemWeightElms[j].elmAbove = itemWeightElms[j - 1]; }
             if (j < itemWeightElms.Count - 1) { itemWeightElms[j].elmBelow = itemWeightElms[j + 1]; }
+            else { itemWeightElms[j].elmBelow = itemWeightElms[0]; }
         }
+        itemWeightElms[0].elmAbove = itemWeightElms[^1];
 
-
+        sectionIWScrollAmount = 0;
 
 
         // create menu players automatically for now I guess
@@ -107,6 +123,7 @@ public class MenuManager : MonoBehaviour
             if(j == 0)
             {
                 newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S, KeyCode.Z, KeyCode.X);
+                mp1 = newMP;
             }
             if (j == 1)
             {
@@ -132,6 +149,64 @@ public class MenuManager : MonoBehaviour
     void Update()
     {
         gameManager.playerChosenChars = playerChosenChars;
+
+        if (mp1.currentPanel == UIElm.PanelType.ItemWeight)
+        {
+            int currentHover = 0;
+            int i = 0;
+            foreach (UIElm iwe in itemWeightElms)
+            {
+                if(iwe == mp1.currentUIElm) { currentHover = i; }
+                i += 1;
+            }
+
+            if (currentHover > 4)
+            {
+                sectionIWScrollAmount = currentHover - 4;
+            }
+            else { sectionIWScrollAmount = 0; }
+        }
+        else if (mp1.currentPanel == UIElm.PanelType.Stage)
+        {
+            int currentHover = 0;
+            int i = 0;
+            foreach (UIElm se in stageElms)
+            {
+                if (se == mp1.currentUIElm) { currentHover = i; }
+                i += 1;
+            }
+
+            if (currentHover > 4)
+            {
+                sectionSScrollAmount = currentHover - 4;
+            }
+            else { sectionSScrollAmount = 0; }
+        }
+
+        for (int j = 2; j < itemWeightElms.Count; j++)
+        {
+            if (j + 1 - sectionIWScrollAmount <= 2 || j + 1 - sectionIWScrollAmount >= 9)
+            {
+                itemWeightElms[j].gameObject.SetActive(false);
+            }
+            else
+            {
+                itemWeightElms[j].gameObject.SetActive(true);
+                itemWeightElms[j].GetComponent<RectTransform>().anchoredPosition = new Vector3(160, 110 - ((j + 1 - sectionIWScrollAmount) * 22), 0);
+            }
+        }
+        for (int j = 0; j < stageElms.Count; j++)
+        {
+            if (j + 1 - sectionSScrollAmount <= 0 || j + 1 - sectionSScrollAmount >= 6)
+            {
+                stageElms[j].gameObject.SetActive(false);
+            }
+            else
+            {
+                stageElms[j].gameObject.SetActive(true);
+                stageElms[j].GetComponent<RectTransform>().anchoredPosition = new Vector3(50, 110 - ((j + 1 - sectionSScrollAmount) * 40), 0);
+            }
+        }
     }
 
     public void ResetItemWeights()

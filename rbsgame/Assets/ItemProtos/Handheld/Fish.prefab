@@ -286,6 +286,8 @@ MonoBehaviour:
   anchorOffset: {fileID: 3885011803807204216}
   myPlayer: {fileID: 0}
   hatAnimTime: 0
+  handheldAnimSpeed: 3
+  thumbnail: {fileID: 21300000, guid: ed8927f76959d6846a95d6b4a42715ec, type: 3}
 --- !u!1 &6541292396622105306
 GameObject:
   m_ObjectHideFlags: 0

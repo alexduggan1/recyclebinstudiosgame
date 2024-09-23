@@ -6,18 +6,25 @@ public class ItemPickup : MonoBehaviour
 {
     public Rigidbody rb;
     public BoxCollider col;
+    public BoxCollider trigger;
 
     public Item item;
 
     public bool hitGround;
+    public bool alreadyPickedup;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        col = GetComponent<BoxCollider>();
 
         rb.useGravity = true;
         hitGround = false;
+
+        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(col, player.GetComponent<Collider>(), true);
+        }
+        alreadyPickedup = false;
     }
 
     // Update is called once per frame
