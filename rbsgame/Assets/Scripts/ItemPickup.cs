@@ -11,6 +11,7 @@ public class ItemPickup : MonoBehaviour
     public Item item;
 
     public bool hitGround;
+    public bool alreadyPickedup;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class ItemPickup : MonoBehaviour
         {
             Physics.IgnoreCollision(col, player.GetComponent<Collider>(), true);
         }
+        alreadyPickedup = false;
     }
 
     // Update is called once per frame

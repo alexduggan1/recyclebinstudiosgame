@@ -499,6 +499,7 @@ public class Player : MonoBehaviour
     }
     
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
@@ -560,6 +561,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+    */
 
     private void OnTriggerStay(Collider other)
     {
@@ -567,7 +569,7 @@ public class Player : MonoBehaviour
         {
             if (playerState.alive)
             {
-                if (pickupDelay <= 0)
+                if (pickupDelay <= 0 && other.GetComponent<ItemPickup>().alreadyPickedup == false)
                 {
                     Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
                     //Debug.Log(itemToTry.itemType.name);
@@ -615,6 +617,7 @@ public class Player : MonoBehaviour
 
                     if (pickupSuccessful)
                     {
+                        other.GetComponent<ItemPickup>().alreadyPickedup = true;
                         Destroy(other.gameObject);
                         pickupDelay = 0f;
                     }
