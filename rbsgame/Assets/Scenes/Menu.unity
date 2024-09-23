@@ -282,7 +282,7 @@ MonoBehaviour:
   elmAbove: {fileID: 0}
   elmBelow: {fileID: 0}
   elmLeft: {fileID: 1158516036}
-  elmRight: {fileID: 0}
+  elmRight: {fileID: 449212231}
   panelType: 0
   attachedCharacter: {fileID: 5483133159943521038, guid: dd2a19c2ebf4b15459b3ada15aaad487, type: 3}
   attachedStage: {fileID: 0}
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elmAbove: {fileID: 0}
   elmBelow: {fileID: 0}
-  elmLeft: {fileID: 0}
+  elmLeft: {fileID: 219424341}
   elmRight: {fileID: 1158516036}
   panelType: 0
   attachedCharacter: {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
@@ -1061,6 +1061,9 @@ MonoBehaviour:
   confirmElm: {fileID: 444992420}
   stageCheckMark: {fileID: 2038303353}
   randomCharacterIcon: {fileID: 21300000, guid: ee8d7836ce074744888f1e3ddd050ccc, type: 3}
+  sectionIWScrollAmount: 0
+  sectionSScrollAmount: 0
+  mp1: {fileID: 0}
 --- !u!1 &1262028681
 GameObject:
   m_ObjectHideFlags: 0
