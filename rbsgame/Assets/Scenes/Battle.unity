@@ -169,9 +169,9 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   cam: {fileID: 1732105780}
   objsToTrackCam: []
-  camOffset: {x: 0, y: 0, z: 0}
-  camMinZoom: 80
-  camMaxZoom: 40
+  camOffset: {x: 0, y: 1, z: -15}
+  camMinZoom: 120
+  camMaxZoom: 30
   camZoomLimiter: 50
   cameraMove: 0
   stages: []
