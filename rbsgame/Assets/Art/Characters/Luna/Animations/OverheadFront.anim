@@ -1085,7 +1085,18 @@ AnimationClip:
     path: LunaRig/LeftHandSnapPoint
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: edf46bc087c72e141a975fdc697b5d99, type: 3}
+    - time: 0.15
+      value: {fileID: 21300000, guid: d6d472c1af4a9ec4aa643dc7d157b59c, type: 3}
+    attribute: m_Sprite
+    path: LunaRig
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -1292,6 +1303,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
+      path: 3898727296
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
       path: 1624867256
       attribute: 1
       script: {fileID: 0}
@@ -1309,7 +1329,9 @@ AnimationClip:
       isPPtrCurve: 0
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    pptrCurveMapping: []
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: edf46bc087c72e141a975fdc697b5d99, type: 3}
+    - {fileID: 21300000, guid: d6d472c1af4a9ec4aa643dc7d157b59c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
