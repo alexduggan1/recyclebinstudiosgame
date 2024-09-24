@@ -409,60 +409,53 @@ public class MenuPlayer : MonoBehaviour
 
     public void OnJump()
     {
-        Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
 
         if(myPlayer != null)
         {
             myPlayer.Jump();
-            //Debug.Log("player not null");
         }
     }
 
     public void OnMove(InputValue value)
     {
-        Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
 
             myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
-            
-
-            //Debug.Log("player not null");
         }
     }
 
     public void OnLeftHand()
     {
-        Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.LeftHand();
-            //Debug.Log("player not null");
         }
     }
 
     public void OnRightHand()
     {
-        Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.RightHand();
-            //Debug.Log("player not null");
         }
     }
 
     public void OnHat()
     {
-        Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.Hat();
-            //Debug.Log("player not null");
         }
     }
 

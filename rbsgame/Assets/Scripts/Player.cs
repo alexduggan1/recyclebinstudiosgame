@@ -373,6 +373,11 @@ public class Player : MonoBehaviour
                 {
                     rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
                 }
+
+                if (playerInputs.dropPressed)
+                {
+                    rb.velocity += new Vector3(0, -1 * Time.fixedDeltaTime, 0);
+                }
             }
 
 
