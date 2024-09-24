@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public List<MenuPlayer> listOfMenuPlayers;
 
+    public float titleTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,14 +52,20 @@ public class GameManager : MonoBehaviour
             nidl.weight = idl.weight;
             defaultItemDropLoots.Add(nidl);
         }
+
+        titleTimer = 1.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(titleTimer > 0)
+        {
+            titleTimer -= Time.deltaTime;
+        }
         if (SceneManager.GetActiveScene().name == "Startup")
         {
-            if (Input.anyKeyDown) { PressGoButton(); }
+            if (Input.anyKeyDown && titleTimer <= 0) { PressGoButton(); }
         }
     }
 

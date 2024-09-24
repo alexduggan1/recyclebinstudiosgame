@@ -28,7 +28,7 @@ public class BattleController : MonoBehaviour
     public GameObject playerProto;
 
 
-    public List<Character> playerChosenCharacters;
+    public List<Character.CharacterNames> playerChosenCharacters;
 
 
     public Player.Controls leftPlayerControlsSignature = new Player.Controls("AD", KeyCode.W, KeyCode.Z, KeyCode.S, KeyCode.X, KeyCode.Q);
@@ -60,7 +60,11 @@ public class BattleController : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        playerChosenCharacters = gameManager.playerChosenChars;
+        playerChosenCharacters.Clear();
+        foreach (Character chara in gameManager.playerChosenChars)
+        {
+            playerChosenCharacters.Add(chara.characterName);
+        }
         stageProto = gameManager.chosenStage;
         itemDropLootTable = gameManager.chosenItemDropLoots;
 
@@ -270,11 +274,17 @@ public class BattleController : MonoBehaviour
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
         int i = 0;
-        foreach (Character playerChosenCharacter in playerChosenCharacters)
+        foreach (Character.CharacterNames playerChosenCharacter in playerChosenCharacters)
         {
             Player newPlayer = Instantiate(playerProto).GetComponent<Player>();
 
-            GameObject newChar = Instantiate(playerChosenCharacter.gameObject, newPlayer.transform);
+            Character charaProto = gameManager.characters[0];
+            foreach (Character chara in gameManager.characters)
+            {
+                if(chara.characterName == playerChosenCharacter) { charaProto = chara; }
+            }
+
+            GameObject newChar = Instantiate(charaProto.gameObject, newPlayer.transform);
             newPlayer.character = newChar.GetComponent<Character>();
             newPlayer.ID = i;
 
