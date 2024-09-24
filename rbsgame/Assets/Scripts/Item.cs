@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat
         };
 
         public enum AnimType

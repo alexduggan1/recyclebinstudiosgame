@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType:
     attachType: 1
-    name: 7
+    name: 8
     animType: 0
   itemUses:
   - actions:
@@ -85,6 +85,8 @@ MonoBehaviour:
   anchorOffset: {fileID: 3885011803807204216}
   myPlayer: {fileID: 0}
   hatAnimTime: 0.1
+  handheldAnimSpeed: 1
+  thumbnail: {fileID: 0}
 --- !u!1 &6541292396622105306
 GameObject:
   m_ObjectHideFlags: 0
