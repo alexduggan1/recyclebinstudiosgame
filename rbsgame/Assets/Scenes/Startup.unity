@@ -428,7 +428,10 @@ MonoBehaviour:
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 38f179f965f976c49a6f4be9874b7226, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 77cdab3b81cbede40b8696ae50dcc863, type: 3}
+    weight: 1
   defaultItemDropLoots: []
+  listOfMenuPlayers: []
 --- !u!1 &1619329607
 GameObject:
   m_ObjectHideFlags: 0

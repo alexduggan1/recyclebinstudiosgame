@@ -67,12 +67,12 @@ public class Player : MonoBehaviour
     public class Inputs
     {
         public float hMoveAxis;
-        public bool jumpPressed;
+        public float jumpPressed;
         public bool dropPressed;
 
-        public bool useLHand;
-        public bool useRHand;
-        public bool useHat;
+        public float useLHand;
+        public float useRHand;
+        public float useHat;
     }
 
     public Inputs playerInputs;
@@ -136,6 +136,12 @@ public class Player : MonoBehaviour
             //playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
             //playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
             //playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
+
+            playerInputs.jumpPressed -= Time.deltaTime;
+            playerInputs.useLHand -= Time.deltaTime;
+            playerInputs.useRHand -= Time.deltaTime;
+            playerInputs.useHat -= Time.deltaTime;
+
 
             playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
             playerState.yVel = rb.velocity.y;
@@ -250,28 +256,28 @@ public class Player : MonoBehaviour
             {
                 if (playerState.jumpSquatCountdown <= 0)
                 {
-                    if (playerInputs.useLHand)
+                    if (playerInputs.useLHand > 0)
                     {
                         if (items.LeftHand != null)
                         {
                             UseItem(items.LeftHand, "LH");
-                            playerInputs.useLHand = false;
+                            playerInputs.useLHand = 0;
                         }
                     }
-                    if (playerInputs.useRHand)
+                    if (playerInputs.useRHand > 0)
                     {
                         if (items.RightHand != null)
                         {
                             UseItem(items.RightHand, "RH");
-                            playerInputs.useRHand = false;
+                            playerInputs.useRHand = 0;
                         }
                     }
-                    if (playerInputs.useHat)
+                    if (playerInputs.useHat > 0)
                     {
                         if (items.Hat != null)
                         {
                             UseItem(items.Hat, "H");
-                            playerInputs.useHat = false;
+                            playerInputs.useHat = 0;
                         }
                     }
                 }
@@ -375,16 +381,16 @@ public class Player : MonoBehaviour
             if (playerState.jumpSquatCountdown > 0)
             {
                 playerState.jumpSquatCountdown -= Time.fixedDeltaTime;
-                playerInputs.jumpPressed = false;
+                playerInputs.jumpPressed = 0;
                 if (playerState.jumpSquatCountdown <= 0)
                 {
-                    playerInputs.jumpPressed = false;
+                    playerInputs.jumpPressed = 0;
                     rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
                 }
             }
-            if (playerInputs.jumpPressed && playerState.onGround)
+            if (playerInputs.jumpPressed > 0 && playerState.onGround)
             {
-                playerInputs.jumpPressed = false;
+                playerInputs.jumpPressed = 0;
                 character.Jump();
                 playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
             }
@@ -648,21 +654,21 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        playerInputs.jumpPressed = true;
+        playerInputs.jumpPressed = 0.1f;
     }
 
     public void LeftHand()
     {
-        playerInputs.useLHand = true;
+        playerInputs.useLHand = 0.1f;
     }
 
     public void RightHand()
     {
-        playerInputs.useRHand = true;
+        playerInputs.useRHand = 0.1f;
     }
 
     public void Hat()
     {
-        playerInputs.useHat = true;
+        playerInputs.useHat = 0.1f;
     }
 }

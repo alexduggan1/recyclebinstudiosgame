@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MenuPlayer : MonoBehaviour
 {
@@ -22,6 +23,12 @@ public class MenuPlayer : MonoBehaviour
         public KeyCode downButton;
         public KeyCode confirmButton;
         public KeyCode backButton;
+
+        public enum KeyboardType
+        {
+            None, WASD, Arrows
+        }
+        public KeyboardType keyboardType;
 
         public MenuControls(KeyCode _leftButton, KeyCode _rightButton, KeyCode _upButton, KeyCode _downButton,
             KeyCode _confirmButton, KeyCode _backButton)
@@ -86,11 +93,15 @@ public class MenuPlayer : MonoBehaviour
 
 
         menuControls.actionMap = menuControls.inputActionAsset.FindActionMap("UI");
-        Debug.Log(menuControls.actionMap);
+        //Debug.Log(menuControls.actionMap);
         menuControls.actionMap.Enable();
-        Debug.Log(menuControls.actionMap.enabled);
+        //Debug.Log(menuControls.actionMap.enabled);
 
         existTimer = 0.2f;
+        Debug.Log(GetComponent<PlayerInput>().devices[0].name);
+        if(GetComponent<PlayerInput>().devices[0].name == "WASD") { menuControls.keyboardType = MenuControls.KeyboardType.WASD; }
+        else if(GetComponent<PlayerInput>().devices[0].name == "Arrows") { menuControls.keyboardType = MenuControls.KeyboardType.Arrows; }
+        else { menuControls.keyboardType = MenuControls.KeyboardType.None; }
     }
 
     // Update is called once per frame
@@ -170,7 +181,7 @@ public class MenuPlayer : MonoBehaviour
                     if (currentUIElm.elmLeft != null)
                     {
                         currentUIElm = currentUIElm.elmLeft;
-                        menuControls.lastNav = 0.15f;
+                        menuControls.lastNav = 0.2f;
                     }
                 }
                 else
@@ -187,7 +198,7 @@ public class MenuPlayer : MonoBehaviour
                     if (currentUIElm.elmRight != null)
                     {
                         currentUIElm = currentUIElm.elmRight;
-                        menuControls.lastNav = 0.15f;
+                        menuControls.lastNav = 0.2f;
                     }
                 }
                 else
@@ -202,12 +213,12 @@ public class MenuPlayer : MonoBehaviour
             if (menuControls.navigation.y > 0.5f && menuControls.lastNav <= 0)
             {
                 if (currentUIElm.elmAbove != null) { currentUIElm = currentUIElm.elmAbove; }
-                menuControls.lastNav = 0.15f;
+                menuControls.lastNav = 0.2f;
             }
             if (menuControls.navigation.y < -0.5f && menuControls.lastNav <= 0)
             {
                 if (currentUIElm.elmBelow != null) { currentUIElm = currentUIElm.elmBelow; }
-                menuControls.lastNav = 0.15f;
+                menuControls.lastNav = 0.2f;
             }
 
             if (menuControls.lastNav > 0)
@@ -308,62 +319,182 @@ public class MenuPlayer : MonoBehaviour
 
     public void OnNavigate(InputValue value)
     {
-        //Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+        Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
 
         menuControls.navigation = value.Get<Vector2>();
     }
 
     public void OnConfirm()
     {
+        Debug.Log("confirm for player " + GetComponent<PlayerInput>().playerIndex);
+
         if (existTimer <= 0)
         {
-            if (ID == 0)
+            if (SceneManager.GetActiveScene().name == "Menu")
             {
-                // i am player 1
-                if (currentPanel == UIElm.PanelType.Character)
+                if (menuControls.keyboardType == MenuControls.KeyboardType.None)
                 {
-                    menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
-                    hasChar = true;
-                    currentPanel = UIElm.PanelType.Stage;
-                    currentUIElm = menuManager.stageElms[0];
-                }
-                else if (currentPanel == UIElm.PanelType.Stage)
-                {
-                    menuManager.gameManager.chosenStage = currentUIElm.attachedStage;
-                    menuManager.stageCheckMark.anchoredPosition = currentUIElm.GetComponent<RectTransform>().anchoredPosition;
-                    menuManager.stageCheckMark.gameObject.SetActive(true);
-                    currentPanel = UIElm.PanelType.ItemWeight;
-                    currentUIElm = menuManager.itemWeightElms[0];
-                }
-                else if (currentPanel == UIElm.PanelType.ItemWeight)
-                {
-                    if (currentUIElm.attachedItemDropLoot != null)
+                    if (ID == 0)
                     {
-                        currentPanel = UIElm.PanelType.Confirm;
-                        currentUIElm = menuManager.confirmElm;
+                        // i am player 1
+                        if (currentPanel == UIElm.PanelType.Character)
+                        {
+                            menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
+                            hasChar = true;
+                            currentPanel = UIElm.PanelType.Stage;
+                            currentUIElm = menuManager.stageElms[0];
+                        }
+                        else if (currentPanel == UIElm.PanelType.Stage)
+                        {
+                            menuManager.gameManager.chosenStage = currentUIElm.attachedStage;
+                            menuManager.stageCheckMark.anchoredPosition = currentUIElm.GetComponent<RectTransform>().anchoredPosition;
+                            menuManager.stageCheckMark.gameObject.SetActive(true);
+                            currentPanel = UIElm.PanelType.ItemWeight;
+                            currentUIElm = menuManager.itemWeightElms[0];
+                        }
+                        else if (currentPanel == UIElm.PanelType.ItemWeight)
+                        {
+                            if (currentUIElm.attachedItemDropLoot != null)
+                            {
+                                currentPanel = UIElm.PanelType.Confirm;
+                                currentUIElm = menuManager.confirmElm;
+                            }
+                            else
+                            {
+                                if (currentUIElm.iWButtonType == UIElm.IWButtonTypes.Confirm)
+                                {
+                                    currentPanel = UIElm.PanelType.Confirm;
+                                    currentUIElm = menuManager.confirmElm;
+                                }
+                                else
+                                {
+                                    menuManager.ResetItemWeights();
+                                }
+                            }
+                        }
+                        else if (currentPanel == UIElm.PanelType.Confirm)
+                        {
+                            menuManager.GoButtonPressed();
+                        }
                     }
                     else
                     {
-                        if (currentUIElm.iWButtonType == UIElm.IWButtonTypes.Confirm)
-                        {
-                            currentPanel = UIElm.PanelType.Confirm;
-                            currentUIElm = menuManager.confirmElm;
-                        }
-                        else
-                        {
-                            menuManager.ResetItemWeights();
-                        }
+                        menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
+                        hasChar = true;
                     }
                 }
-                else if (currentPanel == UIElm.PanelType.Confirm)
+                else if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
                 {
-                    menuManager.GoButtonPressed();
+                    Debug.Log("WASD CONFIRM");
+                    if (ID == 0)
+                    {
+                        // i am player 1
+                        if (currentPanel == UIElm.PanelType.Character)
+                        {
+                            menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
+                            hasChar = true;
+                            currentPanel = UIElm.PanelType.Stage;
+                            currentUIElm = menuManager.stageElms[0];
+                        }
+                        else if (currentPanel == UIElm.PanelType.Stage)
+                        {
+                            menuManager.gameManager.chosenStage = currentUIElm.attachedStage;
+                            menuManager.stageCheckMark.anchoredPosition = currentUIElm.GetComponent<RectTransform>().anchoredPosition;
+                            menuManager.stageCheckMark.gameObject.SetActive(true);
+                            currentPanel = UIElm.PanelType.ItemWeight;
+                            currentUIElm = menuManager.itemWeightElms[0];
+                        }
+                        else if (currentPanel == UIElm.PanelType.ItemWeight)
+                        {
+                            if (currentUIElm.attachedItemDropLoot != null)
+                            {
+                                currentPanel = UIElm.PanelType.Confirm;
+                                currentUIElm = menuManager.confirmElm;
+                            }
+                            else
+                            {
+                                if (currentUIElm.iWButtonType == UIElm.IWButtonTypes.Confirm)
+                                {
+                                    currentPanel = UIElm.PanelType.Confirm;
+                                    currentUIElm = menuManager.confirmElm;
+                                }
+                                else
+                                {
+                                    menuManager.ResetItemWeights();
+                                }
+                            }
+                        }
+                        else if (currentPanel == UIElm.PanelType.Confirm)
+                        {
+                            menuManager.GoButtonPressed();
+                        }
+                    }
+                    else
+                    {
+                        menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
+                        hasChar = true;
+                    }
+                }
+                else if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
+                {
+                    Debug.Log("ARROWS CONFIRM");
+                    if (ID == 0)
+                    {
+                        // i am player 1
+                        if (currentPanel == UIElm.PanelType.Character)
+                        {
+                            menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
+                            hasChar = true;
+                            currentPanel = UIElm.PanelType.Stage;
+                            currentUIElm = menuManager.stageElms[0];
+                        }
+                        else if (currentPanel == UIElm.PanelType.Stage)
+                        {
+                            menuManager.gameManager.chosenStage = currentUIElm.attachedStage;
+                            menuManager.stageCheckMark.anchoredPosition = currentUIElm.GetComponent<RectTransform>().anchoredPosition;
+                            menuManager.stageCheckMark.gameObject.SetActive(true);
+                            currentPanel = UIElm.PanelType.ItemWeight;
+                            currentUIElm = menuManager.itemWeightElms[0];
+                        }
+                        else if (currentPanel == UIElm.PanelType.ItemWeight)
+                        {
+                            if (currentUIElm.attachedItemDropLoot != null)
+                            {
+                                currentPanel = UIElm.PanelType.Confirm;
+                                currentUIElm = menuManager.confirmElm;
+                            }
+                            else
+                            {
+                                if (currentUIElm.iWButtonType == UIElm.IWButtonTypes.Confirm)
+                                {
+                                    currentPanel = UIElm.PanelType.Confirm;
+                                    currentUIElm = menuManager.confirmElm;
+                                }
+                                else
+                                {
+                                    menuManager.ResetItemWeights();
+                                }
+                            }
+                        }
+                        else if (currentPanel == UIElm.PanelType.Confirm)
+                        {
+                            menuManager.GoButtonPressed();
+                        }
+                    }
+                    else
+                    {
+                        menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
+                        hasChar = true;
+                    }
                 }
             }
             else
             {
-                menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
-                hasChar = true;
+                if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
+                {
+                    Debug.Log("WASD CONFIRM");
+                    OnJump();
+                }
             }
         }
     }
@@ -371,38 +502,43 @@ public class MenuPlayer : MonoBehaviour
     public void OnBack()
     {
         // back button stuff
-        if (ID == 0)
+        Debug.Log("back for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
-            if (currentPanel == UIElm.PanelType.Character)
+            if (ID == 0)
+            {
+                if (currentPanel == UIElm.PanelType.Character)
+                {
+                    menuManager.playerChosenChars[ID] = null;
+                    hasChar = false;
+                }
+                else if (currentPanel == UIElm.PanelType.Stage)
+                {
+                    currentPanel = UIElm.PanelType.Character;
+                    menuManager.playerChosenChars[ID] = null;
+                    hasChar = false;
+                    menuManager.gameManager.chosenStage = null;
+                    menuManager.stageCheckMark.gameObject.SetActive(false);
+                    currentUIElm = menuManager.starterUIElm;
+                }
+                else if (currentPanel == UIElm.PanelType.ItemWeight)
+                {
+                    currentPanel = UIElm.PanelType.Stage;
+                    menuManager.stageCheckMark.gameObject.SetActive(false);
+                    currentUIElm = menuManager.stageElms[0];
+                }
+                else if (currentPanel == UIElm.PanelType.Confirm)
+                {
+                    currentPanel = UIElm.PanelType.ItemWeight;
+                    currentUIElm = menuManager.itemWeightElms[0];
+                }
+            }
+            else
             {
                 menuManager.playerChosenChars[ID] = null;
                 hasChar = false;
             }
-            else if (currentPanel == UIElm.PanelType.Stage)
-            {
-                currentPanel = UIElm.PanelType.Character;
-                menuManager.playerChosenChars[ID] = null;
-                hasChar = false;
-                menuManager.gameManager.chosenStage = null;
-                menuManager.stageCheckMark.gameObject.SetActive(false);
-                currentUIElm = menuManager.starterUIElm;
-            }
-            else if (currentPanel == UIElm.PanelType.ItemWeight)
-            {
-                currentPanel = UIElm.PanelType.Stage;
-                menuManager.stageCheckMark.gameObject.SetActive(false);
-                currentUIElm = menuManager.stageElms[0];
-            }
-            else if (currentPanel == UIElm.PanelType.Confirm)
-            {
-                currentPanel = UIElm.PanelType.ItemWeight;
-                currentUIElm = menuManager.itemWeightElms[0];
-            }
-        }
-        else
-        {
-            menuManager.playerChosenChars[ID] = null;
-            hasChar = false;
         }
     }
 
@@ -410,10 +546,20 @@ public class MenuPlayer : MonoBehaviour
     {
         Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if(myPlayer != null)
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
-            myPlayer.Jump();
-            //Debug.Log("player not null");
+            if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
+            {
+                menuControls.navigation = Vector2.up;
+            }
+        }
+        else
+        {
+            if (myPlayer != null)
+            {
+                myPlayer.Jump();
+                //Debug.Log("player not null");
+            }
         }
     }
 
@@ -447,10 +593,17 @@ public class MenuPlayer : MonoBehaviour
     {
         Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (myPlayer != null)
+        if (SceneManager.GetActiveScene().name == "Battle")
         {
-            myPlayer.RightHand();
-            //Debug.Log("player not null");
+            if (myPlayer != null)
+            {
+                myPlayer.RightHand();
+                //Debug.Log("player not null");
+            }
+        }
+        else
+        {
+            OnBack();
         }
     }
 
@@ -469,15 +622,22 @@ public class MenuPlayer : MonoBehaviour
     {
         if (existTimer <= 0)
         {
-            menuManager.menuPlayers.Remove(this);
-            menuManager.gameManager.playerChosenChars.RemoveAt(ID);
-
-            foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
+            if (SceneManager.GetActiveScene().name == "Battle")
             {
-                if (mp.ID > ID) { mp.ID--; }
-            }
 
-            Destroy(gameObject);
+            }
+            else
+            {
+                menuManager.menuPlayers.Remove(this);
+                menuManager.playerChosenChars.RemoveAt(ID);
+
+                foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
+                {
+                    if (mp.ID > ID) { mp.ID--; }
+                }
+
+                Destroy(gameObject);
+            }
         }
     }
 }

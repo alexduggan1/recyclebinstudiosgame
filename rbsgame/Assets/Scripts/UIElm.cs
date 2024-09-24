@@ -60,6 +60,7 @@ public class UIElm : MonoBehaviour
                     {
                         otherVisual.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Reset";
                     }
+                    visualItem.gameObject.SetActive(false);
                 }
             }
             else
@@ -73,6 +74,7 @@ public class UIElm : MonoBehaviour
                 {
                     otherVisual.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Reset";
                 }
+                visualItem.gameObject.SetActive(false);
             }
         }
         else if(panelType == PanelType.Stage)
