@@ -2190,7 +2190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elmAbove: {fileID: 1158516036}
   elmBelow: {fileID: 0}
-  elmLeft: {fileID: 0}
+  elmLeft: {fileID: 633884976}
   elmRight: {fileID: 0}
   panelType: 0
   attachedCharacter: {fileID: 0}
