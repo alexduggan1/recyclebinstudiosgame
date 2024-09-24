@@ -405,6 +405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characters:
   - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
+  - {fileID: 5483133159943521038, guid: 033b2532432db2c4198047d657413ca0, type: 3}
+  - {fileID: 5483133159943521038, guid: dd2a19c2ebf4b15459b3ada15aaad487, type: 3}
   stages:
   - {fileID: 0}
   - {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
@@ -423,6 +425,8 @@ MonoBehaviour:
   - loot: {fileID: 2696348413483647919, guid: 04e675f978e609d4590daca7e8d23364, type: 3}
     weight: 1
   - loot: {fileID: 2956349212448185863, guid: 86ba891db26a92248b30b82bf0c7df9d, type: 3}
+    weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 38f179f965f976c49a6f4be9874b7226, type: 3}
     weight: 1
   defaultItemDropLoots: []
 --- !u!1 &1619329607

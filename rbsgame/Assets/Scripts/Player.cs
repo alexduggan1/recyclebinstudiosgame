@@ -114,6 +114,8 @@ public class Player : MonoBehaviour
 
     public BattleController battleController;
 
+    public float pickupDelay;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -128,17 +130,18 @@ public class Player : MonoBehaviour
         if (playerState.alive)
         {
             // handle player inputs
-            playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
-            playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
-            playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
-            playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
-            playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
-            playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
+            //playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
+            //playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
+            //playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
+            //playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
+            //playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
+            //playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
 
             playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
             playerState.yVel = rb.velocity.y;
 
             playerState.itemActionTime += Time.deltaTime;
+            pickupDelay -= Time.deltaTime;
 
 
             character.playerState = playerState;
@@ -252,6 +255,7 @@ public class Player : MonoBehaviour
                         if (items.LeftHand != null)
                         {
                             UseItem(items.LeftHand, "LH");
+                            playerInputs.useLHand = false;
                         }
                     }
                     if (playerInputs.useRHand)
@@ -259,6 +263,7 @@ public class Player : MonoBehaviour
                         if (items.RightHand != null)
                         {
                             UseItem(items.RightHand, "RH");
+                            playerInputs.useRHand = false;
                         }
                     }
                     if (playerInputs.useHat)
@@ -266,6 +271,7 @@ public class Player : MonoBehaviour
                         if (items.Hat != null)
                         {
                             UseItem(items.Hat, "H");
+                            playerInputs.useHat = false;
                         }
                     }
                 }
@@ -297,7 +303,7 @@ public class Player : MonoBehaviour
         else
         {
             // handheld items
-            playerState.itemAnimTime = character.ItemAnimation(item.itemType.animType, playerState.facingDir, attachment);
+            playerState.itemAnimTime = character.ItemAnimation(item, playerState.facingDir, attachment);
             item.actionTime = 0.0f;
             item.currentlyBeingUsed = true;
             item.currentUse += 1;
@@ -418,6 +424,7 @@ public class Player : MonoBehaviour
         //Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == 8)
         {
+            /*
             if (playerState.alive)
             {
                 Item itemToTry = collision.transform.GetChild(0).GetComponent<Item>();
@@ -469,6 +476,7 @@ public class Player : MonoBehaviour
                     Destroy(collision.gameObject);
                 }
             }
+            */
         }
         else if (collision.gameObject.layer == 10)
         {
@@ -486,6 +494,8 @@ public class Player : MonoBehaviour
             if(collision.gameObject.TryGetComponent<Toast>(out toast)) { if (toast.ownerException == this) { iAmException = true; } }
             if(collision.gameObject.TryGetComponent<Hitbox>(out hitbox)) { if (hitbox.ownerException == this) { iAmException = true; } }
 
+            Debug.Log("hit with hitbox");
+
             if(!iAmException)
             {
                 Die();
@@ -494,123 +504,132 @@ public class Player : MonoBehaviour
     }
     
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
             if (playerState.alive)
             {
-                Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
-                //Debug.Log(itemToTry.itemType.name);
+                if (pickupDelay <= 0)
+                {
+                    Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
+                    //Debug.Log(itemToTry.itemType.name);
 
-                bool pickupSuccessful = false;
-                if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
-                {
-                    if (items.Hat != null) { }
-                    else
+                    bool pickupSuccessful = false;
+                    if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
                     {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.Hat = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
-                    }
-                }
-                else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
-                {
-                    // for now fill lefthand first then right, can change behavior later
-                    if (items.LeftHand != null)
-                    {
-                        if (items.RightHand != null) { }
+                        if (items.Hat != null) { }
                         else
                         {
                             Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                            items.RightHand = newItem;
+                            items.Hat = newItem;
                             newItem.pickedUp = true;
                             newItem.currentlyBeingUsed = false;
                             newItem.myPlayer = this;
                             pickupSuccessful = true;
                         }
                     }
-                    else
+                    else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
                     {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.LeftHand = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
+                        // for now fill lefthand first then right, can change behavior later
+                        if (items.LeftHand != null)
+                        {
+                            if (items.RightHand != null) { }
+                            else
+                            {
+                                Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                                items.RightHand = newItem;
+                                newItem.pickedUp = true;
+                                newItem.currentlyBeingUsed = false;
+                                newItem.myPlayer = this;
+                                pickupSuccessful = true;
+                            }
+                        }
+                        else
+                        {
+                            Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                            items.LeftHand = newItem;
+                            newItem.pickedUp = true;
+                            newItem.currentlyBeingUsed = false;
+                            newItem.myPlayer = this;
+                            pickupSuccessful = true;
+                        }
                     }
-                }
 
-                if (pickupSuccessful)
-                {
-                    Destroy(other.gameObject);
+                    if (pickupSuccessful)
+                    {
+                        Destroy(other.gameObject);
+                        pickupDelay = 0f;
+                    }
                 }
             }
         }
     }
+    */
 
-    /*
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
             if (playerState.alive)
             {
-                Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
-                Debug.Log(itemToTry.itemType.name);
+                if (pickupDelay <= 0 && other.GetComponent<ItemPickup>().alreadyPickedup == false)
+                {
+                    Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
+                    //Debug.Log(itemToTry.itemType.name);
 
-                bool pickupSuccessful = false;
-                if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
-                {
-                    if (items.Hat != null) { }
-                    else
+                    bool pickupSuccessful = false;
+                    if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
                     {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.Hat = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
-                    }
-                }
-                else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
-                {
-                    // for now fill lefthand first then right, can change behavior later
-                    if (items.LeftHand != null)
-                    {
-                        if (items.RightHand != null) { }
+                        if (items.Hat != null) { }
                         else
                         {
                             Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                            items.RightHand = newItem;
+                            items.Hat = newItem;
                             newItem.pickedUp = true;
                             newItem.currentlyBeingUsed = false;
                             newItem.myPlayer = this;
                             pickupSuccessful = true;
                         }
                     }
-                    else
+                    else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
                     {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.LeftHand = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
+                        // for now fill lefthand first then right, can change behavior later
+                        if (items.LeftHand != null)
+                        {
+                            if (items.RightHand != null) { }
+                            else
+                            {
+                                Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                                items.RightHand = newItem;
+                                newItem.pickedUp = true;
+                                newItem.currentlyBeingUsed = false;
+                                newItem.myPlayer = this;
+                                pickupSuccessful = true;
+                            }
+                        }
+                        else
+                        {
+                            Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
+                            items.LeftHand = newItem;
+                            newItem.pickedUp = true;
+                            newItem.currentlyBeingUsed = false;
+                            newItem.myPlayer = this;
+                            pickupSuccessful = true;
+                        }
                     }
-                }
 
-                if (pickupSuccessful)
-                {
-                    Destroy(other.gameObject);
+                    if (pickupSuccessful)
+                    {
+                        other.GetComponent<ItemPickup>().alreadyPickedup = true;
+                        Destroy(other.gameObject);
+                        pickupDelay = 0f;
+                    }
                 }
             }
         }
     }
-    */
 
     public GameObject FindCorrectItemProto(Item.ItemType.Names itemName)
     {
@@ -625,5 +644,25 @@ public class Player : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void Jump()
+    {
+        playerInputs.jumpPressed = true;
+    }
+
+    public void LeftHand()
+    {
+        playerInputs.useLHand = true;
+    }
+
+    public void RightHand()
+    {
+        playerInputs.useRHand = true;
+    }
+
+    public void Hat()
+    {
+        playerInputs.useHat = true;
     }
 }

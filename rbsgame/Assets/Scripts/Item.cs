@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat
         };
 
         public enum AnimType
@@ -77,6 +77,7 @@ public class Item : MonoBehaviour
     public Player myPlayer;
 
     public float hatAnimTime;
+    public float handheldAnimSpeed = 1;
 
     public Sprite thumbnail;
 
@@ -95,22 +96,33 @@ public class Item : MonoBehaviour
             actionTime += Time.deltaTime;
             if(itemUses.Count > 0)
             {
-                foreach (ItemAction action in itemUses[currentUse].actions)
+                if(itemUses.Count > currentUse)
                 {
-                    if ((actionTime > action.timeStamp) && (!action.done))
+                    foreach (ItemAction action in itemUses[currentUse].actions)
                     {
-                        if(action.function != null)
+                        if ((actionTime > action.timeStamp) && (!action.done))
                         {
-                            action.function.Invoke();
-                        }
-                        action.done = true;
+                            if (action.function != null)
+                            {
+                                action.function.Invoke();
+                            }
+                            action.done = true;
 
-                        if (action == itemUses[currentUse].actions[^1])
-                        {
-                            // if it's the last one turn off currentlybeingused
-                            currentlyBeingUsed = false;
-                            itemUses[currentUse].done = true;
+                            if (action == itemUses[currentUse].actions[^1])
+                            {
+                                // if it's the last one turn off currentlybeingused
+                                currentlyBeingUsed = false;
+                                itemUses[currentUse].done = true;
+                            }
                         }
+                    }
+                }
+                else
+                {
+                    currentlyBeingUsed = false;
+                    foreach (ItemUse itemUse in itemUses)
+                    {
+                        if (!itemUse.done) { itemUse.done = true; }
                     }
                 }
             }
@@ -286,6 +298,23 @@ public class Item : MonoBehaviour
         newToast.GetComponent<Toast>().ownerException = myPlayer;
     }
 
+    public void FireSpikes(GameObject spikeToFire, GameObject spikeToFire2)
+    {
+        Debug.Log("FIRE SPIEKS?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot2 = Vector3.up;
+        GameObject newSpike1 = Instantiate(spikeToFire, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(newSpike1);
+        newSpike1.transform.Rotate(new Vector3(45, 0, 0));
+        newSpike1.GetComponent<Spike>().rb.velocity = new Vector3(10, 10);
+        newSpike1.GetComponent<Spike>().ownerException = myPlayer;
+        Vector3 dirToShoot3 = Vector3.up;
+        GameObject newSpike2 = Instantiate(spikeToFire2, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(newSpike2);
+        newSpike2.transform.Rotate(new Vector3(-45, 0, 0));
+        newSpike2.GetComponent<Spike>().rb.velocity = new Vector3(-10, 10);
+        newSpike2.GetComponent<Spike>().ownerException = myPlayer;
+    }
+
     public void SwingSword(GameObject hitbox, float hitboxTime, Vector3 offsetPos)
     {
         Debug.Log("swing sword!");
@@ -302,5 +331,54 @@ public class Item : MonoBehaviour
         Physics.IgnoreCollision(h.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
+    }
+
+    public void OrigamiDragon(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
+    {
+        IEnumerator dragonFire = DragonFire(fireParticles, smokeParticles, hitbox);
+        StartCoroutine(dragonFire);
+    }
+
+    public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
+    {
+        float realTime = 0;
+
+        Physics.IgnoreCollision(hitbox.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+
+        fireParticles.Stop();
+        smokeParticles.Stop();
+        hitbox.SetActive(false);
+
+        while (realTime < (7f/60f))
+        {
+            myPlayer.character.animator.speed = 1;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        fireParticles.Play();
+        smokeParticles.Play();
+        hitbox.SetActive(true);
+
+        while (realTime < ((7f + (15f * (1f / 0.2f))) / 60f))
+        {
+            myPlayer.character.animator.speed = 0.2f;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        fireParticles.Stop();
+        smokeParticles.Stop();
+        hitbox.SetActive(false);
+
+        while (realTime < ((7f + (15f * (1f / 0.2f)) + 10f) / 60f))
+        {
+            myPlayer.character.animator.speed = 1f;
+            realTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+
+        yield return null;
     }
 }

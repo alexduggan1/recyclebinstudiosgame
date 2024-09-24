@@ -6,7 +6,7 @@ using UnityEngine;
 public class SemisolidPlat : MonoBehaviour
 {
     [SerializeField] private Vector3 entryDirection = Vector3.up;
-    [SerializeField] private bool localDirection = false;
+    //[SerializeField] private bool localDirection = false;
     [SerializeField] private Vector3 triggerScale = new Vector3(1, 1.5f, 1);
     private new BoxCollider collider = null;
 
