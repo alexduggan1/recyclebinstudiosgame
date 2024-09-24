@@ -345,15 +345,17 @@ public class Item : MonoBehaviour
         Debug.Log("PLACING PORTAL??!!");
         GameObject newPortal = Instantiate(portalObj, transform.position, Quaternion.identity);
         newPortal.transform.Rotate(new Vector3(0, 90, 0));
+        myPlayer.myPortals.Clear();
         myPlayer.myPortals.Add(newPortal);
     }
 
     public void UsePortal()
     {
         Debug.Log("telperting??????");
-        myPlayer.transform.position = myPlayer.myPortals[0].transform.position;
-        myPlayer.myPortals.Remove(myPlayer.myPortals[0]);
-        Destroy(myPlayer.myPortals[0]);
+        GameObject gotoPortal = myPlayer.myPortals[0];
+        myPlayer.transform.position = gotoPortal.transform.position;
+        myPlayer.myPortals.Remove(gotoPortal);
+        Destroy(gotoPortal);
     }
 
     public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)

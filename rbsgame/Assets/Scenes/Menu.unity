@@ -1396,9 +1396,9 @@ MonoBehaviour:
     - original: 31
       remapped: 7
     - original: 19
-      remapped: 8
-    - original: 37
       remapped: 9
+    - original: 37
+      remapped: 8
     - original: 33
       remapped: 64
     - original: 15
