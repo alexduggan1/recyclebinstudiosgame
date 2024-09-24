@@ -340,6 +340,20 @@ public class Item : MonoBehaviour
         IEnumerator dragonFire = DragonFire(fireParticles, smokeParticles, hitbox);
         StartCoroutine(dragonFire);
     }
+    public void PlacePortal(GameObject portalObj)
+    {
+        Debug.Log("PLACING PORTAL??!!");
+        GameObject newPortal = Instantiate(portalObj, transform.position, Quaternion.identity);
+        newPortal.transform.Rotate(new Vector3(0, 90, 0));
+        myPlayer.myPortals.Add(newPortal);
+    }
+
+    public void UsePortal()
+    {
+        Debug.Log("telperting??????");
+        myPlayer.transform.position = myPlayer.myPortals[0].transform.position;
+        Destroy(myPlayer.myPortals[0]);
+    }
 
     public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
     {
