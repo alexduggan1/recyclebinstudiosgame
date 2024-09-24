@@ -352,6 +352,7 @@ public class Item : MonoBehaviour
     {
         Debug.Log("telperting??????");
         myPlayer.transform.position = myPlayer.myPortals[0].transform.position;
+        myPlayer.myPortals.Remove(myPlayer.myPortals[0]);
         Destroy(myPlayer.myPortals[0]);
     }
 
