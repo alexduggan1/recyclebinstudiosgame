@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType:
     attachType: 1
-    name: 6
+    name: 7
     animType: 0
   itemUses:
   - actions:
@@ -66,7 +66,7 @@ MonoBehaviour:
             _Y: 0
             _Z: 0
             _W: 0
-            _Object: {fileID: 8999580254307525001, guid: 9b3f8cf15bc1fbe4d94e9954bf428c57, type: 3}
+            _Object: {fileID: 2535488965979210328, guid: a71af99c03f12fc4c9aea547dd364479, type: 3}
           - _Type: 13
             _Int: 0
             _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -75,7 +75,7 @@ MonoBehaviour:
             _Y: 0
             _Z: 0
             _W: 0
-            _Object: {fileID: 8999580254307525001, guid: 9b3f8cf15bc1fbe4d94e9954bf428c57, type: 3}
+            _Object: {fileID: 2535488965979210328, guid: a71af99c03f12fc4c9aea547dd364479, type: 3}
       done: 0
     done: 0
   - actions:
@@ -93,7 +93,7 @@ MonoBehaviour:
             _Y: 0
             _Z: 0
             _W: 0
-            _Object: {fileID: 8999580254307525001, guid: 9b3f8cf15bc1fbe4d94e9954bf428c57, type: 3}
+            _Object: {fileID: 2535488965979210328, guid: a71af99c03f12fc4c9aea547dd364479, type: 3}
           - _Type: 13
             _Int: 0
             _String: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -102,7 +102,7 @@ MonoBehaviour:
             _Y: 0
             _Z: 0
             _W: 0
-            _Object: {fileID: 8999580254307525001, guid: 9b3f8cf15bc1fbe4d94e9954bf428c57, type: 3}
+            _Object: {fileID: 2535488965979210328, guid: a71af99c03f12fc4c9aea547dd364479, type: 3}
       done: 0
     done: 0
   currentUse: 0
@@ -112,6 +112,8 @@ MonoBehaviour:
   anchorOffset: {fileID: 3885011803807204216}
   myPlayer: {fileID: 0}
   hatAnimTime: 0.1
+  handheldAnimSpeed: 1
+  thumbnail: {fileID: 21300000, guid: 41949f19d1b49f44b8cfc65f0b61456d, type: 3}
 --- !u!1 &6541292396622105306
 GameObject:
   m_ObjectHideFlags: 0

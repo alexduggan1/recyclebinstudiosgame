@@ -246,12 +246,13 @@ public class MenuManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             bool valid = true;
+            int total = 0;
             foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
             {
-                if(!mp.hasChar) { valid = false; }
+                if(!mp.hasChar) { valid = false; } total++;
             }
 
-            if (valid)
+            if (valid && (total >= 2))
             {
                 // do all the stuff to make sure things work
 

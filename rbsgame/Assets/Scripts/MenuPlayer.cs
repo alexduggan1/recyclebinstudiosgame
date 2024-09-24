@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MenuPlayer : MonoBehaviour
 {
@@ -170,7 +171,7 @@ public class MenuPlayer : MonoBehaviour
                     if (currentUIElm.elmLeft != null)
                     {
                         currentUIElm = currentUIElm.elmLeft;
-                        menuControls.lastNav = 0.15f;
+                        menuControls.lastNav = 0.2f;
                     }
                 }
                 else
@@ -187,7 +188,7 @@ public class MenuPlayer : MonoBehaviour
                     if (currentUIElm.elmRight != null)
                     {
                         currentUIElm = currentUIElm.elmRight;
-                        menuControls.lastNav = 0.15f;
+                        menuControls.lastNav = 0.2f;
                     }
                 }
                 else
@@ -202,12 +203,12 @@ public class MenuPlayer : MonoBehaviour
             if (menuControls.navigation.y > 0.5f && menuControls.lastNav <= 0)
             {
                 if (currentUIElm.elmAbove != null) { currentUIElm = currentUIElm.elmAbove; }
-                menuControls.lastNav = 0.15f;
+                menuControls.lastNav = 0.2f;
             }
             if (menuControls.navigation.y < -0.5f && menuControls.lastNav <= 0)
             {
                 if (currentUIElm.elmBelow != null) { currentUIElm = currentUIElm.elmBelow; }
-                menuControls.lastNav = 0.15f;
+                menuControls.lastNav = 0.2f;
             }
 
             if (menuControls.lastNav > 0)
@@ -469,15 +470,22 @@ public class MenuPlayer : MonoBehaviour
     {
         if (existTimer <= 0)
         {
-            menuManager.menuPlayers.Remove(this);
-            menuManager.gameManager.playerChosenChars.RemoveAt(ID);
-
-            foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
+            if (SceneManager.GetActiveScene().name == "Battle")
             {
-                if (mp.ID > ID) { mp.ID--; }
-            }
 
-            Destroy(gameObject);
+            }
+            else
+            {
+                menuManager.menuPlayers.Remove(this);
+                menuManager.gameManager.playerChosenChars.RemoveAt(ID);
+
+                foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
+                {
+                    if (mp.ID > ID) { mp.ID--; }
+                }
+
+                Destroy(gameObject);
+            }
         }
     }
 }
