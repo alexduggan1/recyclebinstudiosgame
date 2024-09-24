@@ -376,7 +376,8 @@ public class Player : MonoBehaviour
 
                 if (playerInputs.dropPressed)
                 {
-                    rb.velocity += new Vector3(0, -1 * Time.fixedDeltaTime, 0);
+                    //Debug.Log("dropppinng!!!!");
+                    rb.velocity += new Vector3(0, -50 * Time.fixedDeltaTime, 0);
                 }
             }
 
