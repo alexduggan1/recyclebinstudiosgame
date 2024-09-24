@@ -112,6 +112,8 @@ public class Player : MonoBehaviour
 
     public List<GameObject> myProjectiles;
 
+    public List<GameObject> myPortals;
+
     public BattleController battleController;
 
     public float pickupDelay;
