@@ -477,7 +477,7 @@ public class MenuPlayer : MonoBehaviour
             else
             {
                 menuManager.menuPlayers.Remove(this);
-                menuManager.gameManager.playerChosenChars.RemoveAt(ID);
+                menuManager.playerChosenChars.RemoveAt(ID);
 
                 foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
                 {
