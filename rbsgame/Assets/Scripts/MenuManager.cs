@@ -45,6 +45,7 @@ public class MenuManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         DontDestroyOnLoad(canv.gameObject);
+        DontDestroyOnLoad(gameObject);
 
         GenerateMenu();
     }

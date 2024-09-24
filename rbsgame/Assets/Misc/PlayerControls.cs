@@ -381,17 +381,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ec592534-5506-4497-b907-3d02cdb4cfb9"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Confirm"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""561cfdc6-fdb0-4568-9d7a-8971742f6ee9"",
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
