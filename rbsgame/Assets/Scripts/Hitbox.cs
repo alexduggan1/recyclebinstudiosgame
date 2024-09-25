@@ -6,8 +6,6 @@ public class Hitbox : MonoBehaviour
 {
     public Player ownerException;
 
-    public float bulletSpeed;
-
     public Rigidbody rb;
 
     public Vector3 dir;
