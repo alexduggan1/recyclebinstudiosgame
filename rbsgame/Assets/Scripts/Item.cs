@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UltEvents;
 using TMPro.Examples;
-using static Player.State;
 
 public class Item : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat
         };
 
         public enum AnimType
@@ -68,6 +67,8 @@ public class Item : MonoBehaviour
     public float actionTime;
 
     public bool pickedUp;
+    public float notPickedUpScale = 1;
+    public Vector3 regularScale;
 
     public bool currentlyBeingUsed;
 
@@ -86,11 +87,15 @@ public class Item : MonoBehaviour
     {
         currentUse = -1;
         actionTime = 0;
+        regularScale = transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!pickedUp) { transform.localScale = regularScale * notPickedUpScale; }
+        else { transform.localScale = regularScale; }
+
         if (currentlyBeingUsed)
         {
             actionTime += Time.deltaTime;
@@ -440,5 +445,29 @@ public class Item : MonoBehaviour
 
 
         yield return null;
+    }
+
+    public void DriveCar()
+    {
+        IEnumerator drivingCar = DrivingCar();
+        StartCoroutine(drivingCar);
+
+        Debug.Log(transform.eulerAngles);
+        Debug.Log(myPlayer.transform.eulerAngles.z - transform.eulerAngles.z);
+    }
+
+    public IEnumerator DrivingCar()
+    {
+        float driveTime = 0;
+        while (driveTime < hatAnimTime)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
+    }
+
+    public void StopDriving()
+    {
+
     }
 }
