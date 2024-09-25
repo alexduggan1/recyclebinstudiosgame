@@ -10,7 +10,8 @@ public class LaunchBox : MonoBehaviour
 
     public Vector3 dir;
 
-
+    
+    [System.Serializable]
     public class LaunchData
     {
         public Vector3 launchDirection;
@@ -18,7 +19,7 @@ public class LaunchBox : MonoBehaviour
 
         public LaunchData(Vector3 _launchDirection, float _launchPower)
         {
-            launchDirection = _launchDirection;
+            launchDirection = _launchDirection.normalized;
             launchPower = _launchPower;
         }
     }

@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
         public bool activelyUsingItem;
         public float itemAnimTime;
         public float itemActionTime;
+        public float hitstunTime;
     }
 
     public State playerState;
@@ -513,6 +514,20 @@ public class Player : MonoBehaviour
             if(!iAmException)
             {
                 Die();
+            }
+        }
+        else if (collision.gameObject.layer == 12)
+        {
+            // is a launchbox
+            bool iAmException = false;
+            LaunchBox launchbox;
+            if (collision.gameObject.TryGetComponent<LaunchBox>(out launchbox)) { if (launchbox.ownerException == this) { iAmException = true; } }
+
+            Debug.Log("hit with launchbox");
+
+            if (!iAmException)
+            {
+                rb.velocity += launchbox.launchData.launchDirection * launchbox.launchData.launchPower;
             }
         }
     }
