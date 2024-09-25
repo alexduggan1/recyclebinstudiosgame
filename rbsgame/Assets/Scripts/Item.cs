@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat
         };
 
         public enum AnimType
@@ -356,6 +356,23 @@ public class Item : MonoBehaviour
         myPlayer.transform.position = gotoPortal.transform.position;
         myPlayer.myPortals.Remove(gotoPortal);
         Destroy(gotoPortal);
+    }
+
+    public void PartyImmune()
+    {
+        Debug.Log("PARTY TIME!!!!");
+        foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        }
+        foreach (Toast toast in FindObjectsByType<Toast>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(toast.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        }
+        foreach (Bananarang bananarang in FindObjectsByType<Bananarang>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(bananarang.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        }
     }
 
     public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
