@@ -433,6 +433,8 @@ MonoBehaviour:
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: ebc265fe1f37a44489d95f1f08f0b361, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 32d9d1c82f02fdd4f852899c37903b8c, type: 3}
+    weight: 1
   defaultItemDropLoots: []
   listOfMenuPlayers: []
   titleTimer: 0
