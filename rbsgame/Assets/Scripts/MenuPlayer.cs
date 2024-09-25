@@ -232,22 +232,7 @@ public class MenuPlayer : MonoBehaviour
     {
         //Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
 
-        if (SceneManager.GetActiveScene().name == "Menu")
-        {
-            if (menuControls.keyboardType == MenuControls.KeyboardType.None || menuControls.keyboardType == MenuControls.KeyboardType.WASD)
-            {
-                menuControls.navigation = value.Get<Vector2>();
-            }
-            else
-            {
-                Debug.Log(value.Get<Vector2>());
-                if(value.Get<Vector2>().y <= 0)
-                {
-                    menuControls.navigation = value.Get<Vector2>();
-                }
-            }
-        }
-        //menuControls.navigation = value.Get<Vector2>();
+        menuControls.navigation = value.Get<Vector2>();
     }
 
     public void OnConfirm()
@@ -418,11 +403,8 @@ public class MenuPlayer : MonoBehaviour
             {
                 if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
                 {
+                    //Debug.Log("WASD CONFIRM");
                     OnJump();
-                }
-                if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
-                {
-                    OnRightHand();
                 }
             }
         }
