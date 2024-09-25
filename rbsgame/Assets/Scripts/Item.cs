@@ -303,14 +303,14 @@ public class Item : MonoBehaviour
         Debug.Log("FIRE SPIEKS?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         GameObject newSpike1 = Instantiate(spikeToFire, transform.position, Quaternion.identity);
         myPlayer.myProjectiles.Add(newSpike1);
-        newSpike1.transform.Rotate(new Vector3(45, 0, 0));
+        newSpike1.transform.Rotate(new Vector3(0, 0, -45));
         newSpike1.GetComponent<Spike>().rb.velocity = new Vector3(10, 10);
         newSpike1.GetComponent<Spike>().ownerException = myPlayer;
         Physics.IgnoreCollision(newSpike1.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
 
         GameObject newSpike2 = Instantiate(spikeToFire2, transform.position, Quaternion.identity);
         myPlayer.myProjectiles.Add(newSpike2);
-        newSpike2.transform.Rotate(new Vector3(-45, 0, 0));
+        newSpike2.transform.Rotate(new Vector3(0, 0, 45));
         newSpike2.GetComponent<Spike>().rb.velocity = new Vector3(-10, 10);
         newSpike2.GetComponent<Spike>().ownerException = myPlayer;
         Physics.IgnoreCollision(newSpike2.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
