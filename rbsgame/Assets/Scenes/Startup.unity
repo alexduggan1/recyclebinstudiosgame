@@ -407,6 +407,7 @@ MonoBehaviour:
   - {fileID: 5483133159943521038, guid: 2baf3e292724b8142a683ed3e49d64d7, type: 3}
   - {fileID: 5483133159943521038, guid: 033b2532432db2c4198047d657413ca0, type: 3}
   - {fileID: 5483133159943521038, guid: dd2a19c2ebf4b15459b3ada15aaad487, type: 3}
+  - {fileID: 5483133159943521038, guid: a6b836aa70f0e5c40ac1a8687fbd736e, type: 3}
   stages:
   - {fileID: 0}
   - {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
@@ -430,8 +431,11 @@ MonoBehaviour:
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 77cdab3b81cbede40b8696ae50dcc863, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: ebc265fe1f37a44489d95f1f08f0b361, type: 3}
+    weight: 1
   defaultItemDropLoots: []
   listOfMenuPlayers: []
+  titleTimer: 0
 --- !u!1 &1619329607
 GameObject:
   m_ObjectHideFlags: 0

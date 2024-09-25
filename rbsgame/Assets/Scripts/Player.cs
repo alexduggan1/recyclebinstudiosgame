@@ -112,6 +112,8 @@ public class Player : MonoBehaviour
 
     public List<GameObject> myProjectiles;
 
+    public List<GameObject> myPortals;
+
     public BattleController battleController;
 
     public float pickupDelay;
@@ -372,6 +374,12 @@ public class Player : MonoBehaviour
                 if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
                 {
                     rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+                }
+
+                if (playerInputs.dropPressed)
+                {
+                    //Debug.Log("dropppinng!!!!");
+                    rb.velocity += new Vector3(0, -50 * Time.fixedDeltaTime, 0);
                 }
             }
 

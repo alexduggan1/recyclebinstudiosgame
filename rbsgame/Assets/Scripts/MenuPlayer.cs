@@ -226,107 +226,18 @@ public class MenuPlayer : MonoBehaviour
                 menuControls.lastNav -= Time.deltaTime;
             }
         }
-
-        /*
-        if (menuControls.confirmAction.action.phase == InputActionPhase.Performed)
-        {
-            if (ID == 0)
-            {
-                // i am player 1
-                if (currentPanel == UIElm.PanelType.Character)
-                {
-                    menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
-                    hasChar = true;
-                    currentPanel = UIElm.PanelType.Stage;
-                    currentUIElm = menuManager.stageElms[0];
-                }
-                else if (currentPanel == UIElm.PanelType.Stage)
-                {
-                    menuManager.gameManager.chosenStage = currentUIElm.attachedStage;
-                    menuManager.stageCheckMark.anchoredPosition = currentUIElm.GetComponent<RectTransform>().anchoredPosition;
-                    menuManager.stageCheckMark.gameObject.SetActive(true);
-                    currentPanel = UIElm.PanelType.ItemWeight;
-                    currentUIElm = menuManager.itemWeightElms[0];
-                }
-                else if (currentPanel == UIElm.PanelType.ItemWeight)
-                {
-                    if(currentUIElm.attachedItemDropLoot != null)
-                    {
-                        currentPanel = UIElm.PanelType.Confirm;
-                        currentUIElm = menuManager.confirmElm;
-                    }
-                    else
-                    {
-                        if(currentUIElm.iWButtonType == UIElm.IWButtonTypes.Confirm)
-                        {
-                            currentPanel = UIElm.PanelType.Confirm;
-                            currentUIElm = menuManager.confirmElm;
-                        }
-                        else
-                        {
-                            menuManager.ResetItemWeights();
-                        }
-                    }
-                }
-                else if (currentPanel == UIElm.PanelType.Confirm)
-                {
-                    menuManager.GoButtonPressed();
-                }
-            }
-            else
-            {
-                menuManager.playerChosenChars[ID] = currentUIElm.attachedCharacter;
-                hasChar = true;
-            }
-        }
-        if (menuControls.backAction.action.phase == InputActionPhase.Performed)
-        {
-            // back button stuff
-            if (ID == 0)
-            {
-                if (currentPanel == UIElm.PanelType.Character)
-                {
-                    menuManager.playerChosenChars[ID] = null;
-                    hasChar = false;
-                }
-                else if (currentPanel == UIElm.PanelType.Stage)
-                {
-                    currentPanel = UIElm.PanelType.Character;
-                    menuManager.gameManager.chosenStage = null;
-                    menuManager.stageCheckMark.gameObject.SetActive(false);
-                    currentUIElm = menuManager.starterUIElm;
-                }
-                else if (currentPanel == UIElm.PanelType.ItemWeight)
-                {
-                    currentPanel = UIElm.PanelType.Stage;
-                    menuManager.stageCheckMark.gameObject.SetActive(false);
-                    currentUIElm = menuManager.stageElms[0];
-                }
-                else if (currentPanel == UIElm.PanelType.Confirm)
-                {
-                    currentPanel = UIElm.PanelType.ItemWeight;
-                    currentUIElm = menuManager.itemWeightElms[0];
-                }
-            }
-            else
-            {
-                menuManager.playerChosenChars[ID] = null;
-                hasChar = false;
-            }
-        }
-        */
     }
 
     public void OnNavigate(InputValue value)
     {
-        Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+        //Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
 
         menuControls.navigation = value.Get<Vector2>();
     }
 
     public void OnConfirm()
     {
-        Debug.Log("confirm for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("confirm for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (existTimer <= 0)
         {
@@ -385,7 +296,7 @@ public class MenuPlayer : MonoBehaviour
                 }
                 else if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
                 {
-                    Debug.Log("WASD CONFIRM");
+                    //Debug.Log("WASD CONFIRM");
                     if (ID == 0)
                     {
                         // i am player 1
@@ -437,7 +348,7 @@ public class MenuPlayer : MonoBehaviour
                 }
                 else if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
                 {
-                    Debug.Log("ARROWS CONFIRM");
+                    //Debug.Log("ARROWS CONFIRM");
                     if (ID == 0)
                     {
                         // i am player 1
@@ -492,7 +403,7 @@ public class MenuPlayer : MonoBehaviour
             {
                 if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
                 {
-                    Debug.Log("WASD CONFIRM");
+                    //Debug.Log("WASD CONFIRM");
                     OnJump();
                 }
             }
@@ -502,7 +413,7 @@ public class MenuPlayer : MonoBehaviour
     public void OnBack()
     {
         // back button stuff
-        Debug.Log("back for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("back for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (SceneManager.GetActiveScene().name == "Menu")
         {
@@ -544,7 +455,7 @@ public class MenuPlayer : MonoBehaviour
 
     public void OnJump()
     {
-        Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (SceneManager.GetActiveScene().name == "Menu")
         {
@@ -565,33 +476,29 @@ public class MenuPlayer : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
 
             myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
-            
-
-            //Debug.Log("player not null");
         }
     }
 
     public void OnLeftHand()
     {
-        Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.LeftHand();
-            //Debug.Log("player not null");
         }
     }
 
     public void OnRightHand()
     {
-        Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (SceneManager.GetActiveScene().name == "Battle")
         {
@@ -603,18 +510,20 @@ public class MenuPlayer : MonoBehaviour
         }
         else
         {
-            OnBack();
+            if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
+            {
+                OnBack();
+            }
         }
     }
 
     public void OnHat()
     {
-        Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
+        //Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (myPlayer != null)
         {
             myPlayer.Hat();
-            //Debug.Log("player not null");
         }
     }
 
