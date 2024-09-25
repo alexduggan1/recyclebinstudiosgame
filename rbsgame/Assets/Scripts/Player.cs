@@ -500,6 +500,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 12)
+        {
+            // is a launchbox
+            bool iAmException = false;
+            LaunchBox launchbox;
+            if (other.gameObject.TryGetComponent<LaunchBox>(out launchbox)) { if (launchbox.ownerException == this) { iAmException = true; } }
+
+            Debug.Log("hit with launchbox");
+
+            if (!iAmException)
+            {
+                playerState.hitstunTime = 0.75f;
+                rb.velocity += launchbox.launchData.launchDirection * launchbox.launchData.launchPower;
+            }
+        }
+    }
 
 
     private void OnTriggerStay(Collider other)
