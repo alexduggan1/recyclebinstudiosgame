@@ -403,8 +403,11 @@ public class MenuPlayer : MonoBehaviour
             {
                 if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
                 {
-                    //Debug.Log("WASD CONFIRM");
                     OnJump();
+                }
+                if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
+                {
+                    OnRightHand();
                 }
             }
         }

@@ -255,43 +255,50 @@ public class Player : MonoBehaviour
             }
             #endregion
 
-            if (!playerState.activelyUsingItem)
+            if (playerState.hitstunTime <= 0)
             {
-                if (playerState.jumpSquatCountdown <= 0)
+                if (!playerState.activelyUsingItem)
                 {
-                    if (playerInputs.useLHand > 0)
+                    if (playerState.jumpSquatCountdown <= 0)
                     {
-                        if (items.LeftHand != null)
+                        if (playerInputs.useLHand > 0)
                         {
-                            UseItem(items.LeftHand, "LH");
-                            playerInputs.useLHand = 0;
+                            if (items.LeftHand != null)
+                            {
+                                UseItem(items.LeftHand, "LH");
+                                playerInputs.useLHand = 0;
+                            }
+                        }
+                        if (playerInputs.useRHand > 0)
+                        {
+                            if (items.RightHand != null)
+                            {
+                                UseItem(items.RightHand, "RH");
+                                playerInputs.useRHand = 0;
+                            }
+                        }
+                        if (playerInputs.useHat > 0)
+                        {
+                            if (items.Hat != null)
+                            {
+                                UseItem(items.Hat, "H");
+                                playerInputs.useHat = 0;
+                            }
                         }
                     }
-                    if (playerInputs.useRHand > 0)
+                }
+                else
+                {
+                    playerState.itemAnimTime -= Time.deltaTime;
+                    if (playerState.itemAnimTime <= 0)
                     {
-                        if (items.RightHand != null)
-                        {
-                            UseItem(items.RightHand, "RH");
-                            playerInputs.useRHand = 0;
-                        }
-                    }
-                    if (playerInputs.useHat > 0)
-                    {
-                        if (items.Hat != null)
-                        {
-                            UseItem(items.Hat, "H");
-                            playerInputs.useHat = 0;
-                        }
+                        playerState.activelyUsingItem = false;
                     }
                 }
             }
             else
             {
-                playerState.itemAnimTime -= Time.deltaTime;
-                if (playerState.itemAnimTime <= 0)
-                {
-                    playerState.activelyUsingItem = false;
-                }
+                playerState.hitstunTime -= Time.deltaTime;
             }
         }
     }
@@ -349,38 +356,50 @@ public class Player : MonoBehaviour
             // maximum horizontal speed
             if (playerState.onGround)
             {
-                rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationGround * Time.fixedDeltaTime, 0);
+                if (playerState.hitstunTime <= 0)
+                {
+                    rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationGround * Time.fixedDeltaTime, 0);
+                }
                 rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationGround, rb.velocity.y);
 
 
-                if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+                if (playerState.hitstunTime <= 0)
                 {
-                    rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
-                }
-                if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
-                {
-                    rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                    if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+                    {
+                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
+                    }
+                    if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
+                    {
+                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                    }
                 }
             }
             else
             {
-                rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationAir * Time.fixedDeltaTime, 0);
+                if (playerState.hitstunTime <= 0)
+                {
+                    rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationAir * Time.fixedDeltaTime, 0);
+                }
                 rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationAir, rb.velocity.y);
 
 
-                if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+                if (playerState.hitstunTime <= 0)
                 {
-                    rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
-                }
-                if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
-                {
-                    rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
-                }
+                    if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+                    {
+                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
+                    }
+                    if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
+                    {
+                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+                    }
 
-                if (playerInputs.dropPressed)
-                {
-                    //Debug.Log("dropppinng!!!!");
-                    rb.velocity += new Vector3(0, -50 * Time.fixedDeltaTime, 0);
+                    if (playerInputs.dropPressed)
+                    {
+                        //Debug.Log("dropppinng!!!!");
+                        rb.velocity += new Vector3(0, -50 * Time.fixedDeltaTime, 0);
+                    }
                 }
             }
 
@@ -439,59 +458,7 @@ public class Player : MonoBehaviour
         //Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == 8)
         {
-            /*
-            if (playerState.alive)
-            {
-                Item itemToTry = collision.transform.GetChild(0).GetComponent<Item>();
-                //Debug.Log(itemToTry.itemType.name);
 
-                bool pickupSuccessful = false;
-                if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
-                {
-                    if (items.Hat != null) { }
-                    else
-                    {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.Hat = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
-                    }
-                }
-                else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
-                {
-                    // for now fill lefthand first then right, can change behavior later
-                    if (items.LeftHand != null)
-                    {
-                        if (items.RightHand != null) { }
-                        else
-                        {
-                            Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                            items.RightHand = newItem;
-                            newItem.pickedUp = true;
-                            newItem.currentlyBeingUsed = false;
-                            newItem.myPlayer = this;
-                            pickupSuccessful = true;
-                        }
-                    }
-                    else
-                    {
-                        Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                        items.LeftHand = newItem;
-                        newItem.pickedUp = true;
-                        newItem.currentlyBeingUsed = false;
-                        newItem.myPlayer = this;
-                        pickupSuccessful = true;
-                    }
-                }
-
-                if (pickupSuccessful)
-                {
-                    Destroy(collision.gameObject);
-                }
-            }
-            */
         }
         else if (collision.gameObject.layer == 10)
         {
@@ -527,75 +494,13 @@ public class Player : MonoBehaviour
 
             if (!iAmException)
             {
+                playerState.hitstunTime = 0.75f;
                 rb.velocity += launchbox.launchData.launchDirection * launchbox.launchData.launchPower;
             }
         }
     }
-    
 
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 8)
-        {
-            if (playerState.alive)
-            {
-                if (pickupDelay <= 0)
-                {
-                    Item itemToTry = other.transform.GetChild(0).GetComponent<Item>();
-                    //Debug.Log(itemToTry.itemType.name);
 
-                    bool pickupSuccessful = false;
-                    if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Hat)
-                    {
-                        if (items.Hat != null) { }
-                        else
-                        {
-                            Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                            items.Hat = newItem;
-                            newItem.pickedUp = true;
-                            newItem.currentlyBeingUsed = false;
-                            newItem.myPlayer = this;
-                            pickupSuccessful = true;
-                        }
-                    }
-                    else if (itemToTry.itemType.attachType == Item.ItemType.AttachTypes.Handheld)
-                    {
-                        // for now fill lefthand first then right, can change behavior later
-                        if (items.LeftHand != null)
-                        {
-                            if (items.RightHand != null) { }
-                            else
-                            {
-                                Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                                items.RightHand = newItem;
-                                newItem.pickedUp = true;
-                                newItem.currentlyBeingUsed = false;
-                                newItem.myPlayer = this;
-                                pickupSuccessful = true;
-                            }
-                        }
-                        else
-                        {
-                            Item newItem = Instantiate(FindCorrectItemProto(itemToTry.itemType.name), transform).GetComponent<Item>();
-                            items.LeftHand = newItem;
-                            newItem.pickedUp = true;
-                            newItem.currentlyBeingUsed = false;
-                            newItem.myPlayer = this;
-                            pickupSuccessful = true;
-                        }
-                    }
-
-                    if (pickupSuccessful)
-                    {
-                        Destroy(other.gameObject);
-                        pickupDelay = 0f;
-                    }
-                }
-            }
-        }
-    }
-    */
 
     private void OnTriggerStay(Collider other)
     {

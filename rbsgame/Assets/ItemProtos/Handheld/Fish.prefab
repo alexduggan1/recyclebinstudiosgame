@@ -78,7 +78,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 1.5
+            _X: 2
             _Y: 0
             _Z: 0
             _W: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 12
+            _X: 3
             _Y: 1
             _Z: 0
             _W: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 200
+            _X: 55
             _Y: 0
             _Z: 0
             _W: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 1.5
+            _X: 2
             _Y: 0
             _Z: 0
             _W: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 12
+            _X: 3
             _Y: 1
             _Z: 0
             _W: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 200
+            _X: 55
             _Y: 0
             _Z: 0
             _W: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 1.5
+            _X: 2
             _Y: 0
             _Z: 0
             _W: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 12
+            _X: 3
             _Y: 1
             _Z: 0
             _W: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 200
+            _X: 55
             _Y: 0
             _Z: 0
             _W: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 1.5
+            _X: 2
             _Y: 0
             _Z: 0
             _W: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 12
+            _X: 3
             _Y: 1
             _Z: 0
             _W: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 200
+            _X: 55
             _Y: 0
             _Z: 0
             _W: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 1.5
+            _X: 2
             _Y: 0
             _Z: 0
             _W: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 12
+            _X: 3
             _Y: 1
             _Z: 0
             _W: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 200
+            _X: 55
             _Y: 0
             _Z: 0
             _W: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 1.5
+            _X: 2
             _Y: 0
             _Z: 0
             _W: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
           - _Type: 7
             _Int: 0
             _String: 
-            _X: 12
+            _X: 3
             _Y: 1
             _Z: 0
             _W: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
           - _Type: 5
             _Int: 0
             _String: 
-            _X: 200
+            _X: 55
             _Y: 0
             _Z: 0
             _W: 0
