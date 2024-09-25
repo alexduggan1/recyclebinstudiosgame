@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat
         };
 
         public enum AnimType
@@ -303,14 +303,14 @@ public class Item : MonoBehaviour
         Debug.Log("FIRE SPIEKS?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         GameObject newSpike1 = Instantiate(spikeToFire, transform.position, Quaternion.identity);
         myPlayer.myProjectiles.Add(newSpike1);
-        newSpike1.transform.Rotate(new Vector3(45, 0, 0));
+        newSpike1.transform.Rotate(new Vector3(0, 0, -45));
         newSpike1.GetComponent<Spike>().rb.velocity = new Vector3(10, 10);
         newSpike1.GetComponent<Spike>().ownerException = myPlayer;
         Physics.IgnoreCollision(newSpike1.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
 
         GameObject newSpike2 = Instantiate(spikeToFire2, transform.position, Quaternion.identity);
         myPlayer.myProjectiles.Add(newSpike2);
-        newSpike2.transform.Rotate(new Vector3(-45, 0, 0));
+        newSpike2.transform.Rotate(new Vector3(0, 0, 45));
         newSpike2.GetComponent<Spike>().rb.velocity = new Vector3(-10, 10);
         newSpike2.GetComponent<Spike>().ownerException = myPlayer;
         Physics.IgnoreCollision(newSpike2.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
@@ -325,14 +325,38 @@ public class Item : MonoBehaviour
         StartCoroutine(makeHitbox);
     }
 
+    public void SwingFish(GameObject launchbox, float hitboxTime, Vector3 offsetPos, Vector3 launchDir, float launchPower)
+    {
+        Debug.Log("swing fish!");
+        LaunchBox.LaunchData launchData = new LaunchBox.LaunchData(launchDir, launchPower);
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) 
+        { 
+            offsetPos = new Vector3(offsetPos.x * -1, offsetPos.y, offsetPos.z);
+            launchData.launchDirection = new Vector3(launchData.launchDirection.x * -1, launchData.launchDirection.y, launchData.launchDirection.z);
+        }
+        IEnumerator makeLaunchbox = MakeLaunchbox(launchbox, hitboxTime, offsetPos, myPlayer, launchData);
+        StartCoroutine(makeLaunchbox);
+    }
+
     public IEnumerator MakeHitbox(GameObject hitbox, float hitboxTime, Vector3 offset, Player exception)
     {
-        GameObject h = Instantiate(hitbox, transform.position + offset, Quaternion.identity);
+        GameObject h = Instantiate(hitbox, myPlayer.transform.position + offset, Quaternion.identity);
         exception.myProjectiles.Add(h);
         h.GetComponent<Hitbox>().ownerException = exception;
         Physics.IgnoreCollision(h.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         yield return new WaitForSeconds(hitboxTime);
         Destroy(h);
+    }
+
+    public IEnumerator MakeLaunchbox(GameObject launchbox, float hitboxTime, Vector3 offset, Player exception, LaunchBox.LaunchData launchData)
+    {
+        GameObject l = Instantiate(launchbox, myPlayer.transform.position + offset, Quaternion.identity);
+        exception.myProjectiles.Add(l);
+        l.GetComponent<LaunchBox>().ownerException = exception;
+        l.GetComponent<LaunchBox>().launchData = launchData;
+        Physics.IgnoreCollision(l.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        yield return new WaitForSeconds(hitboxTime);
+        Destroy(l);
     }
 
     public void OrigamiDragon(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
@@ -356,6 +380,23 @@ public class Item : MonoBehaviour
         myPlayer.transform.position = gotoPortal.transform.position;
         myPlayer.myPortals.Remove(gotoPortal);
         Destroy(gotoPortal);
+    }
+
+    public void PartyImmune()
+    {
+        Debug.Log("PARTY TIME!!!!");
+        foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        }
+        foreach (Toast toast in FindObjectsByType<Toast>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(toast.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        }
+        foreach (Bananarang bananarang in FindObjectsByType<Bananarang>(FindObjectsSortMode.None))
+        {
+            Physics.IgnoreCollision(bananarang.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        }
     }
 
     public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)

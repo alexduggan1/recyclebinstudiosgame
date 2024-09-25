@@ -545,6 +545,11 @@ public class MenuPlayer : MonoBehaviour
                     if (mp.ID > ID) { mp.ID--; }
                 }
 
+                if(ID == 0)
+                {
+                    menuManager.stageCheckMark.gameObject.SetActive(false);
+                }
+
                 Destroy(gameObject);
             }
         }
