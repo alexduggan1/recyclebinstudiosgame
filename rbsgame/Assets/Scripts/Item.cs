@@ -363,15 +363,15 @@ public class Item : MonoBehaviour
         Debug.Log("PARTY TIME!!!!");
         foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
         {
-            bullet.ownerException = myPlayer;
+            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         }
         foreach (Toast toast in FindObjectsByType<Toast>(FindObjectsSortMode.None))
         {
-            toast.ownerException = myPlayer;
+            Physics.IgnoreCollision(toast.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         }
         foreach (Bananarang bananarang in FindObjectsByType<Bananarang>(FindObjectsSortMode.None))
         {
-            Physics.IgnoreCollision(bananarang.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true); ;
+            Physics.IgnoreCollision(bananarang.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         }
     }
 
