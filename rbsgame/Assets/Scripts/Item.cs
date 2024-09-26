@@ -375,7 +375,7 @@ public class Item : MonoBehaviour
         GameObject newPortal = Instantiate(portalObj, transform.position, Quaternion.identity);
         newPortal.transform.Rotate(new Vector3(0, 90, 0));
         myPlayer.myPortals.Clear();
-        myPlayer.myPortals.Add(newPortal);
+        myPlayer.myPortals.Add(newPortal); myPlayer.myProjectiles.Add(newPortal);
     }
 
     public void UsePortal()
