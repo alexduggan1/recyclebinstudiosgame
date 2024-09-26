@@ -53,6 +53,78 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2159367918882982076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6122837782416803119}
+  - component: {fileID: 6529207566938203417}
+  - component: {fileID: 3396567649539167668}
+  m_Layer: 12
+  m_Name: LaunchBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6122837782416803119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159367918882982076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.8, z: 0}
+  m_LocalScale: {x: 2, y: 1.6, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7567111533616390564}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6529207566938203417
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159367918882982076}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3396567649539167668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159367918882982076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b201c5474a4acb459b7708dbc78b576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerException: {fileID: 0}
+  rb: {fileID: 0}
+  dir: {x: 0, y: 0, z: 0}
+  launchData:
+    launchDirection: {x: 2.5, y: 1, z: 0}
+    launchPower: 70
 --- !u!1 &2535488965979210328
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +158,7 @@ Transform:
   - {fileID: 3885011803807204216}
   - {fileID: 5387028004569915823}
   - {fileID: 5956580888618117553}
+  - {fileID: 6122837782416803119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2696348413483647919
@@ -111,14 +184,58 @@ MonoBehaviour:
         _PersistentCalls:
         - _Target: {fileID: 2696348413483647919}
           _MemberName: DriveCar
-          _PersistentArguments: []
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.Collider, UnityEngine.PhysicsModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 7515425731136452439}
+          - _Type: 13
+            _Int: 0
+            _String: LaunchBox, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+              PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 3396567649539167668}
+          - _Type: 5
+            _Int: 0
+            _String: 
+            _X: 25
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 0}
       done: 0
     - timeStamp: 3.5
       function:
         _PersistentCalls:
         - _Target: {fileID: 2696348413483647919}
           _MemberName: StopDriving
-          _PersistentArguments: []
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.Collider, UnityEngine.PhysicsModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 7515425731136452439}
+          - _Type: 13
+            _Int: 0
+            _String: LaunchBox, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+              PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 3396567649539167668}
       done: 0
     done: 0
   currentUse: 0

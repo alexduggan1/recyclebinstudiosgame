@@ -447,27 +447,63 @@ public class Item : MonoBehaviour
         yield return null;
     }
 
-    public void DriveCar()
+    public void DriveCar(Collider stayOnGround, LaunchBox launcher, float driveSpeed)
     {
-        IEnumerator drivingCar = DrivingCar();
+        IEnumerator drivingCar = DrivingCar(stayOnGround, launcher, driveSpeed);
         StartCoroutine(drivingCar);
 
         Debug.Log(transform.eulerAngles);
         Debug.Log(myPlayer.transform.eulerAngles.z - transform.eulerAngles.z);
     }
 
-    public IEnumerator DrivingCar()
+    public IEnumerator DrivingCar(Collider stayOnGround, LaunchBox launcher, float driveSpeed)
     {
         float driveTime = 0;
+        myPlayer.playerState.activelyUsingItem = true;
+        myPlayer.playerState.itemAnimTime = hatAnimTime;
+
+        Player.State.Dir driveDir = myPlayer.playerState.facingDir;
+
+        myPlayer.transform.position += new Vector3(0, stayOnGround.transform.lossyScale.y, 0);
+        stayOnGround.enabled = true;
+        launcher.gameObject.SetActive(true);
+        Physics.IgnoreCollision(myPlayer.GetComponent<Collider>(), launcher.GetComponent<Collider>(), true);
+
+        Vector3 ld = launcher.launchData.launchDirection;
+
         while (driveTime < hatAnimTime)
         {
+            driveTime += Time.deltaTime;
+
+            myPlayer.playerState.rotLocked = true;
+            myPlayer.playerState.freeMovement = true;
+
+            if (myPlayer.playerInputs.hMoveAxis > 0.05f) { driveDir = Player.State.Dir.Right; }
+            if (myPlayer.playerInputs.hMoveAxis < -0.05f) { driveDir = Player.State.Dir.Left; }
+
+            if (driveDir == Player.State.Dir.Right)
+            {
+                myPlayer.transform.eulerAngles = new Vector3(0, 180, 180 + (myPlayer.transform.eulerAngles.z - transform.eulerAngles.z));
+                myPlayer.rb.velocity = new Vector3(driveSpeed * 60f * Time.deltaTime, myPlayer.rb.velocity.y, 0);
+                launcher.launchData.launchDirection = new Vector3(ld.x, ld.y, 0);
+            }
+            else
+            {
+                myPlayer.transform.eulerAngles = new Vector3(0, 0, 180 + (myPlayer.transform.eulerAngles.z - transform.eulerAngles.z));
+                myPlayer.rb.velocity = new Vector3(-driveSpeed * 60f * Time.deltaTime, myPlayer.rb.velocity.y, 0);
+                launcher.launchData.launchDirection = new Vector3(-ld.x, ld.y, 0);
+            }
+
             yield return new WaitForEndOfFrame();
         }
+
+        StopDriving(stayOnGround, launcher);
         yield return null;
     }
 
-    public void StopDriving()
+    public void StopDriving(Collider stayOnGround, LaunchBox launcher)
     {
-
+        myPlayer.playerState.rotLocked = false;
+        myPlayer.playerState.freeMovement = false;
     }
 }

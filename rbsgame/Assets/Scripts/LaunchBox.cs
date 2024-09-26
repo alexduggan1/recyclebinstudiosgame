@@ -28,9 +28,9 @@ public class LaunchBox : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        launchData.launchDirection = launchData.launchDirection.normalized;
     }
 
     // Update is called once per frame
