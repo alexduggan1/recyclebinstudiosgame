@@ -355,6 +355,10 @@ public class BattleController : MonoBehaviour
         {
             Destroy(bananarang.gameObject);
         }
+        foreach (TopHatPortal topHatPortal in FindObjectsByType<TopHatPortal>(FindObjectsSortMode.None))
+        {
+            Destroy(topHatPortal.gameObject);
+        }
 
 
 
