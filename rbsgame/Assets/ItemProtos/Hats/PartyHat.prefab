@@ -63,6 +63,8 @@ MonoBehaviour:
   currentUse: 0
   actionTime: 0
   pickedUp: 0
+  notPickedUpScale: 1
+  regularScale: {x: 0, y: 0, z: 0}
   currentlyBeingUsed: 0
   anchorOffset: {fileID: 3885011803807204216}
   myPlayer: {fileID: 0}

@@ -34,7 +34,7 @@ public class Character : MonoBehaviour
     {
         if (flat) 
         {
-            Debug.Log("flat");
+            //Debug.Log("flat");
 
             for (int i = 0; i < transform.childCount; i++)
             {
