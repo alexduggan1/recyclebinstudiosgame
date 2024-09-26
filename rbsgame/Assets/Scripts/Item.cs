@@ -18,7 +18,7 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat, Bazooka
         };
 
         public enum AnimType
@@ -160,6 +160,21 @@ public class Item : MonoBehaviour
         GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
         myPlayer.myProjectiles.Add(bullet);
         if(bulletSpeed == 0) { bulletSpeed = 1; }
+        bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
+        bullet.GetComponent<Bullet>().dir = dirToShoot;
+        bullet.GetComponent<Bullet>().ownerException = myPlayer;
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void ShootVeggies(float veggieSpeed)
+    {
+        Debug.Log("VEGEBTABLE!!!!!!!!!");
+        Vector3 ditToShoot = Vector3.right;
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
+        
+        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
+        if (bulletSpeed == 0) { bulletSpeed = 1; }
         bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<Bullet>().dir = dirToShoot;
         bullet.GetComponent<Bullet>().ownerException = myPlayer;
