@@ -1279,6 +1279,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c0915a0a22443ab40a596a2419dfd5de, type: 3}
   - {fileID: 21300000, guid: 82653ffa8d5bc3d4c8f66609b703d837, type: 3}
   - {fileID: 21300000, guid: 1a08494aa8079b440b705385fa8f1d50, type: 3}
+  controllerTypeReps:
+  - {fileID: 21300000, guid: 9bcbcaace3042ba4bacf17fc67ebe88e, type: 3}
+  - {fileID: 21300000, guid: 1ecf236a94512d24f8424288f02fff77, type: 3}
+  - {fileID: 21300000, guid: 7b1be7a7db441aa4193ee6056ed9d353, type: 3}
   starterUIElm: {fileID: 5443675199892403152}
   stageElms: []
   itemWeightElms: []

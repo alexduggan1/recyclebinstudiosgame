@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
 
     public GameObject menuPlayerProto;
     public List<Sprite> mpReps;
+    public List<Sprite> controllerTypeReps;
 
     public UIElm starterUIElm;
 

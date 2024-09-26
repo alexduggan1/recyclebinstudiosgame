@@ -62,6 +62,7 @@ public class MenuPlayer : MonoBehaviour
     public Image mpStatusBar;
     public Image mpStatusCircle;
     public Image mpStatusChar;
+    public Image mpStatusControllerType;
 
 
     public Player myPlayer;
@@ -226,6 +227,10 @@ public class MenuPlayer : MonoBehaviour
                 menuControls.lastNav -= Time.deltaTime;
             }
         }
+
+        if(menuControls.keyboardType == MenuControls.KeyboardType.WASD) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[1]; }
+        else if(menuControls.keyboardType == MenuControls.KeyboardType.Arrows) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[2]; }
+        else { mpStatusControllerType.sprite = menuManager.controllerTypeReps[0]; }
     }
 
     public void OnNavigate(InputValue value)
