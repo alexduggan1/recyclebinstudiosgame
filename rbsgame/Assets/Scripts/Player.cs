@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
         public float itemAnimTime;
         public float itemActionTime;
         public float hitstunTime;
+        public bool rotLocked;
+        public bool freeMovement;
     }
 
     public State playerState;
@@ -156,9 +158,11 @@ public class Player : MonoBehaviour
             character.playerState = playerState;
 
 
-
-            if (playerState.facingDir == State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
-            else { transform.localEulerAngles = new Vector3(0, 0, 0); }
+            if (!playerState.rotLocked)
+            {
+                if (playerState.facingDir == State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
+                else { transform.localEulerAngles = new Vector3(0, 0, 0); }
+            }
 
             #region item placement in anchors
             // put the equipment in the correct positions based on the anchors
@@ -365,13 +369,16 @@ public class Player : MonoBehaviour
 
                 if (playerState.hitstunTime <= 0)
                 {
-                    if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+                    if (!playerState.freeMovement)
                     {
-                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
-                    }
-                    if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
-                    {
-                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                        if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+                        {
+                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
+                        }
+                        if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
+                        {
+                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                        }
                     }
                 }
             }
@@ -386,13 +393,16 @@ public class Player : MonoBehaviour
 
                 if (playerState.hitstunTime <= 0)
                 {
-                    if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+                    if (!playerState.freeMovement)
                     {
-                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
-                    }
-                    if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
-                    {
-                        rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+                        if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+                        {
+                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
+                        }
+                        if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
+                        {
+                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+                        }
                     }
 
                     if (playerInputs.dropPressed)

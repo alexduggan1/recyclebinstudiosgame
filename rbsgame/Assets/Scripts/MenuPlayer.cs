@@ -461,7 +461,12 @@ public class MenuPlayer : MonoBehaviour
         {
             if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
             {
-                menuControls.navigation = Vector2.up;
+                if (menuControls.lastNav <= 0)
+                {
+                    if (currentUIElm.elmAbove != null) { currentUIElm = currentUIElm.elmAbove; }
+                    menuControls.lastNav = 0.2f;
+                    menuControls.navigation = Vector2.zero;
+                }
             }
         }
         else
