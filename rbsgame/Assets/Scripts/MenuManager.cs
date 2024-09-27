@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
 
     public GameObject menuPlayerProto;
     public List<Sprite> mpReps;
+    public List<Sprite> controllerTypeReps;
 
     public UIElm starterUIElm;
 
@@ -40,12 +41,22 @@ public class MenuManager : MonoBehaviour
 
     public List<MenuPlayer> menuPlayers;
 
-    void Start()
+
+    public Canvas battleUiCanv;
+    public Image loadingScreen;
+    public Camera battleUiCam;
+
+    void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        gameManager.menuManager = this;
 
         DontDestroyOnLoad(canv.gameObject);
         DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(battleUiCanv);
+        DontDestroyOnLoad(battleUiCam);
+
+        battleUiCanv.enabled = false;
 
         GenerateMenu();
     }
@@ -115,38 +126,6 @@ public class MenuManager : MonoBehaviour
 
         menuPlayers.Clear();
 
-        /*
-        for (int j = 0; j < 1; j++)
-        {
-            MenuPlayer newMP = Instantiate(menuPlayerProto, canv.transform).GetComponent<MenuPlayer>();
-            newMP.menuManager = this;
-            newMP.ID = j;
-            newMP.currentUIElm = starterUIElm;
-
-            newMP.mpRep.sprite = mpReps[j];
-
-            if (j == 0)
-            {
-                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S, KeyCode.Z, KeyCode.X);
-            }
-            if (j == 1)
-            {
-                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.F, KeyCode.H, KeyCode.T, KeyCode.G, KeyCode.V, KeyCode.B);
-            }
-            if (j == 2)
-            {
-                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.J, KeyCode.L, KeyCode.I, KeyCode.K, KeyCode.M, KeyCode.Comma);
-            }
-            if (j == 3)
-            {
-                newMP.menuControls = new MenuPlayer.MenuControls(KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.E, KeyCode.R);
-            }
-
-            menuPlayers.Add(newMP);
-
-            playerChosenChars.Add(null);
-        }
-        */
 
 
         stageCheckMark.transform.SetAsLastSibling();
@@ -299,6 +278,8 @@ public class MenuManager : MonoBehaviour
                 }
 
                 canv.enabled = false;
+
+                battleUiCanv.enabled = true;
 
                 SceneManager.LoadScene("Battle");
             }

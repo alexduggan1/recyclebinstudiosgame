@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
 
     public float titleTimer;
 
+    public MenuManager menuManager;
+
     // Start is called before the first frame update
     void Start()
     {

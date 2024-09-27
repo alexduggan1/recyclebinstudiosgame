@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
         public float hitstunTime;
         public bool rotLocked;
         public bool freeMovement;
+        public bool hasControl;
     }
 
     public State playerState;
