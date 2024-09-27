@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour
 {
@@ -51,14 +52,19 @@ public class BattleController : MonoBehaviour
     }
     public List<ItemDropLoot> itemDropLootTable;
 
-    public float battleTimer;
+    public float roundTimer;
 
     public LayerMask stageLayer;
+
+    public List<int> playerScores;
+    public Image loadingScreen;
+
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        loadingScreen = gameManager.menuManager.loadingScreen;
 
         playerChosenCharacters.Clear();
         foreach (Character chara in gameManager.playerChosenChars)
@@ -68,7 +74,7 @@ public class BattleController : MonoBehaviour
         stageProto = gameManager.chosenStage;
         itemDropLootTable = gameManager.chosenItemDropLoots;
 
-        BeginBattle();
+        StartCoroutine(BeginBattle());
     }
 
     // Update is called once per frame
@@ -76,11 +82,11 @@ public class BattleController : MonoBehaviour
     {
         itemsExisting = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
 
-        battleTimer += Time.deltaTime;
+        roundTimer += Time.deltaTime;
         itemSpawnTimer += Time.deltaTime;
 
         
-        if (battleTimer < 7.5f) { itemSpawnGap = 3; }
+        if (roundTimer < 7.5f) { itemSpawnGap = 3; }
         else
         {
             if (itemsExisting < players.Count) { itemSpawnGap = 7.5f; }
@@ -241,7 +247,7 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    void BeginBattle()
+    IEnumerator BeginBattle()
     {
         // load in the stage, then load in the players
 
@@ -263,10 +269,16 @@ public class BattleController : MonoBehaviour
         stageWidth = largestExtents.x;
 
 
-
+        loadingScreen.gameObject.SetActive(true);
+        bool cM = cameraMove;
+        cameraMove = false;
+        yield return new WaitForSeconds(3);
+        loadingScreen.gameObject.SetActive(false);
+        cameraMove = cM;
         // begin round?
 
         StartRound();
+        yield return null;
     }
 
     public void StartRound()
@@ -323,7 +335,7 @@ public class BattleController : MonoBehaviour
 
         // init item system
 
-        battleTimer = 0;
+        roundTimer = 0;
         itemSpawnTimer = 0;
         itemSpawnGap = 2;
 
