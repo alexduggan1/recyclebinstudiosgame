@@ -332,6 +332,7 @@ public class BattleController : MonoBehaviour
 
 
             newPlayer.playerState.alive = true;
+            newPlayer.playerState.health = 3;
 
             newPlayer.items = new Player.Items(null, null, null);
             newPlayer.playerState.activelyUsingItem = false;

@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
         public bool rotLocked;
         public bool freeMovement;
         public bool hasControl;
+        public int health;
+        public float iFrames;
     }
 
     public State playerState;
@@ -135,6 +137,11 @@ public class Player : MonoBehaviour
     {
         if (playerState.alive)
         {
+            if(playerState.iFrames > 0)
+            {
+                playerState.iFrames -= Time.deltaTime;
+            }
+
             //if (playerState.hasControl)
             //{
                 // handle player inputs
@@ -469,6 +476,20 @@ public class Player : MonoBehaviour
         GetComponent<Collider>().isTrigger = true;
     }
 
+    public void GetHit()
+    {
+        if(playerState.iFrames <= 0)
+        {
+            playerState.health--;
+            playerState.iFrames = 0.33f;
+            if (playerState.health <= 0)
+            {
+                playerState.health = 0;
+                Die();
+            }
+        }
+    }
+
     
     private void OnCollisionEnter(Collision collision)
     {
@@ -481,7 +502,7 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.layer == 10)
         {
             Debug.Log("player hit killbox");
-            Die();
+            GetHit();
         }
         else if (collision.gameObject.layer == 11)
         {
@@ -498,7 +519,7 @@ public class Player : MonoBehaviour
 
             if(!iAmException)
             {
-                Die();
+                GetHit();
             }
         }
         else if (collision.gameObject.layer == 12)
