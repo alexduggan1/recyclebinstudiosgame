@@ -135,176 +135,179 @@ public class Player : MonoBehaviour
     {
         if (playerState.alive)
         {
-            // handle player inputs
-            //playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
-            //playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
-            //playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
-            //playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
-            //playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
-            //playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
+            //if (playerState.hasControl)
+            //{
+                // handle player inputs
+                //playerInputs.hMoveAxis = Input.GetAxis(playerControls.hMoveAxisName);
+                //playerInputs.jumpPressed = Input.GetKey(playerControls.jumpButton);
+                //playerInputs.useLHand = Input.GetKeyDown(playerControls.useLHandButton);
+                //playerInputs.useRHand = Input.GetKeyDown(playerControls.useRHandButton);
+                //playerInputs.useHat = Input.GetKeyDown(playerControls.useHatButton);
+                //playerInputs.dropPressed = Input.GetKey(playerControls.dropButton);
 
-            playerInputs.jumpPressed -= Time.deltaTime;
-            playerInputs.useLHand -= Time.deltaTime;
-            playerInputs.useRHand -= Time.deltaTime;
-            playerInputs.useHat -= Time.deltaTime;
-
-
-            playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
-            playerState.yVel = rb.velocity.y;
-
-            playerState.itemActionTime += Time.deltaTime;
-            pickupDelay -= Time.deltaTime;
+                playerInputs.jumpPressed -= Time.deltaTime;
+                playerInputs.useLHand -= Time.deltaTime;
+                playerInputs.useRHand -= Time.deltaTime;
+                playerInputs.useHat -= Time.deltaTime;
 
 
-            character.playerState = playerState;
+                playerState.activeDirectionalInput = (Mathf.Abs(playerInputs.hMoveAxis) > 0);
+                playerState.yVel = rb.velocity.y;
+
+                playerState.itemActionTime += Time.deltaTime;
+                pickupDelay -= Time.deltaTime;
 
 
-            if (!playerState.rotLocked)
-            {
-                if (playerState.facingDir == State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
-                else { transform.localEulerAngles = new Vector3(0, 0, 0); }
-            }
+                character.playerState = playerState;
 
-            #region item placement in anchors
-            // put the equipment in the correct positions based on the anchors
-            if (items.LeftHand != null)
-            {
-                if (playerState.facingDir == State.Dir.Right)
+
+                if (!playerState.rotLocked)
                 {
-                    items.LeftHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
-                    items.LeftHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
-                        (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
-                        (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
-                        0);
+                    if (playerState.facingDir == State.Dir.Left) { transform.localEulerAngles = new Vector3(0, 180, 0); }
+                    else { transform.localEulerAngles = new Vector3(0, 0, 0); }
                 }
-                else
+
+                #region item placement in anchors
+                // put the equipment in the correct positions based on the anchors
+                if (items.LeftHand != null)
                 {
-                    if (playerState.activelyUsingItem)
+                    if (playerState.facingDir == State.Dir.Right)
                     {
-                        items.LeftHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
-                        items.LeftHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
-                            (1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                        items.LeftHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                        items.LeftHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
+                            (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
                             (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
                             0);
-                        items.LeftHand.transform.localPosition = new Vector3(items.LeftHand.transform.localPosition.x,
-                            items.LeftHand.transform.localPosition.y,
-                            -1 * items.LeftHand.transform.localPosition.z);
                     }
                     else
                     {
-                        items.LeftHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
-                        items.LeftHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
-                            (1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
-                            (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
-                            0);
-                        items.LeftHand.transform.localPosition = new Vector3(items.LeftHand.transform.localPosition.x,
-                            items.LeftHand.transform.localPosition.y,
-                            -1 * items.LeftHand.transform.localPosition.z);
+                        if (playerState.activelyUsingItem)
+                        {
+                            items.LeftHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                            items.LeftHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
+                                (1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                                (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
+                                0);
+                            items.LeftHand.transform.localPosition = new Vector3(items.LeftHand.transform.localPosition.x,
+                                items.LeftHand.transform.localPosition.y,
+                                -1 * items.LeftHand.transform.localPosition.z);
+                        }
+                        else
+                        {
+                            items.LeftHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.LeftHand.anchorOffset.localEulerAngles;
+                            items.LeftHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
+                                (1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position).x,
+                                (-1 * (items.LeftHand.anchorOffset.position - items.LeftHand.transform.position)).y,
+                                0);
+                            items.LeftHand.transform.localPosition = new Vector3(items.LeftHand.transform.localPosition.x,
+                                items.LeftHand.transform.localPosition.y,
+                                -1 * items.LeftHand.transform.localPosition.z);
+                        }
                     }
                 }
-            }
-            if (items.RightHand != null)
-            {
-                if (playerState.facingDir == State.Dir.Right)
+                if (items.RightHand != null)
                 {
-                    items.RightHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
-                    items.RightHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
-                        (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
-                        (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
-                        0);
-                }
-                else
-                {
-                    if (playerState.activelyUsingItem)
+                    if (playerState.facingDir == State.Dir.Right)
                     {
-                        items.RightHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
-                        items.RightHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
-                            (1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
+                        items.RightHand.transform.eulerAngles = character.anchorRH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
+                        items.RightHand.transform.localPosition = character.anchorRH.localPosition + new Vector3
+                            (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
                             (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
                             0);
-                        items.RightHand.transform.localPosition = new Vector3(items.RightHand.transform.localPosition.x,
-                            items.RightHand.transform.localPosition.y,
-                            -1 * items.RightHand.transform.localPosition.z);
                     }
                     else
                     {
-                        items.RightHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
-                        items.RightHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
-                            (1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
-                            (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
+                        if (playerState.activelyUsingItem)
+                        {
+                            items.RightHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
+                            items.RightHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
+                                (1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
+                                (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
+                                0);
+                            items.RightHand.transform.localPosition = new Vector3(items.RightHand.transform.localPosition.x,
+                                items.RightHand.transform.localPosition.y,
+                                -1 * items.RightHand.transform.localPosition.z);
+                        }
+                        else
+                        {
+                            items.RightHand.transform.eulerAngles = character.anchorLH.eulerAngles - items.RightHand.anchorOffset.localEulerAngles;
+                            items.RightHand.transform.localPosition = character.anchorLH.localPosition + new Vector3
+                                (1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position).x,
+                                (-1 * (items.RightHand.anchorOffset.position - items.RightHand.transform.position)).y,
+                                0);
+                            items.RightHand.transform.localPosition = new Vector3(items.RightHand.transform.localPosition.x,
+                                items.RightHand.transform.localPosition.y,
+                                -1 * items.RightHand.transform.localPosition.z);
+                        }
+                    }
+                }
+                if (items.Hat != null)
+                {
+                    if (playerState.facingDir == State.Dir.Right)
+                    {
+                        items.Hat.transform.eulerAngles = character.anchorH.eulerAngles - items.Hat.anchorOffset.localEulerAngles;
+                        items.Hat.transform.localPosition = character.anchorH.localPosition + new Vector3
+                            (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position).x,
+                            (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position)).y,
                             0);
-                        items.RightHand.transform.localPosition = new Vector3(items.RightHand.transform.localPosition.x,
-                            items.RightHand.transform.localPosition.y,
-                            -1 * items.RightHand.transform.localPosition.z);
+                    }
+                    else
+                    {
+                        items.Hat.transform.eulerAngles = character.anchorH.eulerAngles - items.Hat.anchorOffset.localEulerAngles;
+                        items.Hat.transform.localPosition = character.anchorH.localPosition + new Vector3
+                            (1 * (items.Hat.anchorOffset.position - items.Hat.transform.position).x,
+                            (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position)).y,
+                            0);
                     }
                 }
-            }
-            if (items.Hat != null)
-            {
-                if (playerState.facingDir == State.Dir.Right)
-                {
-                    items.Hat.transform.eulerAngles = character.anchorH.eulerAngles - items.Hat.anchorOffset.localEulerAngles;
-                    items.Hat.transform.localPosition = character.anchorH.localPosition + new Vector3
-                        (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position).x,
-                        (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position)).y,
-                        0);
-                }
-                else
-                {
-                    items.Hat.transform.eulerAngles = character.anchorH.eulerAngles - items.Hat.anchorOffset.localEulerAngles;
-                    items.Hat.transform.localPosition = character.anchorH.localPosition + new Vector3
-                        (1 * (items.Hat.anchorOffset.position - items.Hat.transform.position).x,
-                        (-1 * (items.Hat.anchorOffset.position - items.Hat.transform.position)).y,
-                        0);
-                }
-            }
-            #endregion
+                #endregion
 
-            if (playerState.hitstunTime <= 0)
-            {
-                if (!playerState.activelyUsingItem)
+                if (playerState.hitstunTime <= 0)
                 {
-                    if (playerState.jumpSquatCountdown <= 0)
+                    if (!playerState.activelyUsingItem)
                     {
-                        if (playerInputs.useLHand > 0)
+                        if (playerState.jumpSquatCountdown <= 0)
                         {
-                            if (items.LeftHand != null)
+                            if (playerInputs.useLHand > 0)
                             {
-                                UseItem(items.LeftHand, "LH");
-                                playerInputs.useLHand = 0;
+                                if (items.LeftHand != null)
+                                {
+                                    UseItem(items.LeftHand, "LH");
+                                    playerInputs.useLHand = 0;
+                                }
+                            }
+                            if (playerInputs.useRHand > 0)
+                            {
+                                if (items.RightHand != null)
+                                {
+                                    UseItem(items.RightHand, "RH");
+                                    playerInputs.useRHand = 0;
+                                }
+                            }
+                            if (playerInputs.useHat > 0)
+                            {
+                                if (items.Hat != null)
+                                {
+                                    UseItem(items.Hat, "H");
+                                    playerInputs.useHat = 0;
+                                }
                             }
                         }
-                        if (playerInputs.useRHand > 0)
+                    }
+                    else
+                    {
+                        playerState.itemAnimTime -= Time.deltaTime;
+                        if (playerState.itemAnimTime <= 0)
                         {
-                            if (items.RightHand != null)
-                            {
-                                UseItem(items.RightHand, "RH");
-                                playerInputs.useRHand = 0;
-                            }
-                        }
-                        if (playerInputs.useHat > 0)
-                        {
-                            if (items.Hat != null)
-                            {
-                                UseItem(items.Hat, "H");
-                                playerInputs.useHat = 0;
-                            }
+                            playerState.activelyUsingItem = false;
                         }
                     }
                 }
                 else
                 {
-                    playerState.itemAnimTime -= Time.deltaTime;
-                    if (playerState.itemAnimTime <= 0)
-                    {
-                        playerState.activelyUsingItem = false;
-                    }
+                    playerState.hitstunTime -= Time.deltaTime;
                 }
-            }
-            else
-            {
-                playerState.hitstunTime -= Time.deltaTime;
-            }
+            //}
         }
     }
 
@@ -339,99 +342,103 @@ public class Player : MonoBehaviour
             // update player state
 
             playerState.onGround = Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f, stageLayer.value);
-            if (!playerState.activelyUsingItem)
+            
+            if (playerState.hasControl)
             {
+                if (!playerState.activelyUsingItem)
+                {
+                    if (playerState.onGround)
+                    {
+                        if (playerInputs.hMoveAxis > 0.05f)
+                        {
+                            playerState.facingDir = State.Dir.Right;
+                        }
+                        if (playerInputs.hMoveAxis < -0.05f)
+                        {
+                            playerState.facingDir = State.Dir.Left;
+                        }
+                    }
+                }
+
+                // handle movement
+
+                // move side to side
+                // decelerate automatically
+                // maximum horizontal speed
                 if (playerState.onGround)
                 {
-                    if (playerInputs.hMoveAxis > 0.05f)
+                    if (playerState.hitstunTime <= 0)
                     {
-                        playerState.facingDir = State.Dir.Right;
+                        rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationGround * Time.fixedDeltaTime, 0);
                     }
-                    if (playerInputs.hMoveAxis < -0.05f)
+                    rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationGround, rb.velocity.y);
+
+
+                    if (playerState.hitstunTime <= 0)
                     {
-                        playerState.facingDir = State.Dir.Left;
-                    }
-                }
-            }
-
-            // handle movement
-
-            // move side to side
-            // decelerate automatically
-            // maximum horizontal speed
-            if (playerState.onGround)
-            {
-                if (playerState.hitstunTime <= 0)
-                {
-                    rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationGround * Time.fixedDeltaTime, 0);
-                }
-                rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationGround, rb.velocity.y);
-
-
-                if (playerState.hitstunTime <= 0)
-                {
-                    if (!playerState.freeMovement)
-                    {
-                        if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+                        if (!playerState.freeMovement)
                         {
-                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
-                        }
-                        if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
-                        {
-                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                            if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedGround)
+                            {
+                                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround), rb.velocity.y);
+                            }
+                            if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
+                            {
+                                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                if (playerState.hitstunTime <= 0)
+                else
                 {
-                    rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationAir * Time.fixedDeltaTime, 0);
-                }
-                rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationAir, rb.velocity.y);
-
-
-                if (playerState.hitstunTime <= 0)
-                {
-                    if (!playerState.freeMovement)
+                    if (playerState.hitstunTime <= 0)
                     {
-                        if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+                        rb.velocity += new Vector3(playerInputs.hMoveAxis * physicsAttributes.moveAccelerationAir * Time.fixedDeltaTime, 0);
+                    }
+                    rb.velocity = new Vector3(rb.velocity.x * physicsAttributes.autoDecelerationAir, rb.velocity.y);
+
+
+                    if (playerState.hitstunTime <= 0)
+                    {
+                        if (!playerState.freeMovement)
                         {
-                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
+                            if ((rb.velocity.x) > physicsAttributes.maxMoveSpeedAir)
+                            {
+                                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir), rb.velocity.y);
+                            }
+                            if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
+                            {
+                                rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+                            }
                         }
-                        if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedAir * -1)
+
+                        if (playerInputs.dropPressed)
                         {
-                            rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedAir * -1), rb.velocity.y);
+                            //Debug.Log("dropppinng!!!!");
+                            rb.velocity += new Vector3(0, -50 * Time.fixedDeltaTime, 0);
                         }
                     }
+                }
 
-                    if (playerInputs.dropPressed)
+
+
+                // jumping
+                if (playerState.jumpSquatCountdown > 0)
+                {
+                    playerState.jumpSquatCountdown -= Time.fixedDeltaTime;
+                    playerInputs.jumpPressed = 0;
+                    if (playerState.jumpSquatCountdown <= 0)
                     {
-                        //Debug.Log("dropppinng!!!!");
-                        rb.velocity += new Vector3(0, -50 * Time.fixedDeltaTime, 0);
+                        playerInputs.jumpPressed = 0;
+                        rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
                     }
                 }
-            }
-
-
-
-            // jumping
-            if (playerState.jumpSquatCountdown > 0)
-            {
-                playerState.jumpSquatCountdown -= Time.fixedDeltaTime;
-                playerInputs.jumpPressed = 0;
-                if (playerState.jumpSquatCountdown <= 0)
+                if (playerInputs.jumpPressed > 0 && playerState.onGround)
                 {
                     playerInputs.jumpPressed = 0;
-                    rb.velocity = new Vector3(rb.velocity.x, physicsAttributes.jumpForce);
+                    character.Jump();
+                    playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
                 }
-            }
-            if (playerInputs.jumpPressed > 0 && playerState.onGround)
-            {
-                playerInputs.jumpPressed = 0;
-                character.Jump();
-                playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
             }
         }
         else

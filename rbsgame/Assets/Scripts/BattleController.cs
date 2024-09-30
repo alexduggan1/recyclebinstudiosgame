@@ -53,6 +53,7 @@ public class BattleController : MonoBehaviour
     public List<ItemDropLoot> itemDropLootTable;
 
     public float roundTimer;
+    public bool roundActive;
 
     public LayerMask stageLayer;
 
@@ -70,6 +71,7 @@ public class BattleController : MonoBehaviour
         foreach (Character chara in gameManager.playerChosenChars)
         {
             playerChosenCharacters.Add(chara.characterName);
+            playerScores.Add(0);
         }
         stageProto = gameManager.chosenStage;
         itemDropLootTable = gameManager.chosenItemDropLoots;
@@ -80,47 +82,49 @@ public class BattleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        itemsExisting = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
-
-        roundTimer += Time.deltaTime;
-        itemSpawnTimer += Time.deltaTime;
-
-        
-        if (roundTimer < 7.5f) { itemSpawnGap = 3; }
-        else
+        if (roundActive)
         {
-            if (itemsExisting < players.Count) { itemSpawnGap = 7.5f; }
-            else if (itemsExisting < players.Count * 2) { itemSpawnGap = 13; }
-            else { itemSpawnGap = 0; }
-        }
+            itemsExisting = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
+
+            roundTimer += Time.deltaTime;
+            itemSpawnTimer += Time.deltaTime;
 
 
-        if(itemSpawnGap != 0)
-        {
-            if(itemSpawnTimer > itemSpawnGap)
+            if (roundTimer < 7.5f) { itemSpawnGap = 3; }
+            else
             {
-                for (int i = 0; i < players.Count; i++)
+                if (itemsExisting < players.Count) { itemSpawnGap = 7.5f; }
+                else if (itemsExisting < players.Count * 2.5f) { itemSpawnGap = 12.5f; }
+                else { itemSpawnGap = 0; }
+            }
+
+
+            if (itemSpawnGap != 0)
+            {
+                if (itemSpawnTimer > itemSpawnGap)
                 {
-                    SpawnItem();
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        SpawnItem();
+                    }
+                    itemSpawnTimer = 0;
                 }
-                itemSpawnTimer = 0;
-            }
-        }
-
-        
-
-        if(players.Count > 0)
-        {
-            int alivePlayers = 0;
-            foreach (Player player in players)
-            {
-                if (player.playerState.alive) { alivePlayers++; }
             }
 
-            if(alivePlayers <= 1)
+
+
+            if (players.Count > 0)
             {
-                EndRound();
-                StartRound();
+                int alivePlayers = 0;
+                foreach (Player player in players)
+                {
+                    if (player.playerState.alive) { alivePlayers++; }
+                }
+
+                if (alivePlayers <= 1)
+                {
+                    StartCoroutine(EndRound());
+                }
             }
         }
     }
@@ -249,6 +253,7 @@ public class BattleController : MonoBehaviour
 
     IEnumerator BeginBattle()
     {
+        roundActive = false;
         // load in the stage, then load in the players
 
         stage = Instantiate(stageProto);
@@ -277,11 +282,11 @@ public class BattleController : MonoBehaviour
         cameraMove = cM;
         // begin round?
 
-        StartRound();
+        StartCoroutine(StartRound());
         yield return null;
     }
 
-    public void StartRound()
+    public IEnumerator StartRound()
     {
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
@@ -319,7 +324,8 @@ public class BattleController : MonoBehaviour
             //gameManager.listOfMenuPlayers[i].GetComponent<PlayerInput>().currentActionMap = gameManager.listOfMenuPlayers[i].GetComponent<PlayerInput>().actions.FindActionMap("Ingame");
             gameManager.listOfMenuPlayers[i].myPlayer = newPlayer;
 
-            // do this bit start of every round
+            
+
 
             newPlayer.playerState.alive = true;
 
@@ -329,9 +335,17 @@ public class BattleController : MonoBehaviour
             if (newPlayer.transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }
             else { newPlayer.playerState.facingDir = Player.State.Dir.Right; }
 
+            newPlayer.playerState.hasControl = false;
+
             players.Add(newPlayer);
             i += 1;
         }
+
+        Time.timeScale = 1.0f;
+
+        // TODO show ready, go stuff
+
+        yield return new WaitForSecondsRealtime(3);
 
         // init item system
 
@@ -340,17 +354,27 @@ public class BattleController : MonoBehaviour
         itemSpawnGap = 2;
 
         // spawn an item for each player
-        for (int j = 0; j < playerChosenCharacters.Count; j++)
+        foreach (Player player in players)
         {
+            player.playerState.hasControl = true;
             SpawnItem();
         }
+
+        roundActive = true;
+
+        yield return null;
     }
 
-    public void EndRound()
+    public IEnumerator EndRound()
     {
+        roundActive = false;
+
+
+        Time.timeScale = 0.25f;
+        yield return new WaitForSecondsRealtime(1.8f);
+
+
         // destroy old stuff
-
-
         foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
         {
             Destroy(bullet.gameObject);
@@ -373,10 +397,14 @@ public class BattleController : MonoBehaviour
         }
 
 
-
-        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        int i = 0;
+        foreach (Player player in players)
         {
-            Destroy(player.gameObject);
+            if (player.playerState.alive)
+            {
+                playerScores[i]++;
+            }
+            i++;
         }
 
 
@@ -384,11 +412,23 @@ public class BattleController : MonoBehaviour
         {
             Destroy(itemPickup.gameObject);
         }
-
         foreach (Item item in FindObjectsByType<Item>(FindObjectsSortMode.None))
         {
             Destroy(item.gameObject);
         }
+        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        {
+            Destroy(player.gameObject);
+        }
+
+
+        Time.timeScale = 1.0f;
+
+
+        // TODO if whole game should be over
+
+
+        StartCoroutine(StartRound());
     }
 
     Vector3 FigureOutPlayerStartPosition(int playerID, int playerCount)
