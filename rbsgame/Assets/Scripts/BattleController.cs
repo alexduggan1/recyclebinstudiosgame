@@ -57,10 +57,13 @@ public class BattleController : MonoBehaviour
 
     public LayerMask stageLayer;
 
-    public List<int> playerScores;
+    public List<HUDPlayer> playerHUDs;
+    public Canvas battleUICanv;
     public Image loadingScreen;
     public Image readyUI;
     public Image goUI;
+
+    public GameObject HUDProto;
 
 
     // Start is called before the first frame update
@@ -70,12 +73,12 @@ public class BattleController : MonoBehaviour
         loadingScreen = gameManager.menuManager.loadingScreen;
         readyUI = gameManager.menuManager.readyUI;
         goUI = gameManager.menuManager.goUI;
+        battleUICanv = gameManager.menuManager.battleUiCanv;
 
         playerChosenCharacters.Clear();
         foreach (Character chara in gameManager.playerChosenChars)
         {
             playerChosenCharacters.Add(chara.characterName);
-            playerScores.Add(0);
         }
         stageProto = gameManager.chosenStage;
         itemDropLootTable = gameManager.chosenItemDropLoots;
@@ -284,7 +287,26 @@ public class BattleController : MonoBehaviour
         yield return new WaitForSeconds(3);
         loadingScreen.gameObject.SetActive(false);
         cameraMove = cM;
-        // begin round?
+
+
+        // show players' HUDS
+
+        int i = 0;
+        foreach (Character chara in gameManager.playerChosenChars)
+        {
+            HUDPlayer newHUD = Instantiate(HUDProto, battleUICanv.transform).GetComponent<HUDPlayer>();
+
+            newHUD.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, 0, 0);
+
+            newHUD.score = 0;
+            newHUD.character = chara;
+
+            playerHUDs.Add(newHUD);
+            i++;
+        }
+
+
+        // begin round
 
         StartCoroutine(StartRound());
         yield return null;
@@ -414,7 +436,7 @@ public class BattleController : MonoBehaviour
         {
             if (player.playerState.alive)
             {
-                playerScores[i]++;
+                playerHUDs[i].score++;
             }
             i++;
         }
