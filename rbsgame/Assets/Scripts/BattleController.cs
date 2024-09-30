@@ -59,6 +59,8 @@ public class BattleController : MonoBehaviour
 
     public List<int> playerScores;
     public Image loadingScreen;
+    public Image readyUI;
+    public Image goUI;
 
 
     // Start is called before the first frame update
@@ -66,6 +68,8 @@ public class BattleController : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         loadingScreen = gameManager.menuManager.loadingScreen;
+        readyUI = gameManager.menuManager.readyUI;
+        goUI = gameManager.menuManager.goUI;
 
         playerChosenCharacters.Clear();
         foreach (Character chara in gameManager.playerChosenChars)
@@ -345,7 +349,9 @@ public class BattleController : MonoBehaviour
 
         // TODO show ready, go stuff
 
-        yield return new WaitForSecondsRealtime(3);
+        readyUI.enabled = true;
+        yield return new WaitForSecondsRealtime(1.4f);
+        readyUI.enabled = false;
 
         // init item system
 
@@ -361,6 +367,11 @@ public class BattleController : MonoBehaviour
         }
 
         roundActive = true;
+
+
+        goUI.enabled = true;
+        yield return new WaitForSecondsRealtime(0.5f);
+        goUI.enabled = false;
 
         yield return null;
     }

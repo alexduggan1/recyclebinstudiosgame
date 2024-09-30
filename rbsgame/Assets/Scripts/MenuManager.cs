@@ -44,6 +44,8 @@ public class MenuManager : MonoBehaviour
 
     public Canvas battleUiCanv;
     public Image loadingScreen;
+    public Image readyUI;
+    public Image goUI;
     public Camera battleUiCam;
 
     void Awake()
