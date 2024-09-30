@@ -459,6 +459,7 @@ public class Player : MonoBehaviour
     public void Die()
     {
         playerState.alive = false;
+        playerState.health = 0;
 
         if (items.LeftHand != null) { Destroy(items.LeftHand.gameObject); }
         if (items.RightHand != null) { Destroy(items.RightHand.gameObject); }
@@ -502,7 +503,7 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.layer == 10)
         {
             Debug.Log("player hit killbox");
-            GetHit();
+            Die();
         }
         else if (collision.gameObject.layer == 11)
         {

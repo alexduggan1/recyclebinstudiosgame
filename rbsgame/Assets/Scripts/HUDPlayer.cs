@@ -8,8 +8,6 @@ public class HUDPlayer : MonoBehaviour
 {
     public int score;
 
-    public Character character;
-
     public BattleController bc;
 
     public int ID;
@@ -17,6 +15,13 @@ public class HUDPlayer : MonoBehaviour
     public Image hpImage;
 
     public List<Sprite> hpSprites;
+
+    public Image characterRender;
+    public Image characterBackground;
+
+    List<Color> bgColors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
+
+    public TextMeshProUGUI scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -36,5 +41,12 @@ public class HUDPlayer : MonoBehaviour
         {
             hpImage.enabled = false;
         }
+
+        characterRender.sprite = bc.players[ID].character.render;
+
+
+        characterBackground.color = bgColors[ID];
+
+        scoreText.text = score.ToString() + "/5";
     }
 }

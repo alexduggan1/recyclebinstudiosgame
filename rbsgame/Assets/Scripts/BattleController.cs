@@ -292,14 +292,13 @@ public class BattleController : MonoBehaviour
         // show players' HUDS
 
         int i = 0;
-        foreach (Character chara in gameManager.playerChosenChars)
+        foreach (Character.CharacterNames chara in playerChosenCharacters)
         {
             HUDPlayer newHUD = Instantiate(HUDProto, battleUICanv.transform).GetComponent<HUDPlayer>();
 
-            newHUD.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-9 + (5f * i), -6, 0);
+            newHUD.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-9 + (6f * i), -6, 0);
 
             newHUD.score = 0;
-            newHUD.character = chara;
             newHUD.ID = i;
             newHUD.bc = this;
 
