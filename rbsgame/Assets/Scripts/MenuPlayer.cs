@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuPlayer : MonoBehaviour
 {
@@ -29,6 +30,12 @@ public class MenuPlayer : MonoBehaviour
             None, WASD, Arrows
         }
         public KeyboardType keyboardType;
+
+        public enum ControllerType
+        {
+            None, SwitchPro, Xbox, Playstation, Arcade
+        }
+        public ControllerType controllerType;
 
         public MenuControls(KeyCode _leftButton, KeyCode _rightButton, KeyCode _upButton, KeyCode _downButton,
             KeyCode _confirmButton, KeyCode _backButton)
@@ -69,6 +76,10 @@ public class MenuPlayer : MonoBehaviour
 
     public float existTimer;
 
+    public string sceneName;
+
+    public TextMeshProUGUI debugText;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -93,16 +104,36 @@ public class MenuPlayer : MonoBehaviour
         menuManager.playerChosenChars.Add(null);
 
 
-        menuControls.actionMap = menuControls.inputActionAsset.FindActionMap("UI");
+        menuControls.actionMap = menuControls.inputActionAsset.FindActionMap("ControlBinds");
         //Debug.Log(menuControls.actionMap);
         menuControls.actionMap.Enable();
         //Debug.Log(menuControls.actionMap.enabled);
 
         existTimer = 0.2f;
         Debug.Log(GetComponent<PlayerInput>().devices[0].name);
+        menuControls.controllerType = MenuControls.ControllerType.None;
         if(GetComponent<PlayerInput>().devices[0].name == "WASD") { menuControls.keyboardType = MenuControls.KeyboardType.WASD; }
         else if(GetComponent<PlayerInput>().devices[0].name == "Arrows") { menuControls.keyboardType = MenuControls.KeyboardType.Arrows; }
-        else { menuControls.keyboardType = MenuControls.KeyboardType.None; }
+        else 
+        { 
+            menuControls.keyboardType = MenuControls.KeyboardType.None;
+
+            string desc = GetComponent<PlayerInput>().devices[0].description.ToString().ToLower();
+            if (desc.Contains("xinput") || desc.Contains("microsoft"))
+            {
+                menuControls.controllerType = MenuControls.ControllerType.Xbox;
+            }
+            else if (desc.Contains("pro"))
+            {
+                menuControls.controllerType = MenuControls.ControllerType.SwitchPro;
+            }
+            else if (desc.Contains("dragon"))
+            {
+                menuControls.controllerType = MenuControls.ControllerType.Arcade;
+            }
+
+
+        }
     }
 
     // Update is called once per frame
@@ -231,18 +262,17 @@ public class MenuPlayer : MonoBehaviour
         if(menuControls.keyboardType == MenuControls.KeyboardType.WASD) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[1]; }
         else if(menuControls.keyboardType == MenuControls.KeyboardType.Arrows) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[2]; }
         else { mpStatusControllerType.sprite = menuManager.controllerTypeReps[0]; }
+
+        sceneName = SceneManager.GetActiveScene().name;
+
+        debugText.text = GetComponent<PlayerInput>().devices[0].name + " ||| " + menuControls.controllerType + 
+            " ||| " + GetComponent<PlayerInput>().devices[0].description;
     }
 
-    public void OnNavigate(InputValue value)
+    
+    public void Confirm()
     {
-        //Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
-
-        menuControls.navigation = value.Get<Vector2>();
-    }
-
-    public void OnConfirm()
-    {
-        //Debug.Log("confirm for player " + GetComponent<PlayerInput>().playerIndex);
+        Debug.Log("confirm for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (existTimer <= 0)
         {
@@ -404,6 +434,7 @@ public class MenuPlayer : MonoBehaviour
                     }
                 }
             }
+            /*
             else
             {
                 if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
@@ -416,13 +447,15 @@ public class MenuPlayer : MonoBehaviour
                     OnRightHand();
                 }
             }
+            */
         }
     }
 
-    public void OnBack()
+    
+    public void Back()
     {
         // back button stuff
-        //Debug.Log("back for player " + GetComponent<PlayerInput>().playerIndex);
+        Debug.Log("back for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (SceneManager.GetActiveScene().name == "Menu")
         {
@@ -462,109 +495,63 @@ public class MenuPlayer : MonoBehaviour
         }
     }
 
-    public void OnJump()
+    
+    public void Jump()
     {
-        //Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
+        Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (myPlayer != null)
         {
-            if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
-            {
-                if (!((ID != 0) && hasChar))
-                {
-                    if (menuControls.lastNav <= 0)
-                    {
-                        if (currentUIElm.elmAbove != null) { currentUIElm = currentUIElm.elmAbove; }
-                        menuControls.lastNav = 0.2f;
-                        menuControls.navigation = Vector2.zero;
-                    }
-                }
-            }
+            myPlayer.Jump();
         }
-        else if (SceneManager.GetActiveScene().name == "Battle")
+        
+    }
+
+    
+    
+    public void LeftHand()
+    {
+        Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (myPlayer != null)
         {
-            if (myPlayer != null)
+            if (myPlayer.playerState.hasControl)
             {
-                myPlayer.Jump();
-                //Debug.Log("player not null");
+                myPlayer.LeftHand();
             }
         }
     }
 
-    public void OnMove(InputValue value)
+    public void RightHand()
     {
-        //Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex);
+        Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (SceneManager.GetActiveScene().name == "Battle")
+        if (myPlayer != null)
         {
-            if (myPlayer != null)
+            if (myPlayer.playerState.hasControl)
             {
-                if (myPlayer.playerState.hasControl)
-                {
-                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
-
-                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
-                }
+                myPlayer.RightHand();
             }
         }
+        
     }
 
-    public void OnLeftHand()
+    public void Hat()
     {
-        //Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
+        Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (SceneManager.GetActiveScene().name == "Battle")
+        if (myPlayer != null)
         {
-            if (myPlayer != null)
+            if (myPlayer.playerState.hasControl)
             {
-                if (myPlayer.playerState.hasControl)
-                {
-                    myPlayer.LeftHand();
-                }
+                myPlayer.Hat();
             }
         }
+        
     }
+    
 
-    public void OnRightHand()
-    {
-        //Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
-
-        if (SceneManager.GetActiveScene().name == "Battle")
-        {
-            if (myPlayer != null)
-            {
-                if (myPlayer.playerState.hasControl)
-                {
-                    myPlayer.RightHand();
-                }
-            }
-        }
-        else if (SceneManager.GetActiveScene().name == "Menu")
-        {
-            if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
-            {
-                OnBack();
-            }
-        }
-    }
-
-    public void OnHat()
-    {
-        //Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
-
-        if (SceneManager.GetActiveScene().name == "Battle")
-        {
-            if (myPlayer != null)
-            {
-                if (myPlayer.playerState.hasControl)
-                {
-                    myPlayer.Hat();
-                }
-            }
-        }
-    }
-
-    public void OnRemovePlayer()
+    public void RemovePlayer()
     {
         if (existTimer <= 0)
         {
@@ -591,4 +578,428 @@ public class MenuPlayer : MonoBehaviour
             }
         }
     }
+
+
+    
+    public void OnKeyboardLStick(InputValue value)
+    {
+        if (sceneName == "Menu")
+        {
+            Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            menuControls.navigation = value.Get<Vector2>();
+        }
+        else if (sceneName == "Battle")
+        {
+            Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
+
+                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+
+                    if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
+                    {
+                        if (value.Get<Vector2>().y > 0.7f)
+                        {
+                            Jump();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void OnXboxLStick(InputValue value)
+    {
+        if (sceneName == "Menu")
+        {
+            Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            menuControls.navigation = value.Get<Vector2>();
+        }
+        else if (sceneName == "Battle")
+        {
+            Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
+
+                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+                }
+            }
+        }
+    }
+
+    public void OnSwitchLStick(InputValue value)
+    {
+        if (sceneName == "Menu")
+        {
+            Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            menuControls.navigation = value.Get<Vector2>();
+        }
+        else if (sceneName == "Battle")
+        {
+            Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
+
+                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+                }
+            }
+        }
+    }
+
+    public void OnWebLStick(InputValue value)
+    {
+        if (sceneName == "Menu")
+        {
+            Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            menuControls.navigation = value.Get<Vector2>();
+        }
+        else if (sceneName == "Battle")
+        {
+            Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
+
+                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+
+                    if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+                    {
+                        if (value.Get<Vector2>().y > 0.7f)
+                        {
+                            Jump();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void OnKeyboardLShift()
+    {
+        if (sceneName == "Menu")
+        {
+            Debug.Log("keyboardlshift for player " + GetComponent<PlayerInput>().playerIndex);
+
+            Back();
+        }
+    }
+
+    public void OnKeyboardEscape()
+    {
+        Debug.Log("keyboardescape for player " + GetComponent<PlayerInput>().playerIndex);
+
+        RemovePlayer();
+    }
+
+    public void OnKeyboardSpace()
+    {
+        Debug.Log("keyboardspace for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
+            {
+                Confirm();
+            }
+        }
+        else if (sceneName == "Battle")
+        {
+            Jump();
+        }
+    }
+
+    public void OnKeyboardQ()
+    {
+        if (sceneName == "Battle")
+        {
+            LeftHand();
+        }
+    }
+
+    public void OnKeyboardE()
+    {
+        if (sceneName == "Battle")
+        {
+            Hat();
+        }
+    }
+
+    public void OnKeyboardR()
+    {
+        if (sceneName == "Battle")
+        {
+            RightHand();
+        }
+        else if (sceneName == "Menu")
+        {
+            if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
+            {
+                Confirm();
+            }
+        }
+    }
+
+
+    public void OnXboxA()
+    {
+        Debug.Log("xboxa for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            Confirm();
+        }
+        else if (sceneName == "Battle")
+        {
+            Jump();
+        }
+    }
+
+    public void OnXboxB()
+    {
+        Debug.Log("xboxb for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            Back();
+        }
+        else if (sceneName == "Battle")
+        {
+            RightHand();
+        }
+    }
+
+    public void OnXboxY()
+    {
+        Debug.Log("xboxy for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            Hat();
+        }
+    }
+
+    public void OnXboxX()
+    {
+        Debug.Log("xboxx for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            LeftHand();
+        }
+    }
+
+    public void OnXboxView()
+    {
+        Debug.Log("xboxview for player " + GetComponent<PlayerInput>().playerIndex);
+
+        RemovePlayer();
+    }
+
+    public void OnSwitchA()
+    {
+        Debug.Log("switcha for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            Confirm();
+        }
+        else if (sceneName == "Battle")
+        {
+            RightHand();
+        }
+    }
+
+    public void OnSwitchB()
+    {
+        Debug.Log("switchb for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            Back();
+        }
+        else if (sceneName == "Battle")
+        {
+            Jump();
+        }
+    }
+
+    public void OnSwitchY()
+    {
+        Debug.Log("switchy for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            LeftHand();
+        }
+    }
+
+    public void OnSwitchX()
+    {
+        Debug.Log("switchx for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            Hat();
+        }
+    }
+
+    public void OnSwitchMinus()
+    {
+        Debug.Log("switchminus for player " + GetComponent<PlayerInput>().playerIndex);
+
+        RemovePlayer();
+    }
+
+    public void OnWebEast()
+    {
+        Debug.Log("webeast for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.SwitchPro)
+        {
+            OnSwitchA();
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Xbox)
+        {
+            OnXboxB();
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+        {
+            if (sceneName == "Menu")
+            {
+                Confirm();
+            }
+            else if (sceneName == "Battle")
+            {
+                RightHand();
+            }
+        }
+    }
+
+    public void OnWebLShoulder()
+    {
+        Debug.Log("weblshoulder for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+        {
+            if (sceneName == "Menu")
+            {
+                Back();
+            }
+            else if (sceneName == "Battle")
+            {
+                Hat();
+            }
+        }
+    }
+
+    public void OnWebSouth()
+    {
+        Debug.Log("websouth for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.SwitchPro)
+        {
+            OnSwitchB();
+            
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Xbox)
+        {
+            OnXboxA();
+        }
+    }
+
+    public void OnWebWest()
+    {
+        Debug.Log("webwest for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.SwitchPro)
+        {
+            OnSwitchY();
+
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Xbox)
+        {
+            OnXboxX();
+        }
+    }
+
+    public void OnWebNorth()
+    {
+        Debug.Log("webnorth for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.SwitchPro)
+        {
+            OnSwitchX();
+
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Xbox)
+        {
+            OnXboxY();
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+        {
+            if (sceneName == "Menu")
+            {
+
+            }
+            else if (sceneName == "Battle")
+            {
+                LeftHand();
+            }
+        }
+    }
+
+    public void OnWebRStickPress()
+    {
+        Debug.Log("webrstickpress for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+        {
+            RemovePlayer();
+        }
+    }
+
+    public void OnWebLStickUpwards()
+    {
+        Debug.Log("weblstickupwards for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+        {
+            if (sceneName == "Battle")
+            {
+                Jump();
+            }
+        }
+    }
+
+    public void OnWebSelect()
+    {
+        Debug.Log("webselect for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (menuControls.controllerType == MenuControls.ControllerType.SwitchPro
+            || menuControls.controllerType == MenuControls.ControllerType.Xbox
+            || menuControls.controllerType == MenuControls.ControllerType.Playstation)
+        {
+            RemovePlayer();
+        }
+    }
+
 }

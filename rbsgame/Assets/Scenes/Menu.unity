@@ -1866,8 +1866,8 @@ MonoBehaviour:
       remapped: 18
     - original: 60
       remapped: 60
-    - original: 2
-      remapped: 1
+    - original: 32
+      remapped: 32
   - name: Arrows
     routes:
     - original: 1
@@ -1877,9 +1877,9 @@ MonoBehaviour:
     - original: 31
       remapped: 7
     - original: 19
-      remapped: 9
-    - original: 37
       remapped: 8
+    - original: 37
+      remapped: 63
     - original: 33
       remapped: 64
     - original: 15
@@ -1888,7 +1888,7 @@ MonoBehaviour:
       remapped: 62
     - original: 60
       remapped: 65
-    - original: 2
+    - original: 32
       remapped: 9
 --- !u!1 &1262028681
 GameObject:
