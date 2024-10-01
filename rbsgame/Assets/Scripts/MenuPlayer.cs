@@ -62,6 +62,7 @@ public class MenuPlayer : MonoBehaviour
     public Image mpStatusBar;
     public Image mpStatusCircle;
     public Image mpStatusChar;
+    public Image mpStatusControllerType;
 
 
     public Player myPlayer;
@@ -226,6 +227,10 @@ public class MenuPlayer : MonoBehaviour
                 menuControls.lastNav -= Time.deltaTime;
             }
         }
+
+        if(menuControls.keyboardType == MenuControls.KeyboardType.WASD) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[1]; }
+        else if(menuControls.keyboardType == MenuControls.KeyboardType.Arrows) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[2]; }
+        else { mpStatusControllerType.sprite = menuManager.controllerTypeReps[0]; }
     }
 
     public void OnNavigate(InputValue value)
@@ -476,7 +481,7 @@ public class MenuPlayer : MonoBehaviour
                 }
             }
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "Battle")
         {
             if (myPlayer != null)
             {
@@ -490,11 +495,17 @@ public class MenuPlayer : MonoBehaviour
     {
         //Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (myPlayer != null)
+        if (SceneManager.GetActiveScene().name == "Battle")
         {
-            myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
 
-            myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+                }
+            }
         }
     }
 
@@ -502,9 +513,15 @@ public class MenuPlayer : MonoBehaviour
     {
         //Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (myPlayer != null)
+        if (SceneManager.GetActiveScene().name == "Battle")
         {
-            myPlayer.LeftHand();
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.LeftHand();
+                }
+            }
         }
     }
 
@@ -516,11 +533,13 @@ public class MenuPlayer : MonoBehaviour
         {
             if (myPlayer != null)
             {
-                myPlayer.RightHand();
-                //Debug.Log("player not null");
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.RightHand();
+                }
             }
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "Menu")
         {
             if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
             {
@@ -533,9 +552,15 @@ public class MenuPlayer : MonoBehaviour
     {
         //Debug.Log("HAT for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (myPlayer != null)
+        if (SceneManager.GetActiveScene().name == "Battle")
         {
-            myPlayer.Hat();
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.Hat();
+                }
+            }
         }
     }
 
@@ -547,7 +572,7 @@ public class MenuPlayer : MonoBehaviour
             {
 
             }
-            else
+            else if (SceneManager.GetActiveScene().name == "Menu")
             {
                 menuManager.menuPlayers.Remove(this);
                 menuManager.playerChosenChars.RemoveAt(ID);
