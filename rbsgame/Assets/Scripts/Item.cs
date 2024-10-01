@@ -156,22 +156,7 @@ public class Item : MonoBehaviour
     {
         Debug.Log("shoot!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Vector3 dirToShoot = Vector3.right;
-        if(myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
-        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
-        myPlayer.myProjectiles.Add(bullet);
-        if(bulletSpeed == 0) { bulletSpeed = 1; }
-        bullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed;
-        bullet.GetComponent<Bullet>().dir = dirToShoot;
-        bullet.GetComponent<Bullet>().ownerException = myPlayer;
-        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
-    }
-
-    public void ShootVeggies(float veggieSpeed)
-    {
-        Debug.Log("VEGEBTABLE!!!!!!!!!");
-        Vector3 ditToShoot = Vector3.right;
         if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
-        
         GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
         myPlayer.myProjectiles.Add(bullet);
         if (bulletSpeed == 0) { bulletSpeed = 1; }
@@ -318,6 +303,19 @@ public class Item : MonoBehaviour
         newToast.GetComponent<Toast>().ownerException = myPlayer;
     }
 
+    public void ShootVeggies(GameObject objToShoot, float bulletSpeed, int count, float angle)
+    {
+        Debug.Log("VEGEBTABLE!!!!!!!!!");
+            Vector3 dirToShoot = new Vector3(bulletSpeed, angle);
+            if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = new Vector3(dirToShoot.x * -1,dirToShoot.y); }
+            GameObject veggie = Instantiate(objToShoot, transform.position, Quaternion.identity);
+            myPlayer.myProjectiles.Add(veggie);
+            veggie.GetComponent<Vegetable>().dir = dirToShoot;
+            veggie.GetComponent<Vegetable>().ownerException = myPlayer;
+            veggie.GetComponent<Vegetable>().rb.velocity = dirToShoot;
+
+            Physics.IgnoreCollision(veggie.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
     public void FireSpikes(GameObject spikeToFire, GameObject spikeToFire2)
     {
         Debug.Log("FIRE SPIEKS?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
