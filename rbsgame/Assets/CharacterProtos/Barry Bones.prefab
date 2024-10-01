@@ -229,9 +229,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: skeleton_animated
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.145181
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1789658
+      objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1036201
+      objectReference: {fileID: 0}
+    - target: {fileID: 400058, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.02457903
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalScale.x
