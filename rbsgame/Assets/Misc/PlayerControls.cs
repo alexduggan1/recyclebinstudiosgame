@@ -305,6 +305,69 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaystationLStick"",
+                    ""type"": ""Value"",
+                    ""id"": ""4e5e6948-f4cb-4613-94eb-cf2af2b9a92a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PlaystationCross"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f642364-c698-492a-b76d-28862965e2cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaystationTriangle"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c8d8d1c-3b82-42e9-89bf-b76c772559fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaystationCircle"",
+                    ""type"": ""Button"",
+                    ""id"": ""9afde248-c277-4ab0-a03e-b1db83d3324b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaystationSquare"",
+                    ""type"": ""Button"",
+                    ""id"": ""7578e5f0-7d5f-4cf8-8725-55aed2d45b09"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaystationShare"",
+                    ""type"": ""Button"",
+                    ""id"": ""a32d01e0-87a4-45f4-bbf9-c07277bf796c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaystationOptions"",
+                    ""type"": ""Button"",
+                    ""id"": ""9fbe711c-f5a5-4d57-a0df-84cf9411e445"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -692,6 +755,83 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""WebLStickUpwards"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc75bcd8-7a9e-4808-8452-155a7b961570"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationLStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9ebdc17-ddb9-4a7b-9628-61677bfddf66"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationCross"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8998ac5d-9c1d-4e44-8e1c-7244498811e0"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationTriangle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5191c508-8d91-47c1-8686-c0885e75bc1b"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationCircle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bc51ffc-a4ac-47e7-840e-f9ac33cf25c3"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationSquare"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddeaec2c-f8c0-4bce-ae3d-0b7197c9dbba"",
+                    ""path"": ""<DualShockGamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationShare"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cfff374-22dc-4be3-a45d-13a04c60cfd9"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlaystationControls"",
+                    ""action"": ""PlaystationOptions"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -740,6 +880,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlaystationControls"",
+            ""bindingGroup"": ""PlaystationControls"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<DualShockGamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -776,6 +927,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_ControlBinds_WebRStickPress = m_ControlBinds.FindAction("WebRStickPress", throwIfNotFound: true);
         m_ControlBinds_WebSelect = m_ControlBinds.FindAction("WebSelect", throwIfNotFound: true);
         m_ControlBinds_WebLStickUpwards = m_ControlBinds.FindAction("WebLStickUpwards", throwIfNotFound: true);
+        m_ControlBinds_PlaystationLStick = m_ControlBinds.FindAction("PlaystationLStick", throwIfNotFound: true);
+        m_ControlBinds_PlaystationCross = m_ControlBinds.FindAction("PlaystationCross", throwIfNotFound: true);
+        m_ControlBinds_PlaystationTriangle = m_ControlBinds.FindAction("PlaystationTriangle", throwIfNotFound: true);
+        m_ControlBinds_PlaystationCircle = m_ControlBinds.FindAction("PlaystationCircle", throwIfNotFound: true);
+        m_ControlBinds_PlaystationSquare = m_ControlBinds.FindAction("PlaystationSquare", throwIfNotFound: true);
+        m_ControlBinds_PlaystationShare = m_ControlBinds.FindAction("PlaystationShare", throwIfNotFound: true);
+        m_ControlBinds_PlaystationOptions = m_ControlBinds.FindAction("PlaystationOptions", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -868,6 +1026,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlBinds_WebRStickPress;
     private readonly InputAction m_ControlBinds_WebSelect;
     private readonly InputAction m_ControlBinds_WebLStickUpwards;
+    private readonly InputAction m_ControlBinds_PlaystationLStick;
+    private readonly InputAction m_ControlBinds_PlaystationCross;
+    private readonly InputAction m_ControlBinds_PlaystationTriangle;
+    private readonly InputAction m_ControlBinds_PlaystationCircle;
+    private readonly InputAction m_ControlBinds_PlaystationSquare;
+    private readonly InputAction m_ControlBinds_PlaystationShare;
+    private readonly InputAction m_ControlBinds_PlaystationOptions;
     public struct ControlBindsActions
     {
         private @PlayerControls m_Wrapper;
@@ -903,6 +1068,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @WebRStickPress => m_Wrapper.m_ControlBinds_WebRStickPress;
         public InputAction @WebSelect => m_Wrapper.m_ControlBinds_WebSelect;
         public InputAction @WebLStickUpwards => m_Wrapper.m_ControlBinds_WebLStickUpwards;
+        public InputAction @PlaystationLStick => m_Wrapper.m_ControlBinds_PlaystationLStick;
+        public InputAction @PlaystationCross => m_Wrapper.m_ControlBinds_PlaystationCross;
+        public InputAction @PlaystationTriangle => m_Wrapper.m_ControlBinds_PlaystationTriangle;
+        public InputAction @PlaystationCircle => m_Wrapper.m_ControlBinds_PlaystationCircle;
+        public InputAction @PlaystationSquare => m_Wrapper.m_ControlBinds_PlaystationSquare;
+        public InputAction @PlaystationShare => m_Wrapper.m_ControlBinds_PlaystationShare;
+        public InputAction @PlaystationOptions => m_Wrapper.m_ControlBinds_PlaystationOptions;
         public InputActionMap Get() { return m_Wrapper.m_ControlBinds; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1005,6 +1177,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @WebLStickUpwards.started += instance.OnWebLStickUpwards;
             @WebLStickUpwards.performed += instance.OnWebLStickUpwards;
             @WebLStickUpwards.canceled += instance.OnWebLStickUpwards;
+            @PlaystationLStick.started += instance.OnPlaystationLStick;
+            @PlaystationLStick.performed += instance.OnPlaystationLStick;
+            @PlaystationLStick.canceled += instance.OnPlaystationLStick;
+            @PlaystationCross.started += instance.OnPlaystationCross;
+            @PlaystationCross.performed += instance.OnPlaystationCross;
+            @PlaystationCross.canceled += instance.OnPlaystationCross;
+            @PlaystationTriangle.started += instance.OnPlaystationTriangle;
+            @PlaystationTriangle.performed += instance.OnPlaystationTriangle;
+            @PlaystationTriangle.canceled += instance.OnPlaystationTriangle;
+            @PlaystationCircle.started += instance.OnPlaystationCircle;
+            @PlaystationCircle.performed += instance.OnPlaystationCircle;
+            @PlaystationCircle.canceled += instance.OnPlaystationCircle;
+            @PlaystationSquare.started += instance.OnPlaystationSquare;
+            @PlaystationSquare.performed += instance.OnPlaystationSquare;
+            @PlaystationSquare.canceled += instance.OnPlaystationSquare;
+            @PlaystationShare.started += instance.OnPlaystationShare;
+            @PlaystationShare.performed += instance.OnPlaystationShare;
+            @PlaystationShare.canceled += instance.OnPlaystationShare;
+            @PlaystationOptions.started += instance.OnPlaystationOptions;
+            @PlaystationOptions.performed += instance.OnPlaystationOptions;
+            @PlaystationOptions.canceled += instance.OnPlaystationOptions;
         }
 
         private void UnregisterCallbacks(IControlBindsActions instance)
@@ -1102,6 +1295,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @WebLStickUpwards.started -= instance.OnWebLStickUpwards;
             @WebLStickUpwards.performed -= instance.OnWebLStickUpwards;
             @WebLStickUpwards.canceled -= instance.OnWebLStickUpwards;
+            @PlaystationLStick.started -= instance.OnPlaystationLStick;
+            @PlaystationLStick.performed -= instance.OnPlaystationLStick;
+            @PlaystationLStick.canceled -= instance.OnPlaystationLStick;
+            @PlaystationCross.started -= instance.OnPlaystationCross;
+            @PlaystationCross.performed -= instance.OnPlaystationCross;
+            @PlaystationCross.canceled -= instance.OnPlaystationCross;
+            @PlaystationTriangle.started -= instance.OnPlaystationTriangle;
+            @PlaystationTriangle.performed -= instance.OnPlaystationTriangle;
+            @PlaystationTriangle.canceled -= instance.OnPlaystationTriangle;
+            @PlaystationCircle.started -= instance.OnPlaystationCircle;
+            @PlaystationCircle.performed -= instance.OnPlaystationCircle;
+            @PlaystationCircle.canceled -= instance.OnPlaystationCircle;
+            @PlaystationSquare.started -= instance.OnPlaystationSquare;
+            @PlaystationSquare.performed -= instance.OnPlaystationSquare;
+            @PlaystationSquare.canceled -= instance.OnPlaystationSquare;
+            @PlaystationShare.started -= instance.OnPlaystationShare;
+            @PlaystationShare.performed -= instance.OnPlaystationShare;
+            @PlaystationShare.canceled -= instance.OnPlaystationShare;
+            @PlaystationOptions.started -= instance.OnPlaystationOptions;
+            @PlaystationOptions.performed -= instance.OnPlaystationOptions;
+            @PlaystationOptions.canceled -= instance.OnPlaystationOptions;
         }
 
         public void RemoveCallbacks(IControlBindsActions instance)
@@ -1155,6 +1369,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_WebGLControlsSchemeIndex];
         }
     }
+    private int m_PlaystationControlsSchemeIndex = -1;
+    public InputControlScheme PlaystationControlsScheme
+    {
+        get
+        {
+            if (m_PlaystationControlsSchemeIndex == -1) m_PlaystationControlsSchemeIndex = asset.FindControlSchemeIndex("PlaystationControls");
+            return asset.controlSchemes[m_PlaystationControlsSchemeIndex];
+        }
+    }
     public interface IControlBindsActions
     {
         void OnKeyboardLStick(InputAction.CallbackContext context);
@@ -1188,5 +1411,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnWebRStickPress(InputAction.CallbackContext context);
         void OnWebSelect(InputAction.CallbackContext context);
         void OnWebLStickUpwards(InputAction.CallbackContext context);
+        void OnPlaystationLStick(InputAction.CallbackContext context);
+        void OnPlaystationCross(InputAction.CallbackContext context);
+        void OnPlaystationTriangle(InputAction.CallbackContext context);
+        void OnPlaystationCircle(InputAction.CallbackContext context);
+        void OnPlaystationSquare(InputAction.CallbackContext context);
+        void OnPlaystationShare(InputAction.CallbackContext context);
+        void OnPlaystationOptions(InputAction.CallbackContext context);
     }
 }

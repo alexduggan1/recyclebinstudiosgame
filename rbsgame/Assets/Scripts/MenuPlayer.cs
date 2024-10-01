@@ -80,6 +80,9 @@ public class MenuPlayer : MonoBehaviour
 
     public TextMeshProUGUI debugText;
 
+
+    public BattleController bc;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -126,6 +129,10 @@ public class MenuPlayer : MonoBehaviour
             else if (desc.Contains("pro"))
             {
                 menuControls.controllerType = MenuControls.ControllerType.SwitchPro;
+            }
+            else if (desc.Contains("playstation") || desc.Contains("sony") || desc.Contains("duals"))
+            {
+                menuControls.controllerType = MenuControls.ControllerType.Playstation;
             }
             else if (desc.Contains("dragon"))
             {
@@ -278,14 +285,15 @@ public class MenuPlayer : MonoBehaviour
             " ||| " + GetComponent<PlayerInput>().devices[0].description;
     }
 
-    
+    #region menuButtonEffects
+
     public void Confirm()
     {
         Debug.Log("confirm for player " + GetComponent<PlayerInput>().playerIndex);
 
         if (existTimer <= 0)
         {
-            if (SceneManager.GetActiveScene().name == "Menu")
+            if (sceneName == "Menu")
             {
                 if (menuControls.keyboardType == MenuControls.KeyboardType.None)
                 {
@@ -443,20 +451,6 @@ public class MenuPlayer : MonoBehaviour
                     }
                 }
             }
-            /*
-            else
-            {
-                if (menuControls.keyboardType == MenuControls.KeyboardType.WASD)
-                {
-                    //Debug.Log("WASD CONFIRM");
-                    OnJump();
-                }
-                else if (menuControls.keyboardType == MenuControls.KeyboardType.Arrows)
-                {
-                    OnRightHand();
-                }
-            }
-            */
         }
     }
 
@@ -466,7 +460,7 @@ public class MenuPlayer : MonoBehaviour
         // back button stuff
         Debug.Log("back for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (sceneName == "Menu")
         {
             if (ID == 0)
             {
@@ -504,7 +498,38 @@ public class MenuPlayer : MonoBehaviour
         }
     }
 
-    
+    public void RemovePlayer()
+    {
+        if (existTimer <= 0)
+        {
+            if (sceneName == "Battle")
+            {
+
+            }
+            else if (sceneName == "Menu")
+            {
+                menuManager.menuPlayers.Remove(this);
+                menuManager.playerChosenChars.RemoveAt(ID);
+
+                foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
+                {
+                    if (mp.ID > ID) { mp.ID--; }
+                }
+
+                if (ID == 0)
+                {
+                    menuManager.stageCheckMark.gameObject.SetActive(false);
+                }
+
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    #endregion
+
+    #region battleButtonEffects
+
     public void Jump()
     {
         Debug.Log("JUMP for player " + GetComponent<PlayerInput>().playerIndex);
@@ -513,10 +538,7 @@ public class MenuPlayer : MonoBehaviour
         {
             myPlayer.Jump();
         }
-        
     }
-
-    
     
     public void LeftHand()
     {
@@ -542,7 +564,6 @@ public class MenuPlayer : MonoBehaviour
                 myPlayer.RightHand();
             }
         }
-        
     }
 
     public void Hat()
@@ -556,40 +577,34 @@ public class MenuPlayer : MonoBehaviour
                 myPlayer.Hat();
             }
         }
-        
     }
-    
 
-    public void RemovePlayer()
+    public void Pause()
     {
-        if (existTimer <= 0)
+        if (sceneName == "Battle")
         {
-            if (SceneManager.GetActiveScene().name == "Battle")
+            Debug.Log("PAUSE!!!!");
+
+            if (bc != null)
             {
+                bc.gamePaused = !bc.gamePaused;
 
-            }
-            else if (SceneManager.GetActiveScene().name == "Menu")
-            {
-                menuManager.menuPlayers.Remove(this);
-                menuManager.playerChosenChars.RemoveAt(ID);
-
-                foreach (MenuPlayer mp in FindObjectsByType<MenuPlayer>(FindObjectsSortMode.None))
+                if (bc.gamePaused)
                 {
-                    if (mp.ID > ID) { mp.ID--; }
+                    Time.timeScale = 0.0f;
                 }
-
-                if(ID == 0)
+                else
                 {
-                    menuManager.stageCheckMark.gameObject.SetActive(false);
+                    Time.timeScale = 1.0f;
                 }
-
-                Destroy(gameObject);
             }
         }
     }
 
+    #endregion
 
-    
+    #region stickControls
+
     public void OnKeyboardLStick(InputValue value)
     {
         if (sceneName == "Menu")
@@ -702,6 +717,42 @@ public class MenuPlayer : MonoBehaviour
         }
     }
 
+    public void OnPlaystationLStick(InputValue value)
+    {
+        if (sceneName == "Menu")
+        {
+            Debug.Log("navigate for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            menuControls.navigation = value.Get<Vector2>();
+        }
+        else if (sceneName == "Battle")
+        {
+            Debug.Log("MOVE for player " + GetComponent<PlayerInput>().playerIndex + value.Get<Vector2>());
+
+            if (myPlayer != null)
+            {
+                if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.playerInputs.hMoveAxis = value.Get<Vector2>().x;
+
+                    myPlayer.playerInputs.dropPressed = value.Get<Vector2>().y <= -0.7f;
+
+                    if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+                    {
+                        if (value.Get<Vector2>().y > 0.7f)
+                        {
+                            Jump();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region keyboardBindings
+
     public void OnKeyboardLShift()
     {
         if (sceneName == "Menu")
@@ -716,7 +767,14 @@ public class MenuPlayer : MonoBehaviour
     {
         Debug.Log("keyboardescape for player " + GetComponent<PlayerInput>().playerIndex);
 
-        RemovePlayer();
+        if (sceneName == "Menu")
+        {
+            RemovePlayer();
+        }
+        else if (sceneName == "Battle")
+        {
+            Pause();
+        }
     }
 
     public void OnKeyboardSpace()
@@ -767,6 +825,9 @@ public class MenuPlayer : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region xboxBindings
 
     public void OnXboxA()
     {
@@ -823,6 +884,20 @@ public class MenuPlayer : MonoBehaviour
         RemovePlayer();
     }
 
+    public void OnXboxMenu()
+    {
+        Debug.Log("xboxmenu for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            Pause();
+        }
+    }
+
+    #endregion
+
+    #region switchBindings
+
     public void OnSwitchA()
     {
         Debug.Log("switcha for player " + GetComponent<PlayerInput>().playerIndex);
@@ -878,6 +953,20 @@ public class MenuPlayer : MonoBehaviour
         RemovePlayer();
     }
 
+    public void OnSwitchPlus()
+    {
+        Debug.Log("switchplus for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            Pause();
+        }
+    }
+
+    #endregion
+
+    #region webBindings
+
     public void OnWebEast()
     {
         Debug.Log("webeast for player " + GetComponent<PlayerInput>().playerIndex);
@@ -889,6 +978,10 @@ public class MenuPlayer : MonoBehaviour
         else if (menuControls.controllerType == MenuControls.ControllerType.Xbox)
         {
             OnXboxB();
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Playstation)
+        {
+            OnPlaystationCircle();
         }
         else if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
         {
@@ -933,6 +1026,10 @@ public class MenuPlayer : MonoBehaviour
         {
             OnXboxA();
         }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Playstation)
+        {
+            OnPlaystationCross();
+        }
     }
 
     public void OnWebWest()
@@ -948,6 +1045,10 @@ public class MenuPlayer : MonoBehaviour
         {
             OnXboxX();
         }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Playstation)
+        {
+            OnPlaystationSquare();
+        }
     }
 
     public void OnWebNorth()
@@ -962,6 +1063,10 @@ public class MenuPlayer : MonoBehaviour
         else if (menuControls.controllerType == MenuControls.ControllerType.Xbox)
         {
             OnXboxY();
+        }
+        else if (menuControls.controllerType == MenuControls.ControllerType.Playstation)
+        {
+            OnPlaystationTriangle();
         }
         else if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
         {
@@ -982,7 +1087,14 @@ public class MenuPlayer : MonoBehaviour
 
         if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
         {
-            RemovePlayer();
+            if (sceneName == "Menu")
+            {
+                RemovePlayer();
+            }
+            else if (sceneName == "Battle")
+            {
+                Pause();
+            }
         }
     }
 
@@ -1010,5 +1122,76 @@ public class MenuPlayer : MonoBehaviour
             RemovePlayer();
         }
     }
+
+    #endregion
+
+    #region playstationBindings
+
+    public void OnPlaystationCross()
+    {
+        Debug.Log("playstationcross for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            Confirm();
+        }
+        else if (sceneName == "Battle")
+        {
+            Jump();
+        }
+    }
+
+    public void OnPlaystationCircle()
+    {
+        Debug.Log("playstationcircle for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Menu")
+        {
+            Back();
+        }
+        else if (sceneName == "Battle")
+        {
+            RightHand();
+        }
+    }
+
+    public void OnPlaystationTriangle()
+    {
+        Debug.Log("playstationtriangle for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            Hat();
+        }
+    }
+
+    public void OnPlaystationSquare()
+    {
+        Debug.Log("playstationsquare for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            LeftHand();
+        }
+    }
+
+    public void OnPlaystationShare()
+    {
+        Debug.Log("playstationsquare for player " + GetComponent<PlayerInput>().playerIndex);
+
+        RemovePlayer();
+    }
+
+    public void OnPlaystationOptions()
+    {
+        Debug.Log("playstationoptions for player " + GetComponent<PlayerInput>().playerIndex);
+
+        if (sceneName == "Battle")
+        {
+            Pause();
+        }
+    }
+
+    #endregion
 
 }

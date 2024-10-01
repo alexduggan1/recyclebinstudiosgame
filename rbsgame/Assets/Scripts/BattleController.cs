@@ -66,6 +66,9 @@ public class BattleController : MonoBehaviour
     public GameObject HUDProto;
 
 
+    public bool gamePaused;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +85,11 @@ public class BattleController : MonoBehaviour
         }
         stageProto = gameManager.chosenStage;
         itemDropLootTable = gameManager.chosenItemDropLoots;
+
+        foreach (MenuPlayer mp in gameManager.listOfMenuPlayers)
+        {
+            mp.bc = this;
+        }
 
         StartCoroutine(BeginBattle());
     }
@@ -406,7 +414,7 @@ public class BattleController : MonoBehaviour
 
 
         Time.timeScale = 0.25f;
-        yield return new WaitForSecondsRealtime(1.8f);
+        yield return new WaitForSeconds(Time.timeScale * 1.8f);
 
 
         // destroy old stuff
@@ -461,6 +469,7 @@ public class BattleController : MonoBehaviour
 
 
         // TODO if whole game should be over
+        
 
 
         StartCoroutine(StartRound());
