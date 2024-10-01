@@ -261,7 +261,16 @@ public class MenuPlayer : MonoBehaviour
 
         if(menuControls.keyboardType == MenuControls.KeyboardType.WASD) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[1]; }
         else if(menuControls.keyboardType == MenuControls.KeyboardType.Arrows) { mpStatusControllerType.sprite = menuManager.controllerTypeReps[2]; }
-        else { mpStatusControllerType.sprite = menuManager.controllerTypeReps[0]; }
+        else { 
+            if (menuControls.controllerType == MenuControls.ControllerType.Arcade)
+            {
+                mpStatusControllerType.sprite = menuManager.controllerTypeReps[3];
+            }
+            else
+            {
+                mpStatusControllerType.sprite = menuManager.controllerTypeReps[0];
+            }
+        }
 
         sceneName = SceneManager.GetActiveScene().name;
 
