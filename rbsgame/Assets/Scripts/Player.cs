@@ -27,12 +27,12 @@ public class Player : MonoBehaviour
     [System.Serializable]
     public class PhysicsAttributes
     {
-        public float moveAccelerationGround = 23;
-        public float moveAccelerationAir = 23;
-        public float maxMoveSpeedGround = 5;
-        public float maxMoveSpeedAir = 5;
-        public float autoDecelerationGround = 25f;
-        public float autoDecelerationAir = 10f;
+        public float moveAccelerationGround = 20;
+        public float moveAccelerationAir = 20;
+        public float maxMoveSpeedGround = 7;
+        public float maxMoveSpeedAir = 7;
+        public float autoDecelerationGround = 36f;
+        public float autoDecelerationAir = 18f;
         public float jumpForce = 11;
         public float jumpSquatTime = 0.05f;
     }
