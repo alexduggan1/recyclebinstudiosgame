@@ -473,7 +473,7 @@ public class Item : MonoBehaviour
 
         while (driveTime < hatAnimTime)
         {
-            driveTime += Time.deltaTime;
+            driveTime += Time.fixedDeltaTime;
 
             myPlayer.playerState.rotLocked = true;
             myPlayer.playerState.freeMovement = true;
@@ -484,17 +484,17 @@ public class Item : MonoBehaviour
             if (driveDir == Player.State.Dir.Right)
             {
                 myPlayer.transform.eulerAngles = new Vector3(0, 180, 180 + (myPlayer.transform.eulerAngles.z - transform.eulerAngles.z));
-                myPlayer.rb.velocity = new Vector3(driveSpeed * 60f * Time.deltaTime, myPlayer.rb.velocity.y, 0);
+                myPlayer.rb.velocity = new Vector3(driveSpeed * 60f * Time.fixedDeltaTime, myPlayer.rb.velocity.y, 0);
                 launcher.launchData.launchDirection = new Vector3(ld.x, ld.y, 0);
             }
             else
             {
                 myPlayer.transform.eulerAngles = new Vector3(0, 0, 180 + (myPlayer.transform.eulerAngles.z - transform.eulerAngles.z));
-                myPlayer.rb.velocity = new Vector3(-driveSpeed * 60f * Time.deltaTime, myPlayer.rb.velocity.y, 0);
+                myPlayer.rb.velocity = new Vector3(-driveSpeed * 60f * Time.fixedDeltaTime, myPlayer.rb.velocity.y, 0);
                 launcher.launchData.launchDirection = new Vector3(-ld.x, ld.y, 0);
             }
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
 
         StopDriving(stayOnGround, launcher);

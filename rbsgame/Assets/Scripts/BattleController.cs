@@ -530,5 +530,6 @@ public class BattleController : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene("Menu");
+        gameManager.menuManager.MenuReturn();
     }
 }

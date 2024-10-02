@@ -306,9 +306,46 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-
     public void PlayerJoined()
     {
         Debug.Log("player joined!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+
+
+    public void MenuReturn()
+    {
+        StartCoroutine(ReturnToMenu());
+    }
+
+    public IEnumerator ReturnToMenu()
+    {
+        battleUiCanv.enabled = true;
+        pauseScreen.gameObject.SetActive(false);
+        loadingScreen.gameObject.SetActive(true);
+
+        // reset menuplayer choices
+        foreach (MenuPlayer mp in menuPlayers)
+        {
+            mp.Back();
+            mp.Back();
+            mp.Back();
+            mp.Back();
+            mp.Back();
+        }
+
+        Time.timeScale = 1;
+
+        float loadTime = 0;
+        while (loadTime < 1.2f)
+        {
+            loadTime += Time.deltaTime;
+            pauseScreen.gameObject.SetActive(false);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(1.2f);
+
+        canv.enabled = true;
+        battleUiCanv.enabled = false;
+        yield return null;
     }
 }
