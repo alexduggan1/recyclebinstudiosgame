@@ -323,6 +323,11 @@ public class MenuManager : MonoBehaviour
         pauseScreen.gameObject.SetActive(false);
         loadingScreen.gameObject.SetActive(true);
 
+        foreach (HUDPlayer hudPlayer in FindObjectsByType<HUDPlayer>(FindObjectsSortMode.None))
+        {
+            Destroy(hudPlayer.gameObject);
+        }
+
         // reset menuplayer choices
         foreach (MenuPlayer mp in menuPlayers)
         {
