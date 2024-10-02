@@ -459,6 +459,10 @@ public class BattleController : MonoBehaviour
         {
             Destroy(topHatPortal.gameObject);
         }
+        foreach (Vegetable veggie in FindObjectsByType<Vegetable>(FindObjectsSortMode.None))
+        {
+            Destroy(veggie.gameObject);
+        }
 
 
         foreach (ItemPickup itemPickup in FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
