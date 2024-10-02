@@ -476,11 +476,27 @@ public class BattleController : MonoBehaviour
         Time.timeScale = 1.0f;
 
 
-        // TODO if whole game should be over
-        
+        // check if whole game should be over
 
+        bool winnerExists = false;
+        foreach (HUDPlayer hudPlayer in playerHUDs)
+        {
+            if (hudPlayer.score >= 5)
+            {
+                winnerExists = true;
+                gameManager.winnerID = hudPlayer.ID;
+            }
+        }
 
-        StartCoroutine(StartRound());
+        if (winnerExists)
+        {
+            // go to the ending screen
+
+        }
+        else
+        {
+            StartCoroutine(StartRound());
+        }
     }
 
     Vector3 FigureOutPlayerStartPosition(int playerID, int playerCount)

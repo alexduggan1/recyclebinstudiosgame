@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     public MenuManager menuManager;
 
+    public int winnerID;
+
     // Start is called before the first frame update
     void Start()
     {
