@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleController : MonoBehaviour
 {
@@ -62,12 +63,13 @@ public class BattleController : MonoBehaviour
     public Image loadingScreen;
     public Image readyUI;
     public Image goUI;
+    public Image pauseScreen;
 
     public GameObject HUDProto;
 
 
     public bool gamePaused;
-
+    public MenuPlayer whoPaused;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +79,7 @@ public class BattleController : MonoBehaviour
         readyUI = gameManager.menuManager.readyUI;
         goUI = gameManager.menuManager.goUI;
         battleUICanv = gameManager.menuManager.battleUiCanv;
+        pauseScreen = gameManager.menuManager.pauseScreen;
 
         playerChosenCharacters.Clear();
         foreach (Character chara in gameManager.playerChosenChars)
@@ -141,6 +144,8 @@ public class BattleController : MonoBehaviour
                     StartCoroutine(EndRound());
                 }
             }
+
+            pauseScreen.gameObject.SetActive(gamePaused);
         }
     }
 
@@ -269,6 +274,8 @@ public class BattleController : MonoBehaviour
     IEnumerator BeginBattle()
     {
         roundActive = false;
+        gamePaused = false;
+
         // load in the stage, then load in the players
 
         stage = Instantiate(stageProto);
@@ -399,6 +406,7 @@ public class BattleController : MonoBehaviour
         }
 
         roundActive = true;
+        gamePaused = false;
 
 
         goUI.enabled = true;
@@ -500,5 +508,11 @@ public class BattleController : MonoBehaviour
         //Debug.Log(result);
 
         return (result);
+    }
+
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

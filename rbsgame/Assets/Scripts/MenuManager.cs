@@ -47,24 +47,42 @@ public class MenuManager : MonoBehaviour
     public Image readyUI;
     public Image goUI;
     public Camera battleUiCam;
+    public Image pauseScreen;
 
-    void Awake()
+
+    public static MenuManager Instance { get; private set; }
+
+
+    private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        gameManager.menuManager = this;
+        // If there is an instance, and it's not me, delete myself.
 
-        DontDestroyOnLoad(canv.gameObject);
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(battleUiCanv);
-        DontDestroyOnLoad(battleUiCam);
+        Debug.Log("new menu manager");
 
-        battleUiCanv.enabled = false;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
 
-        GenerateMenu();
+            gameManager = FindObjectOfType<GameManager>();
+            gameManager.menuManager = this;
+
+            DontDestroyOnLoad(gameObject);
+
+            battleUiCanv.enabled = false;
+
+            GenerateMenu();
+        }
     }
 
     public void GenerateMenu()
     {
+        battleUiCanv.enabled = false;
+
         // generate list of stages
         int i = 0;
         stageElms.Clear();

@@ -546,7 +546,11 @@ public class MenuPlayer : MonoBehaviour
 
         if (myPlayer != null)
         {
-            if (myPlayer.playerState.hasControl)
+            if (bc.gamePaused && bc.whoPaused == this)
+            {
+                bc.BackToMenu();
+            }
+            else if (myPlayer.playerState.hasControl)
             {
                 myPlayer.LeftHand();
             }
@@ -559,7 +563,11 @@ public class MenuPlayer : MonoBehaviour
 
         if (myPlayer != null)
         {
-            if (myPlayer.playerState.hasControl)
+            if (bc.gamePaused && bc.whoPaused == this)
+            {
+                Pause();
+            }
+            else if (myPlayer.playerState.hasControl)
             {
                 myPlayer.RightHand();
             }
@@ -585,19 +593,25 @@ public class MenuPlayer : MonoBehaviour
         {
             Debug.Log("PAUSE!!!!");
 
+
+            // TODO fix pausing stuff
+            /*
             if (bc != null)
             {
-                bc.gamePaused = !bc.gamePaused;
-
                 if (bc.gamePaused)
                 {
-                    Time.timeScale = 0.0f;
+                    if (bc.whoPaused == this)
+                    {
+                        bc.gamePaused = false;
+                    }
                 }
                 else
                 {
-                    Time.timeScale = 1.0f;
+                    bc.whoPaused = this;
+                    Time.timeScale = 0.0f;
                 }
             }
+            */
         }
     }
 
