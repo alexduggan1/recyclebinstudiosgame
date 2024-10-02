@@ -144,9 +144,9 @@ public class BattleController : MonoBehaviour
                     StartCoroutine(EndRound());
                 }
             }
-
-            pauseScreen.gameObject.SetActive(gamePaused);
         }
+
+        pauseScreen.gameObject.SetActive(gamePaused);
     }
 
     void LateUpdate()
@@ -491,7 +491,7 @@ public class BattleController : MonoBehaviour
         if (winnerExists)
         {
             // go to the ending screen
-
+            SceneManager.LoadScene("End");
         }
         else
         {

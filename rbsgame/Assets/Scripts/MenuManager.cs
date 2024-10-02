@@ -328,6 +328,17 @@ public class MenuManager : MonoBehaviour
             Destroy(hudPlayer.gameObject);
         }
 
+        
+
+        Time.timeScale = 1;
+
+        float loadTime = 0;
+        while (loadTime < 1.1f)
+        {
+            loadTime += Time.deltaTime;
+            pauseScreen.gameObject.SetActive(false);
+            yield return new WaitForEndOfFrame();
+        }
         // reset menuplayer choices
         foreach (MenuPlayer mp in menuPlayers)
         {
@@ -337,17 +348,7 @@ public class MenuManager : MonoBehaviour
             mp.Back();
             mp.Back();
         }
-
-        Time.timeScale = 1;
-
-        float loadTime = 0;
-        while (loadTime < 1.2f)
-        {
-            loadTime += Time.deltaTime;
-            pauseScreen.gameObject.SetActive(false);
-            yield return new WaitForEndOfFrame();
-        }
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.1f);
 
         canv.enabled = true;
         battleUiCanv.enabled = false;

@@ -544,15 +544,18 @@ public class MenuPlayer : MonoBehaviour
     {
         Debug.Log("LEFTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (myPlayer != null)
+        if (sceneName == "Battle")
         {
-            if (bc.gamePaused && bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
+            if (myPlayer != null)
             {
-                bc.BackToMenu();
-            }
-            else if (myPlayer.playerState.hasControl)
-            {
-                myPlayer.LeftHand();
+                if (bc.gamePaused && bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
+                {
+                    bc.BackToMenu();
+                }
+                else if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.LeftHand();
+                }
             }
         }
     }
@@ -561,15 +564,18 @@ public class MenuPlayer : MonoBehaviour
     {
         Debug.Log("RIGHTHAND for player " + GetComponent<PlayerInput>().playerIndex);
 
-        if (myPlayer != null)
+        if (sceneName == "Battle")
         {
-            if (bc.gamePaused && bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
+            if (myPlayer != null)
             {
-                Pause();
-            }
-            else if (myPlayer.playerState.hasControl)
-            {
-                myPlayer.RightHand();
+                if (bc.gamePaused && bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
+                {
+                    Pause();
+                }
+                else if (myPlayer.playerState.hasControl)
+                {
+                    myPlayer.RightHand();
+                }
             }
         }
     }
@@ -825,6 +831,10 @@ public class MenuPlayer : MonoBehaviour
         {
             LeftHand();
         }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendLeftOption(GetComponent<PlayerInput>().playerIndex);
+        }
     }
 
     public void OnKeyboardE()
@@ -847,6 +857,10 @@ public class MenuPlayer : MonoBehaviour
             {
                 Confirm();
             }
+        }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendRightOption(GetComponent<PlayerInput>().playerIndex);
         }
     }
 
@@ -880,6 +894,10 @@ public class MenuPlayer : MonoBehaviour
         {
             RightHand();
         }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendRightOption(GetComponent<PlayerInput>().playerIndex);
+        }
     }
 
     public void OnXboxY()
@@ -899,6 +917,10 @@ public class MenuPlayer : MonoBehaviour
         if (sceneName == "Battle")
         {
             LeftHand();
+        }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendLeftOption(GetComponent<PlayerInput>().playerIndex);
         }
     }
 
@@ -935,6 +957,10 @@ public class MenuPlayer : MonoBehaviour
         {
             RightHand();
         }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendRightOption(GetComponent<PlayerInput>().playerIndex);
+        }
     }
 
     public void OnSwitchB()
@@ -958,6 +984,10 @@ public class MenuPlayer : MonoBehaviour
         if (sceneName == "Battle")
         {
             LeftHand();
+        }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendLeftOption(GetComponent<PlayerInput>().playerIndex);
         }
     }
 
@@ -1017,6 +1047,10 @@ public class MenuPlayer : MonoBehaviour
             else if (sceneName == "Battle")
             {
                 RightHand();
+            }
+            else if (sceneName == "End")
+            {
+                bc.gameManager.SendRightOption(GetComponent<PlayerInput>().playerIndex);
             }
         }
     }
@@ -1103,6 +1137,10 @@ public class MenuPlayer : MonoBehaviour
             {
                 LeftHand();
             }
+            else if (sceneName == "End")
+            {
+                bc.gameManager.SendLeftOption(GetComponent<PlayerInput>().playerIndex);
+            }
         }
     }
 
@@ -1178,6 +1216,10 @@ public class MenuPlayer : MonoBehaviour
         {
             RightHand();
         }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendRightOption(GetComponent<PlayerInput>().playerIndex);
+        }
     }
 
     public void OnPlaystationTriangle()
@@ -1197,6 +1239,10 @@ public class MenuPlayer : MonoBehaviour
         if (sceneName == "Battle")
         {
             LeftHand();
+        }
+        else if (sceneName == "End")
+        {
+            bc.gameManager.SendLeftOption(GetComponent<PlayerInput>().playerIndex);
         }
     }
 

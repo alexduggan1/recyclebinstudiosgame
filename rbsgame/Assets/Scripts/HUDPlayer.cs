@@ -46,6 +46,7 @@ public class HUDPlayer : MonoBehaviour
 
 
         characterBackground.color = bgColors[ID];
+        scoreText.color = bgColors[ID];
 
         scoreText.text = score.ToString() + "/5";
     }
