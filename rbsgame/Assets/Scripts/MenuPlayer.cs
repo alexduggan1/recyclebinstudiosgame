@@ -546,7 +546,7 @@ public class MenuPlayer : MonoBehaviour
 
         if (myPlayer != null)
         {
-            if (bc.gamePaused && bc.whoPaused == this)
+            if (bc.gamePaused && bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
             {
                 bc.BackToMenu();
             }
@@ -563,7 +563,7 @@ public class MenuPlayer : MonoBehaviour
 
         if (myPlayer != null)
         {
-            if (bc.gamePaused && bc.whoPaused == this)
+            if (bc.gamePaused && bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
             {
                 Pause();
             }
@@ -595,23 +595,34 @@ public class MenuPlayer : MonoBehaviour
 
 
             // TODO fix pausing stuff
-            /*
+            
             if (bc != null)
             {
                 if (bc.gamePaused)
                 {
-                    if (bc.whoPaused == this)
+                    Debug.Log("game is paused");
+                    Debug.Log(bc.whoPaused);
+                    Debug.Log(GetComponent<PlayerInput>().playerIndex);
+                    if (bc.whoPaused == GetComponent<PlayerInput>().playerIndex)
                     {
                         bc.gamePaused = false;
+                        Time.timeScale = 1.0f;
                     }
                 }
                 else
                 {
-                    bc.whoPaused = this;
-                    Time.timeScale = 0.0f;
+                    if (myPlayer != null)
+                    {
+                        if (myPlayer.playerState.hasControl)
+                        {
+                            bc.gamePaused = true;
+                            bc.whoPaused = GetComponent<PlayerInput>().playerIndex;
+                            Time.timeScale = 0.0f;
+                        }
+                    }
                 }
             }
-            */
+            
         }
     }
 

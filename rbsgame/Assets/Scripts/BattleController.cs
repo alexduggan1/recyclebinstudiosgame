@@ -69,7 +69,7 @@ public class BattleController : MonoBehaviour
 
 
     public bool gamePaused;
-    public MenuPlayer whoPaused;
+    public int whoPaused;
 
     // Start is called before the first frame update
     void Start()
