@@ -422,8 +422,21 @@ public class BattleController : MonoBehaviour
 
 
         Time.timeScale = 0.25f;
-        yield return new WaitForSeconds(Time.timeScale * 1.8f);
+        yield return new WaitForSeconds(Time.timeScale * 0.9f);
 
+        // add scores
+        int i = 0;
+        foreach (Player player in players)
+        {
+            if (player.playerState.alive)
+            {
+                playerHUDs[i].score++;
+            }
+            i++;
+        }
+
+
+        yield return new WaitForSeconds(Time.timeScale * 0.9f);
 
         // destroy old stuff
         foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
@@ -445,17 +458,6 @@ public class BattleController : MonoBehaviour
         foreach (TopHatPortal topHatPortal in FindObjectsByType<TopHatPortal>(FindObjectsSortMode.None))
         {
             Destroy(topHatPortal.gameObject);
-        }
-
-
-        int i = 0;
-        foreach (Player player in players)
-        {
-            if (player.playerState.alive)
-            {
-                playerHUDs[i].score++;
-            }
-            i++;
         }
 
 

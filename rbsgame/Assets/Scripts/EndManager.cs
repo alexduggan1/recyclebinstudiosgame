@@ -17,8 +17,12 @@ public class EndManager : MonoBehaviour
 
     public TextMeshProUGUI winnerText;
 
+    public Image winnerCharBackground;
+    public Image winnerCharRender;
+
 
     public int winnerID;
+    
 
 
     // Start is called before the first frame update
@@ -38,7 +42,13 @@ public class EndManager : MonoBehaviour
     {
         List<Color> playerColors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
         winnerText.color = playerColors[winnerID];
+        winnerCharBackground.color = playerColors[winnerID];
         winnerText.text = "WINNER: Player " + (winnerID + 1).ToString();
+
+        if (gameManager != null)
+        {
+            winnerCharRender.sprite = gameManager.listOfMenuPlayers[winnerID].chosenChar.render;
+        }
     }
 
     public void ReceiveLeftOption(int idx)
