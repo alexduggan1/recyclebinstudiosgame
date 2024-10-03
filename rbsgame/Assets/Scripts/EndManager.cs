@@ -22,8 +22,10 @@ public class EndManager : MonoBehaviour
 
 
     public int winnerID;
-    
 
+
+    public RectTransform scrollingText;
+    Vector2 defaultScrollPos;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,6 +37,8 @@ public class EndManager : MonoBehaviour
         {
             Destroy(hudPlayer.gameObject);
         }
+
+        defaultScrollPos = scrollingText.anchoredPosition;
     }
 
     // Update is called once per frame
@@ -48,6 +52,15 @@ public class EndManager : MonoBehaviour
         if (gameManager != null)
         {
             winnerCharRender.sprite = gameManager.listOfMenuPlayers[winnerID].chosenChar.render;
+        }
+
+        if (creditsOpen)
+        {
+            scrollingText.anchoredPosition += new Vector2(0, 0.6f * Time.deltaTime);
+            if (scrollingText.anchoredPosition.y > 3.5f)
+            {
+                scrollingText.anchoredPosition = defaultScrollPos;
+            }
         }
     }
 
@@ -72,6 +85,7 @@ public class EndManager : MonoBehaviour
             {
                 creditsOpen = true;
                 creditsScreen.gameObject.SetActive(true);
+                scrollingText.anchoredPosition = defaultScrollPos;
             }
             else
             {
