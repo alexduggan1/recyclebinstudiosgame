@@ -441,6 +441,7 @@ MonoBehaviour:
   defaultItemDropLoots: []
   listOfMenuPlayers: []
   titleTimer: 0
+  menuManager: {fileID: 0}
 --- !u!1 &1619329607
 GameObject:
   m_ObjectHideFlags: 0
