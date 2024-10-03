@@ -18,7 +18,8 @@ public class Item : MonoBehaviour
         public enum Names
         {
             Handgun, BlusterBlade, 
-            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat, Bazooka
+            PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat, Bazooka,
+            StickyDynamite
         };
 
         public enum AnimType
@@ -510,6 +511,11 @@ public class Item : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        myPlayer.playerState.rotLocked = false;
+        myPlayer.playerState.freeMovement = false;
+        StopDriving(stayOnGround, launcher);
+        StopDriving(stayOnGround, launcher);
+        StopDriving(stayOnGround, launcher);
         StopDriving(stayOnGround, launcher);
         yield return null;
     }
@@ -518,5 +524,31 @@ public class Item : MonoBehaviour
     {
         myPlayer.playerState.rotLocked = false;
         myPlayer.playerState.freeMovement = false;
+    }
+
+    public void ThrowDynamite(GameObject objToShoot, float bulletSpeed)
+    {
+        Debug.Log("DYANNMITE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot = Vector3.right;
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
+        dirToShoot = dirToShoot + Vector3.up;
+        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
+        if (bulletSpeed == 0) { bulletSpeed = 1; }
+        Debug.Log(bulletSpeed);
+        bullet.GetComponent<StickyDynamite>().bulletSpeed = bulletSpeed;
+        bullet.GetComponent<StickyDynamite>().startingBulletSpeed = bulletSpeed;
+        bullet.GetComponent<StickyDynamite>().dir = dirToShoot;
+        if (dirToShoot == Vector3.right)
+        {
+            bullet.GetComponent<StickyDynamite>().visual.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            bullet.GetComponent<StickyDynamite>().visual.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        bullet.GetComponent<StickyDynamite>().ownerException = myPlayer;
+
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
     }
 }

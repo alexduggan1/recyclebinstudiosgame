@@ -498,6 +498,10 @@ public class BattleController : MonoBehaviour
         {
             Destroy(veggie.gameObject);
         }
+        foreach (StickyDynamite stickyDynamite in FindObjectsByType<StickyDynamite>(FindObjectsSortMode.None))
+        {
+            Destroy(stickyDynamite.gameObject);
+        }
 
 
         foreach (ItemPickup itemPickup in FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))

@@ -246,7 +246,7 @@ MonoBehaviour:
   currentlyBeingUsed: 0
   anchorOffset: {fileID: 3885011803807204216}
   myPlayer: {fileID: 0}
-  hatAnimTime: 3.5
+  hatAnimTime: 3.55
   handheldAnimSpeed: 1
   thumbnail: {fileID: 21300000, guid: acf1dc77a650371488ca953dd3b82da2, type: 3}
 --- !u!1 &6541292396622105306

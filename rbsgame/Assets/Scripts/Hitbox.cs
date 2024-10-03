@@ -10,7 +10,6 @@ public class Hitbox : MonoBehaviour
 
     public Vector3 dir;
 
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -20,5 +19,17 @@ public class Hitbox : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void GoAway(float time)
+    {
+        StartCoroutine(GoAwayInTime(time));
+    }
+
+    public IEnumerator GoAwayInTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Destroy(gameObject);
     }
 }
