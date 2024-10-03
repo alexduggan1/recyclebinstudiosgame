@@ -64,6 +64,7 @@ public class BattleController : MonoBehaviour
     public Image readyUI;
     public Image goUI;
     public Image pauseScreen;
+    public Image controllerDiagram;
 
     public GameObject HUDProto;
 
@@ -80,6 +81,7 @@ public class BattleController : MonoBehaviour
         goUI = gameManager.menuManager.goUI;
         battleUICanv = gameManager.menuManager.battleUiCanv;
         pauseScreen = gameManager.menuManager.pauseScreen;
+        controllerDiagram = gameManager.menuManager.controllerDiagram;
 
         playerChosenCharacters.Clear();
         foreach (Character chara in gameManager.playerChosenChars)
@@ -147,6 +149,39 @@ public class BattleController : MonoBehaviour
         }
 
         pauseScreen.gameObject.SetActive(gamePaused);
+        if (gamePaused)
+        {
+            MenuPlayer.MenuControls.ControllerType controllerType = gameManager.listOfMenuPlayers[whoPaused].menuControls.controllerType;
+            MenuPlayer.MenuControls.KeyboardType keyboardType = gameManager.listOfMenuPlayers[whoPaused].menuControls.keyboardType;
+
+            if (keyboardType == MenuPlayer.MenuControls.KeyboardType.WASD)
+            {
+                controllerDiagram.sprite = gameManager.controllerDiagrams[0];
+            }
+            else if (keyboardType == MenuPlayer.MenuControls.KeyboardType.Arrows)
+            {
+                controllerDiagram.sprite = gameManager.controllerDiagrams[1];
+            }
+            else
+            {
+                if (controllerType == MenuPlayer.MenuControls.ControllerType.Arcade)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[2];
+                }
+                else if (controllerType == MenuPlayer.MenuControls.ControllerType.SwitchPro)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[3];
+                }
+                else if (controllerType == MenuPlayer.MenuControls.ControllerType.Xbox)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[4];
+                }
+                else if (controllerType == MenuPlayer.MenuControls.ControllerType.Playstation)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[5];
+                }
+            }
+        }
     }
 
     void LateUpdate()
@@ -311,7 +346,7 @@ public class BattleController : MonoBehaviour
         {
             HUDPlayer newHUD = Instantiate(HUDProto, battleUICanv.transform).GetComponent<HUDPlayer>();
 
-            newHUD.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-9 + (6f * i), -6, 0);
+            newHUD.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-9 + (6f * i), -7.2f, 0);
 
             newHUD.score = 0;
             newHUD.ID = i;

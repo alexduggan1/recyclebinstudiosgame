@@ -48,6 +48,7 @@ public class MenuManager : MonoBehaviour
     public Image goUI;
     public Camera battleUiCam;
     public Image pauseScreen;
+    public Image controllerDiagram;
 
 
     public static MenuManager Instance { get; private set; }
