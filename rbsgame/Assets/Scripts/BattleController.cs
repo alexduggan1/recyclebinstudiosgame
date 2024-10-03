@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleController : MonoBehaviour
 {
@@ -53,18 +54,34 @@ public class BattleController : MonoBehaviour
     public List<ItemDropLoot> itemDropLootTable;
 
     public float roundTimer;
+    public bool roundActive;
 
     public LayerMask stageLayer;
 
-    public List<int> playerScores;
+    public List<HUDPlayer> playerHUDs;
+    public Canvas battleUICanv;
     public Image loadingScreen;
+    public Image readyUI;
+    public Image goUI;
+    public Image pauseScreen;
+    public Image controllerDiagram;
 
+    public GameObject HUDProto;
+
+
+    public bool gamePaused;
+    public int whoPaused;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         loadingScreen = gameManager.menuManager.loadingScreen;
+        readyUI = gameManager.menuManager.readyUI;
+        goUI = gameManager.menuManager.goUI;
+        battleUICanv = gameManager.menuManager.battleUiCanv;
+        pauseScreen = gameManager.menuManager.pauseScreen;
+        controllerDiagram = gameManager.menuManager.controllerDiagram;
 
         playerChosenCharacters.Clear();
         foreach (Character chara in gameManager.playerChosenChars)
@@ -74,53 +91,95 @@ public class BattleController : MonoBehaviour
         stageProto = gameManager.chosenStage;
         itemDropLootTable = gameManager.chosenItemDropLoots;
 
+        foreach (MenuPlayer mp in gameManager.listOfMenuPlayers)
+        {
+            mp.bc = this;
+        }
+
         StartCoroutine(BeginBattle());
     }
 
     // Update is called once per frame
     void Update()
     {
-        itemsExisting = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
-
-        roundTimer += Time.deltaTime;
-        itemSpawnTimer += Time.deltaTime;
-
-        
-        if (roundTimer < 7.5f) { itemSpawnGap = 3; }
-        else
+        if (roundActive)
         {
-            if (itemsExisting < players.Count) { itemSpawnGap = 7.5f; }
-            else if (itemsExisting < players.Count * 2) { itemSpawnGap = 13; }
-            else { itemSpawnGap = 0; }
-        }
+            itemsExisting = FindObjectsByType<Item>(FindObjectsSortMode.None).Length;
+
+            roundTimer += Time.deltaTime;
+            itemSpawnTimer += Time.deltaTime;
 
 
-        if(itemSpawnGap != 0)
-        {
-            if(itemSpawnTimer > itemSpawnGap)
+            if (roundTimer < 7.5f) { itemSpawnGap = 3; }
+            else
             {
-                for (int i = 0; i < players.Count; i++)
+                if (itemsExisting < players.Count) { itemSpawnGap = 7.5f; }
+                else if (itemsExisting < players.Count * 2.5f) { itemSpawnGap = 12.5f; }
+                else { itemSpawnGap = 0; }
+            }
+
+
+            if (itemSpawnGap != 0)
+            {
+                if (itemSpawnTimer > itemSpawnGap)
                 {
-                    SpawnItem();
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        SpawnItem();
+                    }
+                    itemSpawnTimer = 0;
                 }
-                itemSpawnTimer = 0;
+            }
+
+
+
+            if (players.Count > 0)
+            {
+                int alivePlayers = 0;
+                foreach (Player player in players)
+                {
+                    if (player.playerState.alive) { alivePlayers++; }
+                }
+
+                if (alivePlayers <= 1)
+                {
+                    StartCoroutine(EndRound());
+                }
             }
         }
 
-        
-
-        if(players.Count > 0)
+        pauseScreen.gameObject.SetActive(gamePaused);
+        if (gamePaused)
         {
-            int alivePlayers = 0;
-            foreach (Player player in players)
-            {
-                if (player.playerState.alive) { alivePlayers++; }
-            }
+            MenuPlayer.MenuControls.ControllerType controllerType = gameManager.listOfMenuPlayers[whoPaused].menuControls.controllerType;
+            MenuPlayer.MenuControls.KeyboardType keyboardType = gameManager.listOfMenuPlayers[whoPaused].menuControls.keyboardType;
 
-            if(alivePlayers <= 1)
+            if (keyboardType == MenuPlayer.MenuControls.KeyboardType.WASD)
             {
-                EndRound();
-                StartRound();
+                controllerDiagram.sprite = gameManager.controllerDiagrams[0];
+            }
+            else if (keyboardType == MenuPlayer.MenuControls.KeyboardType.Arrows)
+            {
+                controllerDiagram.sprite = gameManager.controllerDiagrams[1];
+            }
+            else
+            {
+                if (controllerType == MenuPlayer.MenuControls.ControllerType.Arcade)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[2];
+                }
+                else if (controllerType == MenuPlayer.MenuControls.ControllerType.SwitchPro)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[3];
+                }
+                else if (controllerType == MenuPlayer.MenuControls.ControllerType.Xbox)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[4];
+                }
+                else if (controllerType == MenuPlayer.MenuControls.ControllerType.Playstation)
+                {
+                    controllerDiagram.sprite = gameManager.controllerDiagrams[5];
+                }
             }
         }
     }
@@ -249,6 +308,9 @@ public class BattleController : MonoBehaviour
 
     IEnumerator BeginBattle()
     {
+        roundActive = false;
+        gamePaused = false;
+
         // load in the stage, then load in the players
 
         stage = Instantiate(stageProto);
@@ -275,13 +337,33 @@ public class BattleController : MonoBehaviour
         yield return new WaitForSeconds(3);
         loadingScreen.gameObject.SetActive(false);
         cameraMove = cM;
-        // begin round?
 
-        StartRound();
+
+        // show players' HUDS
+
+        int i = 0;
+        foreach (Character.CharacterNames chara in playerChosenCharacters)
+        {
+            HUDPlayer newHUD = Instantiate(HUDProto, battleUICanv.transform).GetComponent<HUDPlayer>();
+
+            newHUD.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-9 + (6f * i), -7.2f, 0);
+
+            newHUD.score = 0;
+            newHUD.ID = i;
+            newHUD.bc = this;
+
+            playerHUDs.Add(newHUD);
+            i++;
+        }
+
+
+        // begin round
+
+        StartCoroutine(StartRound());
         yield return null;
     }
 
-    public void StartRound()
+    public IEnumerator StartRound()
     {
         int playerCount = playerChosenCharacters.Count;
         players.Clear();
@@ -319,9 +401,11 @@ public class BattleController : MonoBehaviour
             //gameManager.listOfMenuPlayers[i].GetComponent<PlayerInput>().currentActionMap = gameManager.listOfMenuPlayers[i].GetComponent<PlayerInput>().actions.FindActionMap("Ingame");
             gameManager.listOfMenuPlayers[i].myPlayer = newPlayer;
 
-            // do this bit start of every round
+            
+
 
             newPlayer.playerState.alive = true;
+            newPlayer.playerState.health = 3;
 
             newPlayer.items = new Player.Items(null, null, null);
             newPlayer.playerState.activelyUsingItem = false;
@@ -329,9 +413,19 @@ public class BattleController : MonoBehaviour
             if (newPlayer.transform.position.x > 0) { newPlayer.playerState.facingDir = Player.State.Dir.Left; }
             else { newPlayer.playerState.facingDir = Player.State.Dir.Right; }
 
+            newPlayer.playerState.hasControl = false;
+
             players.Add(newPlayer);
             i += 1;
         }
+
+        Time.timeScale = 1.0f;
+
+        // TODO show ready, go stuff
+
+        readyUI.enabled = true;
+        yield return new WaitForSecondsRealtime(1.4f);
+        readyUI.enabled = false;
 
         // init item system
 
@@ -340,17 +434,46 @@ public class BattleController : MonoBehaviour
         itemSpawnGap = 2;
 
         // spawn an item for each player
-        for (int j = 0; j < playerChosenCharacters.Count; j++)
+        foreach (Player player in players)
         {
+            player.playerState.hasControl = true;
             SpawnItem();
         }
+
+        roundActive = true;
+        gamePaused = false;
+
+
+        goUI.enabled = true;
+        yield return new WaitForSecondsRealtime(0.5f);
+        goUI.enabled = false;
+
+        yield return null;
     }
 
-    public void EndRound()
+    public IEnumerator EndRound()
     {
+        roundActive = false;
+
+
+        Time.timeScale = 0.25f;
+        yield return new WaitForSeconds(Time.timeScale * 0.9f);
+
+        // add scores
+        int i = 0;
+        foreach (Player player in players)
+        {
+            if (player.playerState.alive)
+            {
+                playerHUDs[i].score++;
+            }
+            i++;
+        }
+
+
+        yield return new WaitForSeconds(Time.timeScale * 0.9f);
+
         // destroy old stuff
-
-
         foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
         {
             Destroy(bullet.gameObject);
@@ -371,12 +494,9 @@ public class BattleController : MonoBehaviour
         {
             Destroy(topHatPortal.gameObject);
         }
-
-
-
-        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        foreach (Vegetable veggie in FindObjectsByType<Vegetable>(FindObjectsSortMode.None))
         {
-            Destroy(player.gameObject);
+            Destroy(veggie.gameObject);
         }
 
 
@@ -384,10 +504,39 @@ public class BattleController : MonoBehaviour
         {
             Destroy(itemPickup.gameObject);
         }
-
         foreach (Item item in FindObjectsByType<Item>(FindObjectsSortMode.None))
         {
             Destroy(item.gameObject);
+        }
+        foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+        {
+            Destroy(player.gameObject);
+        }
+
+
+        Time.timeScale = 1.0f;
+
+
+        // check if whole game should be over
+
+        bool winnerExists = false;
+        foreach (HUDPlayer hudPlayer in playerHUDs)
+        {
+            if (hudPlayer.score >= 5)
+            {
+                winnerExists = true;
+                gameManager.winnerID = hudPlayer.ID;
+            }
+        }
+
+        if (winnerExists)
+        {
+            // go to the ending screen
+            SceneManager.LoadScene("End");
+        }
+        else
+        {
+            StartCoroutine(StartRound());
         }
     }
 
@@ -416,5 +565,12 @@ public class BattleController : MonoBehaviour
         //Debug.Log(result);
 
         return (result);
+    }
+
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+        gameManager.menuManager.MenuReturn();
     }
 }

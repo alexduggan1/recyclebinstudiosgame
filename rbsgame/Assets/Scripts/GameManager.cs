@@ -43,6 +43,13 @@ public class GameManager : MonoBehaviour
 
     public MenuManager menuManager;
 
+    public int winnerID;
+
+    public EndManager endManager;
+
+
+    public List<Sprite> controllerDiagrams;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +76,18 @@ public class GameManager : MonoBehaviour
         {
             if (Input.anyKeyDown && titleTimer <= 0) { PressGoButton(); }
         }
+        else if (SceneManager.GetActiveScene().name == "End")
+        {
+            if (endManager != null)
+            {
+                endManager.gameManager = this;
+                endManager.winnerID = winnerID;
+            }
+            else
+            {
+                endManager = FindObjectOfType<EndManager>();
+            }
+        }
     }
 
     public void PressGoButton()
@@ -76,6 +95,28 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Startup")
         {
             SceneManager.LoadScene("Menu");
+        }
+    }
+
+    public void SendLeftOption(int idx)
+    {
+        if (SceneManager.GetActiveScene().name == "End")
+        {
+            if (endManager != null)
+            {
+                endManager.ReceiveLeftOption(idx);
+            }
+        }
+    }
+
+    public void SendRightOption(int idx)
+    {
+        if (SceneManager.GetActiveScene().name == "End")
+        {
+            if (endManager != null)
+            {
+                endManager.ReceiveRightOption(idx);
+            }
         }
     }
 }

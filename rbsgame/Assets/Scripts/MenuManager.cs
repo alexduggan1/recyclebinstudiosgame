@@ -44,25 +44,46 @@ public class MenuManager : MonoBehaviour
 
     public Canvas battleUiCanv;
     public Image loadingScreen;
+    public Image readyUI;
+    public Image goUI;
     public Camera battleUiCam;
+    public Image pauseScreen;
+    public Image controllerDiagram;
 
-    void Awake()
+
+    public static MenuManager Instance { get; private set; }
+
+
+    private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        gameManager.menuManager = this;
+        // If there is an instance, and it's not me, delete myself.
 
-        DontDestroyOnLoad(canv.gameObject);
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(battleUiCanv);
-        DontDestroyOnLoad(battleUiCam);
+        Debug.Log("new menu manager");
 
-        battleUiCanv.enabled = false;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
 
-        GenerateMenu();
+            gameManager = FindObjectOfType<GameManager>();
+            gameManager.menuManager = this;
+
+            DontDestroyOnLoad(gameObject);
+
+            battleUiCanv.enabled = false;
+
+            GenerateMenu();
+        }
     }
 
     public void GenerateMenu()
     {
+        battleUiCanv.enabled = false;
+
         // generate list of stages
         int i = 0;
         stageElms.Clear();
@@ -286,9 +307,52 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-
     public void PlayerJoined()
     {
         Debug.Log("player joined!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+
+
+    public void MenuReturn()
+    {
+        StartCoroutine(ReturnToMenu());
+    }
+
+    public IEnumerator ReturnToMenu()
+    {
+        battleUiCanv.enabled = true;
+        pauseScreen.gameObject.SetActive(false);
+        loadingScreen.gameObject.SetActive(true);
+
+        foreach (HUDPlayer hudPlayer in FindObjectsByType<HUDPlayer>(FindObjectsSortMode.None))
+        {
+            Destroy(hudPlayer.gameObject);
+        }
+
+        
+
+        Time.timeScale = 1;
+
+        float loadTime = 0;
+        while (loadTime < 1.1f)
+        {
+            loadTime += Time.deltaTime;
+            pauseScreen.gameObject.SetActive(false);
+            yield return new WaitForEndOfFrame();
+        }
+        // reset menuplayer choices
+        foreach (MenuPlayer mp in menuPlayers)
+        {
+            mp.Back();
+            mp.Back();
+            mp.Back();
+            mp.Back();
+            mp.Back();
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        canv.enabled = true;
+        battleUiCanv.enabled = false;
+        yield return null;
     }
 }

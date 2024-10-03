@@ -438,9 +438,21 @@ MonoBehaviour:
     weight: 1
   - loot: {fileID: 2696348413483647919, guid: 960ec87983c8fd544a18597607fa1eb2, type: 3}
     weight: 1
+  - loot: {fileID: 2696348413483647919, guid: 361c4b97503257440a7374fb1c85a10f, type: 3}
+    weight: 1
   defaultItemDropLoots: []
   listOfMenuPlayers: []
   titleTimer: 0
+  menuManager: {fileID: 0}
+  winnerID: 0
+  endManager: {fileID: 0}
+  controllerDiagrams:
+  - {fileID: 21300000, guid: 05574df5e55af544db7ec5324b1f5f19, type: 3}
+  - {fileID: 21300000, guid: cd1eee6931823fc4abc705cc844deacc, type: 3}
+  - {fileID: 21300000, guid: 43bdd1fc69b53b6498f85585c64bafa5, type: 3}
+  - {fileID: 21300000, guid: 2ee8f4189aba0b1488016e155026111f, type: 3}
+  - {fileID: 21300000, guid: f05e9d81b0bfc1542b2082acf7c7f497, type: 3}
+  - {fileID: 21300000, guid: 77959cab38751634f8b984df31669a50, type: 3}
 --- !u!1 &1619329607
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,44 +56,51 @@ public class Character : MonoBehaviour
     {
         if (playerState.alive)
         {
-            if (!playerState.activelyUsingItem)
+            if (playerState.hasControl)
             {
-                if (playerState.hitstunTime <= 0)
+                if (!playerState.activelyUsingItem)
                 {
-                    animator.speed = 1;
-                    if (playerState.onGround)
+                    if (playerState.hitstunTime <= 0)
                     {
-                        //Debug.Log("grounded");
-                        if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
+                        animator.speed = 1;
+                        if (playerState.onGround)
                         {
-                            if (playerState.activeDirectionalInput)
+                            //Debug.Log("grounded");
+                            if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
                             {
-                                // run
-                                animator.Play("Run");
+                                if (playerState.activeDirectionalInput)
+                                {
+                                    // run
+                                    animator.Play("Run");
+                                }
+                                else
+                                {
+                                    // idle
+                                    animator.Play("Idle");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (playerState.yVel < 0)
+                            {
+                                animator.Play("Fall");
                             }
                             else
                             {
-                                // idle
-                                animator.Play("Idle");
+                                animator.Play("AirRise");
                             }
                         }
                     }
                     else
                     {
-                        if (playerState.yVel < 0)
-                        {
-                            animator.Play("Fall");
-                        }
-                        else
-                        {
-                            animator.Play("AirRise");
-                        }
+                        animator.Play("Hurt");
                     }
                 }
-                else
-                {
-                    animator.Play("Hurt");
-                }
+            }
+            else
+            {
+                animator.Play("Idle");
             }
         }
         else
