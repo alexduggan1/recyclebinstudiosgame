@@ -87,7 +87,7 @@ MonoBehaviour:
   myPlayer: {fileID: 0}
   hatAnimTime: 0.1
   handheldAnimSpeed: 1
-  thumbnail: {fileID: 21300000, guid: 43a8ad95ffa1472419dc55144f050d5b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 1b6800c64510d4f4386a45a7426f693d, type: 3}
 --- !u!1 &6541292396622105306
 GameObject:
   m_ObjectHideFlags: 0
