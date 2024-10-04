@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
 {
     public enum CharacterNames
     {
-        Gregory, Kneecaps, Wilson, Luna
+        Gregory, Kneecaps, Wilson, Luna, BarryBones
     }
     public CharacterNames characterName;
 
@@ -42,7 +42,12 @@ public class Character : MonoBehaviour
                 
             }
         }
-        else { } // do something for the 3d ones idk it'll be different somehow I'm sure
+        else {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).TryGetComponent<Animator>(out animator);
+            }
+        } // do something for the 3d ones idk it'll be different somehow I'm sure
     }
 
     // Update is called once per frame
@@ -111,7 +116,52 @@ public class Character : MonoBehaviour
 
     void Handle3DAnimation()
     {
-
+        if (playerState.alive)
+        {
+            if (!playerState.activelyUsingItem)
+            {
+                if (playerState.hitstunTime <= 0)
+                {
+                    animator.speed = 1;
+                    if (playerState.onGround)
+                    {
+                        //Debug.Log("grounded");
+                        if ((!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) && (playerState.jumpSquatCountdown <= 0))
+                        {
+                            if (playerState.activeDirectionalInput)
+                            {
+                                // run
+                                animator.Play("Run");
+                            }
+                            else
+                            {
+                                // idle
+                                animator.Play("Idle");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (playerState.yVel < 0)
+                        {
+                            animator.Play("Fall");
+                        }
+                        else
+                        {
+                            animator.Play("AirRise");
+                        }
+                    }
+                }
+                else
+                {
+                    animator.Play("Hurt");
+                }
+            }
+        }
+        else
+        {
+            animator.Play("Dead");
+        }
     }
 
     public void Jump()
