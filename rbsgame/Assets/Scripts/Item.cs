@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
         {
             Handgun, BlusterBlade, 
             PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat, Bazooka,
-            StickyDynamite
+            StickyDynamite, UnicornHorn, MagnetHat, D20
         };
 
         public enum AnimType
@@ -147,6 +147,10 @@ public class Item : MonoBehaviour
             if(outOfUses)
             {
                 Debug.Log("out of uses of " + itemType.name.ToString() + "!!!!!!@!!!");
+                if(itemType.name == ItemType.Names.CarHat)
+                {
+                    StopDriving();
+                }
                 Destroy(gameObject);
             }
         }
@@ -513,14 +517,14 @@ public class Item : MonoBehaviour
 
         myPlayer.playerState.rotLocked = false;
         myPlayer.playerState.freeMovement = false;
-        StopDriving(stayOnGround, launcher);
-        StopDriving(stayOnGround, launcher);
-        StopDriving(stayOnGround, launcher);
-        StopDriving(stayOnGround, launcher);
+        StopDriving();
+        StopDriving();
+        StopDriving();
+        StopDriving();
         yield return null;
     }
 
-    public void StopDriving(Collider stayOnGround, LaunchBox launcher)
+    public void StopDriving()
     {
         myPlayer.playerState.rotLocked = false;
         myPlayer.playerState.freeMovement = false;
@@ -550,5 +554,23 @@ public class Item : MonoBehaviour
         bullet.GetComponent<StickyDynamite>().ownerException = myPlayer;
 
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void ShootRainbow(GameObject objToShoot, float bulletSpeed)
+    {
+        Debug.Log("RANIBWO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot = Vector3.right;
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
+        dirToShoot = dirToShoot + Vector3.up;
+        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
+        if (bulletSpeed == 0) { bulletSpeed = 1; }
+        Debug.Log(bulletSpeed);
+        bullet.GetComponent<RainbowGenerator>().bulletSpeed = bulletSpeed;
+        bullet.GetComponent<RainbowGenerator>().startingBulletSpeed = bulletSpeed;
+        bullet.GetComponent<RainbowGenerator>().dir = dirToShoot;
+        bullet.GetComponent<RainbowGenerator>().ownerException = myPlayer;
+
+        //Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
     }
 }
