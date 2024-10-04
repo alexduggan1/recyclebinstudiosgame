@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
 {
     public enum CharacterNames
     {
-        Gregory, Kneecaps, Wilson, Luna, BarryBones
+        Gregory, Kneecaps, Wilson, Luna, BarryBones, GentlemanHumanoid
     }
     public CharacterNames characterName;
 
