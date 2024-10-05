@@ -43,10 +43,7 @@ public class RainbowGenerator : MonoBehaviour
         rb.velocity = dir * startingBulletSpeed;
         points = new List<Vector3> { };
 
-        roadMeshCreator.pathCreator = pathCreator;
-        roadMeshCreator.AssignMeshComponents();
-        roadMeshCreator.AssignMaterials();
-
+        
         Physics.IgnoreCollision(this.GetComponent<Collider>(), wallItself.GetComponent<Collider>(), true);
     }
 
@@ -59,14 +56,16 @@ public class RainbowGenerator : MonoBehaviour
             points.Add(transform.position);
             wallItself.GetComponent<RainbowWall>().path.Add(transform.position);
 
-            if(points.Count > 1)
+            if(points.Count > 2)
             {
+                roadMeshCreator.pathCreator = pathCreator;
+                roadMeshCreator.AssignMeshComponents();
+                roadMeshCreator.AssignMaterials();
                 roadMeshCreator.path2 = GeneratePath(points);
                 roadMeshCreator.CreateRoadMesh2();
+                wallItself.GetComponent<MeshCollider>().convex = false;
+                wallItself.GetComponent<MeshCollider>().convex = true;
             }
-            //wallItself.GetComponent<MeshCollider>().convex = !wallItself.GetComponent<MeshCollider>().convex;
-            wallItself.GetComponent<MeshCollider>().convex = false;
-            wallItself.GetComponent<MeshCollider>().convex = true;
             cd = 0.07f;
         }
         else

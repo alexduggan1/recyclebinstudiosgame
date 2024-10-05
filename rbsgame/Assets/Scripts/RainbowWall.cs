@@ -23,7 +23,7 @@ public class RainbowWall : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(new Vector3(0, 0, 0.1f));
         transform.position = new Vector3(0, 0, 0);
         GetComponent<Rigidbody>().MovePosition(new Vector3(0, 0, 0f));
-        if (path.Count > 1)
+        if (path.Count > 2)
         {
             roadMeshCreator.path2 = GeneratePath(path);
             roadMeshCreator.UpdatePath();
