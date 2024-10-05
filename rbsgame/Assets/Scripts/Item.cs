@@ -83,6 +83,8 @@ public class Item : MonoBehaviour
 
     public Sprite thumbnail;
 
+    List<Player> magnetAffectedPlayers = new List<Player> { };
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -572,5 +574,121 @@ public class Item : MonoBehaviour
         bullet.GetComponent<RainbowGenerator>().ownerException = myPlayer;
 
         //Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void ActivateMagnet(ParticleSystem attractParticles, ParticleSystem repulseParticles)
+    {
+        magnetAffectedPlayers.Clear();
+        StartCoroutine(AttractMagnet(attractParticles, repulseParticles));
+    }
+
+    IEnumerator AttractMagnet(ParticleSystem attractParticles, ParticleSystem repulseParticles)
+    {
+        List<Vector3> posOffsets = new List<Vector3> { };
+
+        float upCount = 0;
+
+        attractParticles.Play();
+
+        while (upCount < 3.5f && myPlayer.playerState.itemAnimTime > 0)
+        {
+            upCount += Time.deltaTime;
+            foreach (Player player in myPlayer.battleController.players)
+            {
+                if (player != myPlayer)
+                {
+                    if (player.transform.position.x >= transform.position.x - 1.7f &&
+                    player.transform.position.x <= transform.position.x + 1.7f)
+                    {
+                        Debug.Log("within x");
+                        if (player.transform.position.y >= transform.position.y - 1.1f + 1f &&
+                        player.transform.position.y <= transform.position.y + 2.2f + 1f)
+                        {
+                            Debug.Log("within y");
+                            if (!magnetAffectedPlayers.Contains(player))
+                            {
+                                magnetAffectedPlayers.Add(player);
+                                Vector3 offset = player.transform.position - transform.position;
+                                offset = new Vector3(offset.x, offset.y, 0);
+                                posOffsets.Add(offset);
+                            }
+                        }
+                    }
+                }
+            }
+
+            int i = 0;
+            foreach (Player affectedPlayer in magnetAffectedPlayers)
+            {
+                affectedPlayer.playerState.hitstunTime = 0.3f;
+                affectedPlayer.rb.position = transform.position + posOffsets[i];
+                affectedPlayer.rb.useGravity = false;
+                i++;
+            }
+
+            if (myPlayer.playerInputs.hMoveAxis > 0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Right;
+            }
+            if (myPlayer.playerInputs.hMoveAxis < -0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Left;
+            }
+            myPlayer.playerState.onGround = Physics.Raycast(new Ray(myPlayer.transform.position + (Vector3.down * 0.75f), Vector3.down), 1f, myPlayer.stageLayer.value);
+
+            if (myPlayer.playerState.onGround)
+            {
+                Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                if (myPlayer.playerState.activeDirectionalInput)
+                {
+                    // run
+                    myPlayer.character.animator.Play("Run");
+                    //Debug.Log("should be running");
+                }
+                else
+                {
+                    // idle
+                    myPlayer.character.animator.Play("Idle");
+                }
+            }
+            else
+            {
+                if (myPlayer.playerState.yVel < 0)
+                {
+                    myPlayer.character.animator.Play("Fall");
+                }
+                else
+                {
+                    myPlayer.character.animator.Play("AirRise");
+                }
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        RepulseMagnet(attractParticles, repulseParticles);
+
+        yield return null;
+    }
+
+    public void RepulseMagnet(ParticleSystem attractParticles, ParticleSystem repulseParticles)
+    {
+        Debug.Log("repulsehat");
+        myPlayer.playerState.itemAnimTime = 0;
+        foreach (Player affectedPlayer in magnetAffectedPlayers)
+        {
+            affectedPlayer.playerState.hitstunTime = 0.3f;
+            affectedPlayer.rb.useGravity = true;
+            // launch em
+
+            Vector3 offsetDir = (affectedPlayer.rb.position - transform.position).normalized;
+            offsetDir = new Vector3(offsetDir.x * 1.6f, offsetDir.y, 0);
+            affectedPlayer.rb.velocity += offsetDir * 22;
+        }
+
+        attractParticles.Stop();
+        repulseParticles.Play();
+
+        Destroy(gameObject);
     }
 }
