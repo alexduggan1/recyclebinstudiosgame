@@ -26,6 +26,16 @@ public class SemisolidPlat : MonoBehaviour
 
     public List<DropPlayer> dropPlayers;
 
+    public List<Vector3> movePoints;
+    int currentMovePoint;
+    public float smoothTime = 3.0f;
+    float xVel = 0.0f;
+    float yVel = 0.0f;
+
+    float currentSmoothTime;
+
+    public List<GameObject> objectsOnMe = new List<GameObject> { };
+
     private void Awake()
     {
         collider = GetComponent<BoxCollider>();
@@ -37,6 +47,11 @@ public class SemisolidPlat : MonoBehaviour
         collisionCheckTrigger.isTrigger = true;
 
         dropPlayers = new List<DropPlayer> { };
+
+        currentMovePoint = 0;
+        currentSmoothTime = 0.0f;
+
+        objectsOnMe.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -155,9 +170,68 @@ public class SemisolidPlat : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (!objectsOnMe.Contains(collision.gameObject))
+        {
+            objectsOnMe.Add(collision.gameObject);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (objectsOnMe.Contains(collision.gameObject))
+        {
+            objectsOnMe.Remove(collision.gameObject);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if(movePoints.Count > 0)
+        {
+            if (currentSmoothTime > smoothTime)
+            {
+                currentMovePoint++;
+                if(currentMovePoint >= movePoints.Count) { currentMovePoint = 0; }
+                currentSmoothTime = 0.0f;
+            }
+            else
+            {
+                currentSmoothTime += Time.deltaTime;
+                float newPosX = Mathf.SmoothDamp(transform.position.x, movePoints[currentMovePoint].x, ref xVel, smoothTime);
+                float newPosY = Mathf.SmoothDamp(transform.position.y, movePoints[currentMovePoint].y, ref yVel, smoothTime);
+
+                Vector3 diff = new Vector3(newPosX, newPosY, transform.position.z) - transform.position;
+                diff = new Vector3(diff.x, diff.y, 0);
+
+                transform.position = new Vector3(newPosX, newPosY, transform.position.z);
+
+                List<GameObject> objectsOnMeBetter = new List<GameObject> { };
+                foreach (GameObject obj in objectsOnMe)
+                {
+                    if (obj != null)
+                    {
+                        if (!objectsOnMeBetter.Contains(obj))
+                        {
+                            objectsOnMeBetter.Add(obj);
+                        }
+                    }
+                }
+                foreach (GameObject obj in objectsOnMeBetter)
+                {
+                    if (obj != null)
+                    {
+                        obj.transform.position += diff;
+                    }
+                }
+                objectsOnMe.Clear();
+                foreach (GameObject obj in objectsOnMeBetter)
+                {
+                    objectsOnMe.Add(obj);
+                }
+            }
+        }
     }
 }

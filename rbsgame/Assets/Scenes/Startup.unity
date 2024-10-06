@@ -413,6 +413,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
   - {fileID: 4690313186787259386, guid: 82aa213dcff781241b52290fd0acaa98, type: 3}
+  - {fileID: 4690313186787259386, guid: 569877d81f7e5044db08d6a6774d1033, type: 3}
   - {fileID: 4690313186787259386, guid: ba80b63acb2e57c478bad9a974dc06ce, type: 3}
   playerChosenChars: []
   chosenStage: {fileID: 0}
