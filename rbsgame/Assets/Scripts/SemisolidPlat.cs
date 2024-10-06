@@ -172,6 +172,16 @@ public class SemisolidPlat : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("coll enter");
+        if (!objectsOnMe.Contains(collision.gameObject))
+        {
+            objectsOnMe.Add(collision.gameObject);
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        Debug.Log("coll stay");
         if (!objectsOnMe.Contains(collision.gameObject))
         {
             objectsOnMe.Add(collision.gameObject);
@@ -180,9 +190,13 @@ public class SemisolidPlat : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
+        Debug.Log("coll exit");
         if (objectsOnMe.Contains(collision.gameObject))
         {
-            objectsOnMe.Remove(collision.gameObject);
+            if(! collision.gameObject.TryGetComponent<ItemPickup>(out ItemPickup ip))
+            {
+                objectsOnMe.Remove(collision.gameObject);
+            }
         }
     }
 

@@ -92,7 +92,7 @@ public class MenuManager : MonoBehaviour
             UIElm newElm = Instantiate(elmStageProto, canv.transform).GetComponent<UIElm>();
             newElm.attachedStage = stage;
 
-            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(50, 110 - ((i + 1) * 40), 0);
+            newElm.GetComponent<RectTransform>().anchoredPosition = new Vector3(50, 120 - ((i + 1) * 40), 0);
 
             stageElms.Add(newElm);
             i++;
@@ -185,9 +185,9 @@ public class MenuManager : MonoBehaviour
                     i += 1;
                 }
 
-                if (currentHover > 4)
+                if (currentHover > 2)
                 {
-                    sectionSScrollAmount = currentHover - 4;
+                    sectionSScrollAmount = currentHover - 2;
                 }
                 else { sectionSScrollAmount = 0; }
             }
@@ -215,7 +215,7 @@ public class MenuManager : MonoBehaviour
             else
             {
                 stageElms[j].gameObject.SetActive(true);
-                stageElms[j].GetComponent<RectTransform>().anchoredPosition = new Vector3(50, 110 - ((j + 1 - sectionSScrollAmount) * 40), 0);
+                stageElms[j].GetComponent<RectTransform>().anchoredPosition = new Vector3(50, 120 - ((j + 1 - sectionSScrollAmount) * 40), 0);
             }
         }
     }
