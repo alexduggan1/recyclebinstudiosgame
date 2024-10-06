@@ -510,6 +510,11 @@ public class BattleController : MonoBehaviour
         {
             Destroy(rainbowWall.gameObject);
         }
+        foreach (DigitalRuby.LightningBolt.LightningBoltScript lightningBolt in FindObjectsByType<DigitalRuby.LightningBolt.LightningBoltScript>(FindObjectsSortMode.None))
+        {
+            Destroy(lightningBolt.gameObject);
+        }
+
 
 
         foreach (ItemPickup itemPickup in FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))

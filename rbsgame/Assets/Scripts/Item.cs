@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UltEvents;
 using TMPro.Examples;
+using DigitalRuby.LightningBolt;
 
 public class Item : MonoBehaviour
 {
@@ -690,5 +691,70 @@ public class Item : MonoBehaviour
         repulseParticles.Play();
 
         Destroy(gameObject);
+    }
+
+    public void D20(GameObject itemPickupProto, GameObject bolt)
+    {
+        myPlayer.playerState.itemAnimTime = 0;
+        int roll = Random.Range((int)0, (int)20);
+        Debug.Log(roll);
+        if (roll == 19)
+        {
+            // nat20
+
+            BattleController bc = myPlayer.battleController;
+
+            List<Player> killPool = new List<Player> { };
+            foreach (Player player in bc.players)
+            {
+                if (player != myPlayer)
+                {
+                    if (player.playerState.alive)
+                    {
+                        killPool.Add(player);
+                    }
+                }
+            }
+            
+            if (killPool.Count > 0)
+            {
+                Player killPlayer = killPool[Random.Range(0, killPool.Count)];
+
+                LightningBoltScript newBolt = Instantiate(bolt, killPlayer.transform.position, Quaternion.identity).GetComponent<LightningBoltScript>();
+
+                newBolt.StartPosition = killPlayer.transform.position + new Vector3(0, 70, 0);
+                newBolt.EndPosition = killPlayer.transform.position;
+                newBolt.DisappearSoon();
+                killPlayer.Die();
+            }
+        }
+        else if (roll == 0)
+        {
+            // nat1
+
+            LightningBoltScript newBolt = Instantiate(bolt, myPlayer.transform.position, Quaternion.identity).GetComponent<LightningBoltScript>();
+
+            newBolt.StartPosition = myPlayer.transform.position + new Vector3(0, 70, 0);
+            newBolt.EndPosition = myPlayer.transform.position;
+            newBolt.DisappearSoon();
+            myPlayer.Die();
+        }
+        else
+        {
+            Vector3 pos = myPlayer.transform.position + new Vector3(0, 1.8f, 0);
+            ItemPickup newItem = Instantiate(itemPickupProto, pos, Quaternion.identity).GetComponent<ItemPickup>();
+
+            BattleController bc = myPlayer.battleController;
+
+            Item selectedItem = bc.itemDropLootTable[Random.Range(0, bc.itemDropLootTable.Count - 1)].loot;
+            if (selectedItem.itemType.name == ItemType.Names.D20)
+            {
+                selectedItem = bc.itemDropLootTable[^1].loot;
+            }
+
+            Item madeItem = Instantiate(selectedItem.gameObject, newItem.transform).GetComponent<Item>();
+            newItem.item = selectedItem;
+            madeItem.pickedUp = false;
+        }
     }
 }
