@@ -1508,7 +1508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -7}
   m_SizeDelta: {x: 28, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2019268613
@@ -1531,7 +1531,150 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Outside assets and plugins:
+  m_text: 'Gameplay Programming
+
+    Alex
+
+
+    Item Programming
+
+    Alex and Nathaniel
+
+
+    Item
+    Modeling
+
+    Vincent
+
+
+    Stage Modeling
+
+    Vincent
+
+
+    Background Art
+
+    Vincent
+
+
+    2D
+    Character Art
+
+    Vincent, Nathaniel, and Lucas
+
+
+    3D Character Art
+
+    Vincent
+
+
+    Character
+    Animation
+
+    Vincent, Nathaniel, and Alex
+
+
+    User Interface Programming
+
+    Alex
+
+
+    User
+    Interface Art
+
+    Alex, Nathaniel, and Vincent
+
+
+    Controller and Arcade Machine
+    Support
+
+    Alex
+
+
+    Stages
+
+    Alex and Lucas
+
+
+    Player Physics
+
+    Alex
+    and Lucas
+
+
+    Title Screen Logo
+
+    Nathaniel
+
+
+
+    Outside assets and plugins:
+
+
+    KeyboardSplitter
+    by AngryArugula
+
+    <size=0.6>https://discussions.unity.com/t/keyboard-splitter-local-multiplayer-keyboard/787063/24</size>
+
+
+    UltEvents
+    by Kybernetik
+
+    <size=0.6>https://kybernetik.com.au/ultevents/</size>
+
+
+    Origami
+    Animals Pack by Runemark Studio
+
+    <size=0.6>https://assetstore.unity.com/packages/3d/characters/animals/origami-animals-pack-123159</size>
+
+
+    Modern
+    Cartoon Car Ferruccio by RCC Design
+
+    <size=0.6>https://assetstore.unity.com/packages/3d/vehicles/land/modern-cartoon-car-ferruccio-213704</size>
+
+
+    Path-Creator
+    by Sebastian Lague
+
+    <size=0.6>https://github.com/SebLague/Path-Creator</size>
+
+
+    Lightning
+    Bolt Effect by DigitalRuby
+
+    <size=0.6>https://assetstore.unity.com/packages/tools/particles-effects/lightning-bolt-effect-for-unity-59471</size>
+
+
+    Casual
+    Vegetable Pack by Fast Mesh
+
+    <size=0.6>https://assetstore.unity.com/packages/3d/props/food/casual-vegetable-pack-created-with-fastmesh-asset-293783</size>
+
+
+    Skeleton
+    - PBR - Animated - Low Poly by Lugia 3D
+
+    <size=0.6>https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/skeleton-pbr-animated-low-poly-30659</size>
+
+
+    Formal
+    character by Sports-Actions
+
+    <size=0.6>https://assetstore.unity.com/packages/3d/characters/formal-character-249988</size>
+
+
+    Xbox
+    One Controller Icon by needforbleed
+
+    <size=0.6>https://opengameart.org/content/xbox-one-controller-icon</size>
+
+
+    Switch
+    Pro Controller by Mark Davis
+
+    <size=0.6>https://dribbble.com/shots/3845552-Switch-Pro-Controller</size>
 
 
 '
@@ -1561,8 +1704,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.75
-  m_fontSizeBase: 0.75
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
