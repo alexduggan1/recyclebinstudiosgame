@@ -283,6 +283,46 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000000028667348
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0041517466
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000000009779103
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6476642
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7504672
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.112284355
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06871895
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 80.943
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -164.41
+      objectReference: {fileID: 0}
+    - target: {fileID: -2386223754413302594, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -149.657
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6259b57d45225be45a2da33b364aa583, type: 3}
       propertyPath: m_Name
       value: Philygon
