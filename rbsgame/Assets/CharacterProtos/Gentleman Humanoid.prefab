@@ -161,7 +161,7 @@ MonoBehaviour:
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
-  render: {fileID: 21300000, guid: 2fcbd20c14562f04da1bc1816d5ab1dc, type: 3}
+  render: {fileID: 21300000, guid: 51cb3454285d0c44b81f28cc10dc0ca5, type: 3}
 --- !u!1001 &5989092373113700070
 PrefabInstance:
   m_ObjectHideFlags: 0
