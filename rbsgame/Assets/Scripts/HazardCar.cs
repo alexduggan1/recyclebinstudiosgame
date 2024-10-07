@@ -21,8 +21,8 @@ public class HazardCar : MonoBehaviour
         launchBox = GetComponent<LaunchBox>();
 
         dir = "r";
-        waitTime = 0;
-        moving = true;
+        waitTime = 8.5f;
+        moving = false;
         waitUp = 0;
     }
 
@@ -41,7 +41,7 @@ public class HazardCar : MonoBehaviour
                 rb.velocity = new Vector3(-650 * Time.fixedDeltaTime, 0, 0);
                 transform.eulerAngles = new Vector3(0, 180, 0);
 
-                launchBox.launchData.launchDirection = new Vector3(-1.5f, 1, 0);
+                launchBox.launchData.launchDirection = new Vector3(-1.8f, 1, 0).normalized;
 
                 if (rb.position.x <= -50)
                 {
@@ -57,7 +57,7 @@ public class HazardCar : MonoBehaviour
                 rb.velocity = new Vector3(650 * Time.fixedDeltaTime, 0, 0);
                 transform.eulerAngles = new Vector3(0, 0, 0);
 
-                launchBox.launchData.launchDirection = new Vector3(1.5f, 1, 0);
+                launchBox.launchData.launchDirection = new Vector3(1.8f, 1, 0).normalized;
 
                 if (rb.position.x >= 50)
                 {

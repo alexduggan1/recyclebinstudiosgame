@@ -888,15 +888,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: de2a2c6928f39da49b9a0823e7988f0b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 28
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2a2c6928f39da49b9a0823e7988f0b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 28
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2a2c6928f39da49b9a0823e7988f0b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 28
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2a2c6928f39da49b9a0823e7988f0b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -904,7 +904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2a2c6928f39da49b9a0823e7988f0b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.8
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2a2c6928f39da49b9a0823e7988f0b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -990,7 +990,7 @@ MonoBehaviour:
   dir: {x: 0, y: 0, z: 0}
   launchData:
     launchDirection: {x: 0, y: 0, z: 0}
-    launchPower: 26
+    launchPower: 30
 --- !u!65 &8755061892479367374
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -410,6 +410,7 @@ MonoBehaviour:
   - {fileID: 5483133159943521038, guid: a6b836aa70f0e5c40ac1a8687fbd736e, type: 3}
   - {fileID: 5483133159943521038, guid: 09af27d104c7fb949b85b7099e8b107e, type: 3}
   - {fileID: 5483133159943521038, guid: 187f5752e52f1474aaa82fe6ce7b8fea, type: 3}
+  - {fileID: 5483133159943521038, guid: 5a868cd625f054c4ca54b4d33dcfef5c, type: 3}
   stages:
   - {fileID: 0}
   - {fileID: 4690313186787259386, guid: 433043d7f52ca5040bd72f5e94450e74, type: 3}
