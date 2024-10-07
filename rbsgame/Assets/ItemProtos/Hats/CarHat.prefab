@@ -217,25 +217,7 @@ MonoBehaviour:
         _PersistentCalls:
         - _Target: {fileID: 2696348413483647919}
           _MemberName: StopDriving
-          _PersistentArguments:
-          - _Type: 13
-            _Int: 0
-            _String: UnityEngine.Collider, UnityEngine.PhysicsModule, Version=0.0.0.0,
-              Culture=neutral, PublicKeyToken=null
-            _X: 0
-            _Y: 0
-            _Z: 0
-            _W: 0
-            _Object: {fileID: 7515425731136452439}
-          - _Type: 13
-            _Int: 0
-            _String: LaunchBox, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-              PublicKeyToken=null
-            _X: 0
-            _Y: 0
-            _Z: 0
-            _W: 0
-            _Object: {fileID: 3396567649539167668}
+          _PersistentArguments: []
       done: 0
     done: 0
   currentUse: 0

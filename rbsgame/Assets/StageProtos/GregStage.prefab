@@ -844,7 +844,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3944482457240514003}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -872,6 +872,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryDirection: {x: 0, y: 1, z: 0}
   triggerScale: {x: 1.2, y: 2.5, z: 1}
+  movePoints: []
+  smoothTime: 3
+  objectsOnMe: []
 --- !u!4 &4464841060742657897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5706a5ceffce9ce42a8e3816b0031ab2, type: 3}
@@ -969,7 +972,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8116922211402193223}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

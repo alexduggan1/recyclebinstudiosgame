@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UltEvents;
 using TMPro.Examples;
+using DigitalRuby.LightningBolt;
 
 public class Item : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Item : MonoBehaviour
         {
             Handgun, BlusterBlade, 
             PropellerHat, ToasterHat, Fish, Bananarang, OrigamiDragon, SpikeHat, TopHat, PartyHat, CarHat, Bazooka,
-            StickyDynamite
+            StickyDynamite, UnicornHorn, MagnetHat, D20
         };
 
         public enum AnimType
@@ -82,6 +83,8 @@ public class Item : MonoBehaviour
     public float handheldAnimSpeed = 1;
 
     public Sprite thumbnail;
+
+    List<Player> magnetAffectedPlayers = new List<Player> { };
 
     // Start is called before the first frame update
     void Awake()
@@ -147,6 +150,10 @@ public class Item : MonoBehaviour
             if(outOfUses)
             {
                 Debug.Log("out of uses of " + itemType.name.ToString() + "!!!!!!@!!!");
+                if(itemType.name == ItemType.Names.CarHat)
+                {
+                    StopDriving();
+                }
                 Destroy(gameObject);
             }
         }
@@ -513,14 +520,14 @@ public class Item : MonoBehaviour
 
         myPlayer.playerState.rotLocked = false;
         myPlayer.playerState.freeMovement = false;
-        StopDriving(stayOnGround, launcher);
-        StopDriving(stayOnGround, launcher);
-        StopDriving(stayOnGround, launcher);
-        StopDriving(stayOnGround, launcher);
+        StopDriving();
+        StopDriving();
+        StopDriving();
+        StopDriving();
         yield return null;
     }
 
-    public void StopDriving(Collider stayOnGround, LaunchBox launcher)
+    public void StopDriving()
     {
         myPlayer.playerState.rotLocked = false;
         myPlayer.playerState.freeMovement = false;
@@ -550,5 +557,204 @@ public class Item : MonoBehaviour
         bullet.GetComponent<StickyDynamite>().ownerException = myPlayer;
 
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void ShootRainbow(GameObject objToShoot, float bulletSpeed)
+    {
+        Debug.Log("RANIBWO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Vector3 dirToShoot = Vector3.right;
+        if (myPlayer.playerState.facingDir == Player.State.Dir.Left) { dirToShoot = Vector3.right * -1; }
+        dirToShoot = dirToShoot + Vector3.up;
+        GameObject bullet = Instantiate(objToShoot, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(bullet);
+        if (bulletSpeed == 0) { bulletSpeed = 1; }
+        Debug.Log(bulletSpeed);
+        bullet.GetComponent<RainbowGenerator>().bulletSpeed = bulletSpeed;
+        bullet.GetComponent<RainbowGenerator>().startingBulletSpeed = bulletSpeed;
+        bullet.GetComponent<RainbowGenerator>().dir = dirToShoot;
+        bullet.GetComponent<RainbowGenerator>().ownerException = myPlayer;
+
+        //Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+    }
+
+    public void ActivateMagnet(ParticleSystem attractParticles, ParticleSystem repulseParticles)
+    {
+        magnetAffectedPlayers.Clear();
+        StartCoroutine(AttractMagnet(attractParticles, repulseParticles));
+    }
+
+    IEnumerator AttractMagnet(ParticleSystem attractParticles, ParticleSystem repulseParticles)
+    {
+        List<Vector3> posOffsets = new List<Vector3> { };
+
+        float upCount = 0;
+
+        attractParticles.Play();
+
+        while (upCount < 3.5f && myPlayer.playerState.itemAnimTime > 0)
+        {
+            upCount += Time.deltaTime;
+            foreach (Player player in myPlayer.battleController.players)
+            {
+                if (player != myPlayer)
+                {
+                    if (player.transform.position.x >= transform.position.x - 1.7f &&
+                    player.transform.position.x <= transform.position.x + 1.7f)
+                    {
+                        Debug.Log("within x");
+                        if (player.transform.position.y >= transform.position.y - 1.1f + 1f &&
+                        player.transform.position.y <= transform.position.y + 2.2f + 1f)
+                        {
+                            Debug.Log("within y");
+                            if (!magnetAffectedPlayers.Contains(player))
+                            {
+                                magnetAffectedPlayers.Add(player);
+                                Vector3 offset = player.transform.position - transform.position;
+                                offset = new Vector3(offset.x, offset.y, 0);
+                                posOffsets.Add(offset);
+                            }
+                        }
+                    }
+                }
+            }
+
+            int i = 0;
+            foreach (Player affectedPlayer in magnetAffectedPlayers)
+            {
+                affectedPlayer.playerState.hitstunTime = 0.3f;
+                affectedPlayer.rb.position = transform.position + posOffsets[i];
+                affectedPlayer.rb.useGravity = false;
+                i++;
+            }
+
+            if (myPlayer.playerInputs.hMoveAxis > 0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Right;
+            }
+            if (myPlayer.playerInputs.hMoveAxis < -0.05f)
+            {
+                myPlayer.playerState.facingDir = Player.State.Dir.Left;
+            }
+            myPlayer.playerState.onGround = Physics.Raycast(new Ray(myPlayer.transform.position + (Vector3.down * 0.75f), Vector3.down), 1f, myPlayer.stageLayer.value);
+
+            if (myPlayer.playerState.onGround)
+            {
+                Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                if (myPlayer.playerState.activeDirectionalInput)
+                {
+                    // run
+                    myPlayer.character.animator.Play("Run");
+                    //Debug.Log("should be running");
+                }
+                else
+                {
+                    // idle
+                    myPlayer.character.animator.Play("Idle");
+                }
+            }
+            else
+            {
+                if (myPlayer.playerState.yVel < 0)
+                {
+                    myPlayer.character.animator.Play("Fall");
+                }
+                else
+                {
+                    myPlayer.character.animator.Play("AirRise");
+                }
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        RepulseMagnet(attractParticles, repulseParticles);
+
+        yield return null;
+    }
+
+    public void RepulseMagnet(ParticleSystem attractParticles, ParticleSystem repulseParticles)
+    {
+        Debug.Log("repulsehat");
+        myPlayer.playerState.itemAnimTime = 0;
+        foreach (Player affectedPlayer in magnetAffectedPlayers)
+        {
+            affectedPlayer.playerState.hitstunTime = 0.3f;
+            affectedPlayer.rb.useGravity = true;
+            // launch em
+
+            Vector3 offsetDir = (affectedPlayer.rb.position - transform.position).normalized;
+            offsetDir = new Vector3(offsetDir.x * 1.6f, offsetDir.y, 0);
+            affectedPlayer.rb.velocity += offsetDir * 22;
+        }
+
+        attractParticles.Stop();
+        repulseParticles.Play();
+
+        Destroy(gameObject);
+    }
+
+    public void D20(GameObject itemPickupProto, GameObject bolt)
+    {
+        myPlayer.playerState.itemAnimTime = 0;
+        int roll = Random.Range((int)0, (int)20);
+        Debug.Log(roll);
+        if (roll == 19)
+        {
+            // nat20
+
+            BattleController bc = myPlayer.battleController;
+
+            List<Player> killPool = new List<Player> { };
+            foreach (Player player in bc.players)
+            {
+                if (player != myPlayer)
+                {
+                    if (player.playerState.alive)
+                    {
+                        killPool.Add(player);
+                    }
+                }
+            }
+            
+            if (killPool.Count > 0)
+            {
+                Player killPlayer = killPool[Random.Range(0, killPool.Count)];
+
+                LightningBoltScript newBolt = Instantiate(bolt, killPlayer.transform.position, Quaternion.identity).GetComponent<LightningBoltScript>();
+
+                newBolt.StartPosition = killPlayer.transform.position + new Vector3(0, 70, 0);
+                newBolt.EndPosition = killPlayer.transform.position;
+                newBolt.DisappearSoon();
+                killPlayer.Die();
+            }
+        }
+        else if (roll == 0)
+        {
+            // nat1
+
+            LightningBoltScript newBolt = Instantiate(bolt, myPlayer.transform.position, Quaternion.identity).GetComponent<LightningBoltScript>();
+
+            newBolt.StartPosition = myPlayer.transform.position + new Vector3(0, 70, 0);
+            newBolt.EndPosition = myPlayer.transform.position;
+            newBolt.DisappearSoon();
+            myPlayer.Die();
+        }
+        else
+        {
+            Vector3 pos = myPlayer.transform.position + new Vector3(0, 1.8f, 0);
+            ItemPickup newItem = Instantiate(itemPickupProto, pos, Quaternion.identity).GetComponent<ItemPickup>();
+
+            BattleController bc = myPlayer.battleController;
+
+            Item selectedItem = bc.itemDropLootTable[Random.Range(0, bc.itemDropLootTable.Count - 1)].loot;
+            if (selectedItem.itemType.name == ItemType.Names.D20)
+            {
+                selectedItem = bc.itemDropLootTable[^1].loot;
+            }
+
+            Item madeItem = Instantiate(selectedItem.gameObject, newItem.transform).GetComponent<Item>();
+            newItem.item = selectedItem;
+            madeItem.pickedUp = false;
+        }
     }
 }

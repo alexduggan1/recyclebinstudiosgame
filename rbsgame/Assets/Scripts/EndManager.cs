@@ -56,8 +56,8 @@ public class EndManager : MonoBehaviour
 
         if (creditsOpen)
         {
-            scrollingText.anchoredPosition += new Vector2(0, 0.6f * Time.deltaTime);
-            if (scrollingText.anchoredPosition.y > 3.5f)
+            scrollingText.anchoredPosition += new Vector2(0, 1.8f * Time.deltaTime);
+            if (scrollingText.anchoredPosition.y > 90f)
             {
                 scrollingText.anchoredPosition = defaultScrollPos;
             }

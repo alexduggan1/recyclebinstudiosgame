@@ -502,6 +502,19 @@ public class BattleController : MonoBehaviour
         {
             Destroy(stickyDynamite.gameObject);
         }
+        foreach (RainbowGenerator rainbowGenerator in FindObjectsByType<RainbowGenerator>(FindObjectsSortMode.None))
+        {
+            Destroy(rainbowGenerator.gameObject);
+        }
+        foreach (RainbowWall rainbowWall in FindObjectsByType<RainbowWall>(FindObjectsSortMode.None))
+        {
+            Destroy(rainbowWall.gameObject);
+        }
+        foreach (DigitalRuby.LightningBolt.LightningBoltScript lightningBolt in FindObjectsByType<DigitalRuby.LightningBolt.LightningBoltScript>(FindObjectsSortMode.None))
+        {
+            Destroy(lightningBolt.gameObject);
+        }
+
 
 
         foreach (ItemPickup itemPickup in FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))

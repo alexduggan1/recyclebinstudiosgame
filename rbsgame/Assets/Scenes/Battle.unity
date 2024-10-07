@@ -212,7 +212,11 @@ MonoBehaviour:
   loadingScreen: {fileID: 0}
   readyUI: {fileID: 0}
   goUI: {fileID: 0}
+  pauseScreen: {fileID: 0}
+  controllerDiagram: {fileID: 0}
   HUDProto: {fileID: 1481978895771414710, guid: 04016005ce0bc304baebc1da8d000f7d, type: 3}
+  gamePaused: 0
+  whoPaused: 0
 --- !u!1 &1715063055
 GameObject:
   m_ObjectHideFlags: 0

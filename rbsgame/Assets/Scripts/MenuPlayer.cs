@@ -115,8 +115,8 @@ public class MenuPlayer : MonoBehaviour
         existTimer = 0.2f;
         Debug.Log(GetComponent<PlayerInput>().devices[0].name);
         menuControls.controllerType = MenuControls.ControllerType.None;
-        if(GetComponent<PlayerInput>().devices[0].name == "WASD") { menuControls.keyboardType = MenuControls.KeyboardType.WASD; }
-        else if(GetComponent<PlayerInput>().devices[0].name == "Arrows") { menuControls.keyboardType = MenuControls.KeyboardType.Arrows; }
+        if(GetComponent<PlayerInput>().devices[0].name.ToLower().Contains("wasd")) { menuControls.keyboardType = MenuControls.KeyboardType.WASD; }
+        else if(GetComponent<PlayerInput>().devices[0].name.ToLower().Contains("arrows")) { menuControls.keyboardType = MenuControls.KeyboardType.Arrows; }
         else 
         { 
             menuControls.keyboardType = MenuControls.KeyboardType.None;

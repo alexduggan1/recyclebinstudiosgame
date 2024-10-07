@@ -196,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 4492444088772513403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -557,7 +557,7 @@ Transform:
   m_GameObject: {fileID: 7262891623927584391}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 10, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -861,7 +861,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3363269142958009482}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -889,6 +889,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryDirection: {x: 0, y: 1, z: 0}
   triggerScale: {x: 1, y: 1.5, z: 1}
+  movePoints: []
+  smoothTime: 3
+  objectsOnMe: []
 --- !u!1001 &3724830263627385893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -977,7 +980,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4571198367491666292}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1005,6 +1008,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryDirection: {x: 0, y: 1, z: 0}
   triggerScale: {x: 1, y: 1.5, z: 1}
+  movePoints: []
+  smoothTime: 3
+  objectsOnMe: []
 --- !u!1001 &8963412780889023510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1097,7 +1103,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8116922211402193223}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1204,7 +1210,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8332969377674732553}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a00d538d0814745488e101a2a6423ec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1232,6 +1238,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryDirection: {x: 0, y: 1, z: 0}
   triggerScale: {x: 1, y: 1.5, z: 1}
+  movePoints: []
+  smoothTime: 3
+  objectsOnMe: []
 --- !u!4 &8714315553620295347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a5692cf86d774e04a812eac78a66c8e6, type: 3}
