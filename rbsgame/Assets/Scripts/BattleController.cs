@@ -188,6 +188,10 @@ public class BattleController : MonoBehaviour
     {
         if (cameraMove)
         {
+            if (stage.name.ToLower().Contains("street"))
+            {
+                camMinZoom = 90f;
+            }
             Vector3 centerPoint = GetCenterPoint();
 
             Vector3 newPosition = centerPoint + camOffset;
