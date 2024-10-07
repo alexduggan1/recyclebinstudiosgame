@@ -156,6 +156,8 @@ MonoBehaviour:
     rotLocked: 0
     freeMovement: 0
     hasControl: 0
+    health: 0
+    iFrames: 0
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
