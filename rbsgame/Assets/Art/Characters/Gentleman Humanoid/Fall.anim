@@ -1770,7 +1770,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.19000635, y: 0.79758465, z: 0.45665327}
+        value: {x: 0.013, y: 0.374, z: 0.819}
         inSlope: {x: -0, y: 3.5527137e-15, z: -3.3087225e-24}
         outSlope: {x: -0, y: 3.5527137e-15, z: -3.3087225e-24}
         tangentMode: 0
@@ -1779,7 +1779,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.16666667
-        value: {x: -0.19000635, y: 0.79758465, z: 0.45665327}
+        value: {x: 0.013, y: 0.374, z: 0.819}
         inSlope: {x: -0, y: 3.5527137e-15, z: -3.3087225e-24}
         outSlope: {x: -0, y: 3.5527137e-15, z: -3.3087225e-24}
         tangentMode: 0
@@ -7169,7 +7169,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.19000635
+        value: 0.013
         inSlope: -0
         outSlope: -0
         tangentMode: 0
@@ -7178,7 +7178,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.16666667
-        value: -0.19000635
+        value: 0.013
         inSlope: -0
         outSlope: -0
         tangentMode: 0
@@ -7199,7 +7199,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.79758465
+        value: 0.374
         inSlope: 3.5527137e-15
         outSlope: 3.5527137e-15
         tangentMode: 0
@@ -7208,7 +7208,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.16666667
-        value: 0.79758465
+        value: 0.374
         inSlope: 3.5527137e-15
         outSlope: 3.5527137e-15
         tangentMode: 0
@@ -7229,7 +7229,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.45665327
+        value: 0.819
         inSlope: -3.3087225e-24
         outSlope: -3.3087225e-24
         tangentMode: 0
@@ -7238,7 +7238,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.16666667
-        value: 0.45665327
+        value: 0.819
         inSlope: -3.3087225e-24
         outSlope: -3.3087225e-24
         tangentMode: 0
