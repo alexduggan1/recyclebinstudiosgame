@@ -410,18 +410,12 @@ public class Item : MonoBehaviour
 
     public void PartyImmune()
     {
-        Debug.Log("PARTY TIME!!!!");
-        foreach (Bullet bullet in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
-        {
-            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        if (myPlayer.playerState.health < 3) {
+            myPlayer.playerState.health += 1;
+            Debug.Log("HEALING WOOOHOOO PARTY TIME!");
         }
-        foreach (Toast toast in FindObjectsByType<Toast>(FindObjectsSortMode.None))
-        {
-            Physics.IgnoreCollision(toast.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
-        }
-        foreach (Bananarang bananarang in FindObjectsByType<Bananarang>(FindObjectsSortMode.None))
-        {
-            Physics.IgnoreCollision(bananarang.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        else {
+            Debug.Log("No HP for you, you full HP haver");
         }
     }
 
