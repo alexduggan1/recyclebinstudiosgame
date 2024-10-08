@@ -124,6 +124,23 @@ public class Player : MonoBehaviour
 
     public float pickupDelay;
 
+    public GameObject oneSoundPlayer;
+
+    [System.Serializable]
+    public class SoundClips
+    {
+        public AudioClip runSound;
+        public AudioClip jumpSound;
+        public AudioClip landSound;
+        public AudioClip launchSound;
+        public AudioClip hitSound;
+        public AudioClip dieSound;
+        public AudioClip pickupSound;
+    }
+    public SoundClips soundClips;
+
+    public AudioSource runSoundPlayer;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -131,6 +148,8 @@ public class Player : MonoBehaviour
         myProjectiles.Clear();
 
         battleController = FindAnyObjectByType<BattleController>();
+        oneSoundPlayer = battleController.gameManager.oneSoundPlayer;
+        runSoundPlayer.clip = soundClips.runSound;
     }
 
     void Update()
@@ -350,8 +369,14 @@ public class Player : MonoBehaviour
         {
             // update player state
 
+            bool prevOnGround = playerState.onGround;
             playerState.onGround = Physics.Raycast(new Ray(transform.position + (Vector3.down * 0.75f), Vector3.down), 0.5f, stageLayer.value);
-            
+            if((prevOnGround == false) && (playerState.onGround == true))
+            {
+                AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+                osp.clip = soundClips.landSound; osp.Play();
+            }
+
             if (playerState.hasControl)
             {
                 if (!playerState.activelyUsingItem)
@@ -394,6 +419,22 @@ public class Player : MonoBehaviour
                             if ((rb.velocity.x) < physicsAttributes.maxMoveSpeedGround * -1)
                             {
                                 rb.velocity = new Vector3((physicsAttributes.maxMoveSpeedGround * -1), rb.velocity.y);
+                            }
+
+                            if (playerState.activeDirectionalInput)
+                            {
+                                if (!runSoundPlayer.isPlaying)
+                                {
+                                    runSoundPlayer.Play();
+                                }
+                                //Debug.Log("playrunsound");
+                            }
+                            else
+                            {
+                                if (runSoundPlayer.isPlaying)
+                                {
+                                    runSoundPlayer.Stop();
+                                }
                             }
                         }
                     }
@@ -447,6 +488,9 @@ public class Player : MonoBehaviour
                     playerInputs.jumpPressed = 0;
                     character.Jump();
                     playerState.jumpSquatCountdown = physicsAttributes.jumpSquatTime;
+
+                    AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+                    osp.clip = soundClips.jumpSound; osp.Play();
                 }
             }
         }
@@ -476,6 +520,9 @@ public class Player : MonoBehaviour
         }
         myProjectiles.Clear();
 
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = soundClips.dieSound; osp.Play();
+
         GetComponent<Collider>().isTrigger = true;
     }
 
@@ -485,6 +532,10 @@ public class Player : MonoBehaviour
         {
             playerState.health--;
             playerState.iFrames = 0.33f;
+
+            AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+            osp.clip = soundClips.hitSound; osp.Play();
+
             if (playerState.health <= 0)
             {
                 playerState.health = 0;
@@ -538,6 +589,9 @@ public class Player : MonoBehaviour
             {
                 playerState.hitstunTime = 0.75f;
                 rb.velocity += launchbox.launchData.launchDirection * launchbox.launchData.launchPower;
+
+                AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+                osp.clip = soundClips.launchSound; osp.Play();
             }
         }
     }
@@ -557,6 +611,9 @@ public class Player : MonoBehaviour
             {
                 playerState.hitstunTime = 0.75f;
                 rb.velocity += launchbox.launchData.launchDirection * launchbox.launchData.launchPower;
+
+                AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+                osp.clip = soundClips.launchSound; osp.Play();
             }
         }
     }
@@ -619,6 +676,9 @@ public class Player : MonoBehaviour
                         other.GetComponent<ItemPickup>().alreadyPickedup = true;
                         Destroy(other.gameObject);
                         pickupDelay = 0f;
+
+                        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+                        osp.clip = soundClips.pickupSound; osp.Play();
                     }
                 }
             }

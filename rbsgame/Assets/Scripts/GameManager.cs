@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
 
     public List<Sprite> controllerDiagrams;
 
+    public GameObject oneSoundPlayer;
+
     // Start is called before the first frame update
     void Start()
     {

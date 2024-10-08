@@ -28,6 +28,8 @@ public class StickyDynamite : MonoBehaviour
 
     float cd;
 
+    public AudioClip explosionSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +81,9 @@ public class StickyDynamite : MonoBehaviour
     {
         Hitbox e = Instantiate(explosionKillbox, transform.position, Quaternion.identity).GetComponent<Hitbox>();
         e.GoAway(0.4f);
+
+        AudioSource osp = Instantiate(FindObjectOfType<GameManager>().oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = explosionSound; osp.Play();
     }
 
     public IEnumerator Fuse()

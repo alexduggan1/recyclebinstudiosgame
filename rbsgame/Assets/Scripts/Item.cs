@@ -86,12 +86,15 @@ public class Item : MonoBehaviour
 
     List<Player> magnetAffectedPlayers = new List<Player> { };
 
+    GameObject oneSoundPlayer;
+
     // Start is called before the first frame update
     void Awake()
     {
         currentUse = -1;
         actionTime = 0;
         regularScale = transform.localScale;
+        oneSoundPlayer = FindObjectOfType<GameManager>().oneSoundPlayer;
     }
 
     // Update is called once per frame
@@ -174,7 +177,7 @@ public class Item : MonoBehaviour
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
     }
 
-    public void ShootBanana(GameObject objToShoot, float bulletSpeed)
+    public void ShootBanana(GameObject objToShoot, float bulletSpeed, AudioClip throwSound)
     {
         Debug.Log("BANAAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Vector3 dirToShoot = Vector3.right;
@@ -197,6 +200,8 @@ public class Item : MonoBehaviour
         bullet.GetComponent<Bananarang>().ownerException = myPlayer;
 
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = throwSound; osp.Play();
     }
 
     public void DeleteBanana()
@@ -399,24 +404,25 @@ public class Item : MonoBehaviour
         myPlayer.myPortals.Add(newPortal); myPlayer.myProjectiles.Add(newPortal);
     }
 
-    public void UsePortal()
+    public void UsePortal(AudioClip teleportSound)
     {
         Debug.Log("telperting??????");
         GameObject gotoPortal = myPlayer.myPortals[0];
         myPlayer.transform.position = gotoPortal.transform.position;
         myPlayer.myPortals.Remove(gotoPortal);
         Destroy(gotoPortal);
+
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = teleportSound; osp.Play();
     }
 
-    public void PartyImmune()
+    public void PartyImmune(AudioClip partySound)
     {
         if (myPlayer.playerState.health < 3) {
             myPlayer.playerState.health += 1;
-            Debug.Log("HEALING WOOOHOOO PARTY TIME!");
         }
-        else {
-            Debug.Log("No HP for you, you full HP haver");
-        }
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = partySound; osp.Play();
     }
 
     public IEnumerator DragonFire(ParticleSystem fireParticles, ParticleSystem smokeParticles, GameObject hitbox)
@@ -428,6 +434,8 @@ public class Item : MonoBehaviour
         fireParticles.Stop();
         smokeParticles.Stop();
         hitbox.SetActive(false);
+
+        GetComponent<AudioSource>().Play();
 
         while (realTime < (7f/60f))
         {
@@ -450,6 +458,7 @@ public class Item : MonoBehaviour
         fireParticles.Stop();
         smokeParticles.Stop();
         hitbox.SetActive(false);
+        GetComponent<AudioSource>().Stop();
 
         while (realTime < ((7f + (15f * (1f / 0.2f)) + 10f) / 60f))
         {
@@ -527,7 +536,7 @@ public class Item : MonoBehaviour
         myPlayer.playerState.freeMovement = false;
     }
 
-    public void ThrowDynamite(GameObject objToShoot, float bulletSpeed)
+    public void ThrowDynamite(GameObject objToShoot, float bulletSpeed, AudioClip throwSound)
     {
         Debug.Log("DYANNMITE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Vector3 dirToShoot = Vector3.right;
@@ -551,6 +560,8 @@ public class Item : MonoBehaviour
         bullet.GetComponent<StickyDynamite>().ownerException = myPlayer;
 
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = throwSound; osp.Play();
     }
 
     public void ShootRainbow(GameObject objToShoot, float bulletSpeed)
