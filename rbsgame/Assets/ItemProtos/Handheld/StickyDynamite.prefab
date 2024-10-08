@@ -106,6 +106,15 @@ MonoBehaviour:
             _Z: 0
             _W: 0
             _Object: {fileID: 0}
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: f951e80f25ce8fd459bae65606805f8b, type: 3}
       done: 0
     - timeStamp: 0.2592593
       function:

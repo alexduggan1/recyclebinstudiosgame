@@ -75,7 +75,16 @@ MonoBehaviour:
         _PersistentCalls:
         - _Target: {fileID: 2696348413483647919}
           _MemberName: UsePortal
-          _PersistentArguments: []
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: d06298c22630b0045b1c01823624e9c6, type: 3}
       done: 0
     done: 0
   currentUse: 0

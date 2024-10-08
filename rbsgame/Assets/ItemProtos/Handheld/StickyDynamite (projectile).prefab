@@ -88,6 +88,7 @@ MonoBehaviour:
   exploding: 0
   explosionKillbox: {fileID: 1421007361610928543, guid: ccb9409e8b7dbdf41a517b6a9c3064c1, type: 3}
   explodePos: {x: 0, y: 0, z: 0}
+  explosionSound: {fileID: 8300000, guid: d99f377e474b54a438060bfc87880621, type: 3}
 --- !u!54 &4226554691816700845
 Rigidbody:
   m_ObjectHideFlags: 0

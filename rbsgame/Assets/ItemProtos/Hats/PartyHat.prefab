@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2535488965979210328}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.87471944, z: -0, w: 0.4846298}
+  m_LocalRotation: {x: -0, y: -0.6872818, z: -0, w: 0.7263909}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.1929, z: 1}
   m_ConstrainProportionsScale: 0
@@ -57,7 +57,16 @@ MonoBehaviour:
         _PersistentCalls:
         - _Target: {fileID: 2696348413483647919}
           _MemberName: PartyImmune
-          _PersistentArguments: []
+          _PersistentArguments:
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: 95b50f2902f271e4f82f33f1dc13e584, type: 3}
       done: 0
     done: 0
   currentUse: 0

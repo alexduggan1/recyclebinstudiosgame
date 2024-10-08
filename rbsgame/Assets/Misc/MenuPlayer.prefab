@@ -236,6 +236,7 @@ MonoBehaviour:
     confirmButton: 0
     backButton: 0
     keyboardType: 0
+    controllerType: 0
   ID: 0
   chosenChar: {fileID: 0}
   currentUIElm: {fileID: 0}
@@ -251,6 +252,7 @@ MonoBehaviour:
   existTimer: 0
   sceneName: 
   debugText: {fileID: 4727107771583625838}
+  bc: {fileID: 0}
 --- !u!114 &6896199610425438684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,7 +573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &371745074468644908
 RectTransform:
   m_ObjectHideFlags: 0
