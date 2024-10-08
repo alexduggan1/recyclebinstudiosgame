@@ -91,6 +91,15 @@ MonoBehaviour:
             _Z: 0
             _W: 0
             _Object: {fileID: 0}
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: 78bba3002a98ea44891a9b1e00559eac, type: 3}
       done: 0
     done: 1
   - actions:
@@ -133,6 +142,15 @@ MonoBehaviour:
             _Z: 0
             _W: 0
             _Object: {fileID: 0}
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: 78bba3002a98ea44891a9b1e00559eac, type: 3}
       done: 0
     done: 0
   - actions:
@@ -175,6 +193,15 @@ MonoBehaviour:
             _Z: 0
             _W: 0
             _Object: {fileID: 0}
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: 78bba3002a98ea44891a9b1e00559eac, type: 3}
       done: 0
     done: 0
   - actions:
@@ -217,6 +244,15 @@ MonoBehaviour:
             _Z: 0
             _W: 0
             _Object: {fileID: 0}
+          - _Type: 13
+            _Int: 0
+            _String: UnityEngine.AudioClip, UnityEngine.AudioModule, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            _X: 0
+            _Y: 0
+            _Z: 0
+            _W: 0
+            _Object: {fileID: 8300000, guid: 78bba3002a98ea44891a9b1e00559eac, type: 3}
       done: 0
     done: 0
   currentUse: 0

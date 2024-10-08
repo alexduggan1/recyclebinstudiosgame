@@ -1531,23 +1531,27 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gameplay Programming
+  m_text: '<size=1.3>Misc Mash</size>
+
+
+    Gameplay Programming
 
     Alex
 
 
-    Item Programming
+    Item
+    Programming
 
     Alex and Nathaniel
 
 
-    Item
+    Item Modeling
+
+    Vincent and Nathaniel
+
+
+    Stage
     Modeling
-
-    Vincent
-
-
-    Stage Modeling
 
     Vincent
 
@@ -1557,10 +1561,10 @@ MonoBehaviour:
     Vincent
 
 
-    2D
-    Character Art
+    2D Character Art
 
-    Vincent, Nathaniel, and Lucas
+    Vincent,
+    Nathaniel, and Lucas
 
 
     3D Character Art
@@ -1568,10 +1572,10 @@ MonoBehaviour:
     Vincent
 
 
-    Character
-    Animation
+    Character Animation
 
-    Vincent, Nathaniel, and Alex
+    Vincent,
+    Nathaniel, and Alex
 
 
     User Interface Programming
@@ -1579,32 +1583,47 @@ MonoBehaviour:
     Alex
 
 
-    User
-    Interface Art
+    User Interface
+    Art
 
     Alex, Nathaniel, and Vincent
 
 
-    Controller and Arcade Machine
-    Support
+    Controller and Arcade Machine Support
 
     Alex
 
 
     Stages
 
-    Alex and Lucas
+    Alex
+    and Lucas
 
 
     Player Physics
 
-    Alex
-    and Lucas
+    Alex and Lucas
 
 
     Title Screen Logo
 
     Nathaniel
+
+
+    Music
+
+    Alex
+
+
+    Sound
+    Effects
+
+    Lucas
+
+
+    Audio System
+
+    Alex
 
 
 
@@ -1677,7 +1696,35 @@ MonoBehaviour:
     <size=0.6>https://dribbble.com/shots/3845552-Switch-Pro-Controller</size>
 
 
-'
+    Bomb
+    - Small by Zangrutz
+
+    <size=0.6>https://freesound.org/s/155235/ -- License:
+    Attribution 3.0</size>
+
+
+    car_horn-2x.mp3 by zerolagtime
+
+    <size=0.6>https://freesound.org/s/66586/
+    -- License: Creative Commons 0</size>
+
+
+    horn.wav by guitarguy1985
+
+    <size=0.6>https://freesound.org/s/54086/
+    -- License: Creative Commons 0</size>
+
+
+    snowmobile onboard or following driving
+    fast speed good by kyles
+
+    <size=0.6>https://freesound.org/s/450930/ -- License:
+    Creative Commons 0</size>
+
+
+    Party Horn Sound Effect - zapsplat.com
+
+    <size=0.6>https://www.zapsplat.com/music/party-horn-blow-toot-1/</size>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
