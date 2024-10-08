@@ -163,7 +163,7 @@ public class Item : MonoBehaviour
     }
 
 
-    public void Shoot(GameObject objToShoot, float bulletSpeed)
+    public void Shoot(GameObject objToShoot, float bulletSpeed, AudioClip shootSound)
     {
         Debug.Log("shoot!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Vector3 dirToShoot = Vector3.right;
@@ -175,6 +175,9 @@ public class Item : MonoBehaviour
         bullet.GetComponent<Bullet>().dir = dirToShoot;
         bullet.GetComponent<Bullet>().ownerException = myPlayer;
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = shootSound; osp.Play();
     }
 
     public void ShootBanana(GameObject objToShoot, float bulletSpeed, AudioClip throwSound)
@@ -316,7 +319,7 @@ public class Item : MonoBehaviour
         newToast.GetComponent<Toast>().ownerException = myPlayer;
     }
 
-    public void ShootVeggies(GameObject objToShoot, float bulletSpeed, int count, float angle)
+    public void ShootVeggies(GameObject objToShoot, float bulletSpeed, int count, float angle, AudioClip shootSound)
     {
         Debug.Log("VEGEBTABLE!!!!!!!!!");
             Vector3 dirToShoot = new Vector3(bulletSpeed, angle);
@@ -328,6 +331,8 @@ public class Item : MonoBehaviour
             veggie.GetComponent<Vegetable>().rb.velocity = dirToShoot;
 
             Physics.IgnoreCollision(veggie.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+        osp.clip = shootSound; osp.Play();
     }
     public void FireSpikes(GameObject spikeToFire, GameObject spikeToFire2)
     {
@@ -495,6 +500,9 @@ public class Item : MonoBehaviour
         myPlayer.playerState.activelyUsingItem = true;
         myPlayer.playerState.itemAnimTime = hatAnimTime;
 
+
+        GetComponent<AudioSource>().Play();
+
         Player.State.Dir driveDir = myPlayer.playerState.facingDir;
 
         myPlayer.transform.position += new Vector3(0, stayOnGround.transform.lossyScale.y, 0);
@@ -543,6 +551,8 @@ public class Item : MonoBehaviour
     {
         myPlayer.playerState.rotLocked = false;
         myPlayer.playerState.freeMovement = false;
+
+        GetComponent<AudioSource>().Stop();
     }
 
     public void ThrowDynamite(GameObject objToShoot, float bulletSpeed, AudioClip throwSound)
