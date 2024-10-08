@@ -346,6 +346,15 @@ public class Item : MonoBehaviour
         newSpike2.GetComponent<Spike>().ownerException = myPlayer;
         Physics.IgnoreCollision(newSpike2.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
         Physics.IgnoreCollision(newSpike2.GetComponent<Collider>(), newSpike1.GetComponent<Collider>(), true);
+
+        GameObject newSpike3 = Instantiate(spikeToFire, transform.position, Quaternion.identity);
+        myPlayer.myProjectiles.Add(newSpike3);
+        newSpike3.transform.Rotate(new Vector3(0, 0, 0));
+        newSpike3.GetComponent<Spike>().rb.velocity = new Vector3(0, 14.14f);
+        newSpike3.GetComponent<Spike>().ownerException = myPlayer;
+        Physics.IgnoreCollision(newSpike3.GetComponent<Collider>(), myPlayer.GetComponent<Collider>(), true);
+        Physics.IgnoreCollision(newSpike3.GetComponent<Collider>(), newSpike1.GetComponent<Collider>(), true);
+        Physics.IgnoreCollision(newSpike3.GetComponent<Collider>(), newSpike2.GetComponent<Collider>(), true);
     }
 
     public void SwingSword(GameObject hitbox, float hitboxTime, Vector3 offsetPos)
