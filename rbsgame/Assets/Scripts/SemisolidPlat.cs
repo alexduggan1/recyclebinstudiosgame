@@ -201,7 +201,7 @@ public class SemisolidPlat : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(movePoints.Count > 0)
         {
@@ -213,7 +213,7 @@ public class SemisolidPlat : MonoBehaviour
             }
             else
             {
-                currentSmoothTime += Time.deltaTime;
+                currentSmoothTime += Time.fixedDeltaTime;
                 float newPosX = Mathf.SmoothDamp(transform.position.x, movePoints[currentMovePoint].x, ref xVel, smoothTime);
                 float newPosY = Mathf.SmoothDamp(transform.position.y, movePoints[currentMovePoint].y, ref yVel, smoothTime);
 
@@ -237,7 +237,14 @@ public class SemisolidPlat : MonoBehaviour
                 {
                     if (obj != null)
                     {
-                        obj.transform.position += diff;
+                        if(obj.TryGetComponent<Rigidbody>(out Rigidbody rb) && (! obj.TryGetComponent<ItemPickup>(out ItemPickup ip)))
+                        {
+                            rb.position += diff;
+                        }
+                        else
+                        {
+                            obj.transform.position += diff;
+                        }
                     }
                 }
                 objectsOnMe.Clear();

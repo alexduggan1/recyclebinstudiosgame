@@ -990,7 +990,7 @@ MonoBehaviour:
   dir: {x: 0, y: 0, z: 0}
   launchData:
     launchDirection: {x: 0, y: 0, z: 0}
-    launchPower: 30
+    launchPower: 60
 --- !u!65 &8755061892479367374
 BoxCollider:
   m_ObjectHideFlags: 0
