@@ -417,6 +417,7 @@ MonoBehaviour:
   - {fileID: 4690313186787259386, guid: 82aa213dcff781241b52290fd0acaa98, type: 3}
   - {fileID: 4690313186787259386, guid: 569877d81f7e5044db08d6a6774d1033, type: 3}
   - {fileID: 4690313186787259386, guid: 4f4469748b03fe541b6312a9498fc28a, type: 3}
+  - {fileID: 4690313186787259386, guid: 9d161b9d6c0ff7b4186ecea0905fc8d2, type: 3}
   playerChosenChars: []
   chosenStage: {fileID: 0}
   chosenItemDropLoots:
