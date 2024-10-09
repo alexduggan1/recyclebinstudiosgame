@@ -615,6 +615,8 @@ public class Item : MonoBehaviour
 
         attractParticles.Play();
 
+        GetComponent<AudioSource>().Play();
+
         while (upCount < 3.5f && myPlayer.playerState.itemAnimTime > 0)
         {
             upCount += Time.deltaTime;
@@ -713,6 +715,7 @@ public class Item : MonoBehaviour
 
         attractParticles.Stop();
         repulseParticles.Play();
+        GetComponent<AudioSource>().Stop();
 
         Destroy(gameObject);
     }

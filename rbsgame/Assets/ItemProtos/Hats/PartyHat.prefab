@@ -66,7 +66,7 @@ MonoBehaviour:
             _Y: 0
             _Z: 0
             _W: 0
-            _Object: {fileID: 8300000, guid: 95b50f2902f271e4f82f33f1dc13e584, type: 3}
+            _Object: {fileID: 8300000, guid: de9dba12333ae1143878c7cd697e00e6, type: 3}
       done: 0
     done: 0
   currentUse: 0

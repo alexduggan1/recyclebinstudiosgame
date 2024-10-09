@@ -83,6 +83,10 @@ public class MenuPlayer : MonoBehaviour
 
     public BattleController bc;
 
+    GameObject oneSoundPlayer;
+    public AudioClip confirmSound;
+    public AudioClip backSound;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -141,6 +145,9 @@ public class MenuPlayer : MonoBehaviour
 
 
         }
+
+
+        oneSoundPlayer = FindObjectOfType<GameManager>().oneSoundPlayer;
     }
 
     // Update is called once per frame
@@ -295,6 +302,9 @@ public class MenuPlayer : MonoBehaviour
         {
             if (sceneName == "Menu")
             {
+                AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+                osp.clip = confirmSound; osp.Play();
+
                 if (menuControls.keyboardType == MenuControls.KeyboardType.None)
                 {
                     if (ID == 0)
@@ -462,6 +472,8 @@ public class MenuPlayer : MonoBehaviour
 
         if (sceneName == "Menu")
         {
+            AudioSource osp = Instantiate(oneSoundPlayer).GetComponent<AudioSource>();
+            osp.clip = backSound; osp.Play();
             if (ID == 0)
             {
                 if (currentPanel == UIElm.PanelType.Character)

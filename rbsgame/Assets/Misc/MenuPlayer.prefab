@@ -253,6 +253,8 @@ MonoBehaviour:
   sceneName: 
   debugText: {fileID: 4727107771583625838}
   bc: {fileID: 0}
+  confirmSound: {fileID: 8300000, guid: de7209c47f118ce469e8d47e129f049e, type: 3}
+  backSound: {fileID: 8300000, guid: 12e406d6864cf7747967af9d2d621809, type: 3}
 --- !u!114 &6896199610425438684
 MonoBehaviour:
   m_ObjectHideFlags: 0
