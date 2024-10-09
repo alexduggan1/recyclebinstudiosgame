@@ -73,13 +73,35 @@ public class GameManager : MonoBehaviour
         if(titleTimer > 0)
         {
             titleTimer -= Time.deltaTime;
+            if (GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Stop();
+            }
         }
         if (SceneManager.GetActiveScene().name == "Startup")
         {
             if (Input.anyKeyDown && titleTimer <= 0) { PressGoButton(); }
         }
+        else if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Battle")
+        {
+            if (GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Stop();
+            }
+        }
         else if (SceneManager.GetActiveScene().name == "End")
         {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
             if (endManager != null)
             {
                 endManager.gameManager = this;
