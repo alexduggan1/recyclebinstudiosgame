@@ -375,7 +375,7 @@ MonoBehaviour:
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
-  render: {fileID: 21300000, guid: 3507f976ee3869f46bea0ecdd6239985, type: 3}
+  render: {fileID: 21300000, guid: bffa0c550bba74845975d0114ee6cb61, type: 3}
 --- !u!1 &6052943453719495834
 GameObject:
   m_ObjectHideFlags: 0
