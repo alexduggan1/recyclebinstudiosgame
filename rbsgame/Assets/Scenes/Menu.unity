@@ -376,7 +376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: -16}
+  m_AnchoredPosition: {x: 0, y: -18}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &419435250
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 51cb3454285d0c44b81f28cc10dc0ca5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5537a7496b0980409deba9f1bbcae5f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3780,7 +3780,7 @@ GameObject:
   - component: {fileID: 2125633174}
   - component: {fileID: 2125633173}
   m_Layer: 5
-  m_Name: Gentleman Humanoid
+  m_Name: TeeVee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3874,7 +3874,7 @@ MonoBehaviour:
   elmLeft: {fileID: 1638597461}
   elmRight: {fileID: 2000761074}
   panelType: 0
-  attachedCharacter: {fileID: 5483133159943521038, guid: 187f5752e52f1474aaa82fe6ce7b8fea, type: 3}
+  attachedCharacter: {fileID: 5483133159943521038, guid: 5e28cb1dbdf045b4b9054ee474d2d62d, type: 3}
   attachedStage: {fileID: 0}
   attachedItemDropLoot:
     loot: {fileID: 0}
