@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce340662ac7cd244a5eafe1d2ff62f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 3
+  characterName: 5
   characterProto: {fileID: 3897285844626070317}
   flat: 1
   animator: {fileID: 0}
@@ -375,7 +375,7 @@ MonoBehaviour:
   anchorLH: {fileID: 6872791621886828270}
   anchorRH: {fileID: 2308822502127236093}
   anchorH: {fileID: 6009752935083718533}
-  render: {fileID: 21300000, guid: 9590f7b2ae83a41429a106589008d5f5, type: 3}
+  render: {fileID: 21300000, guid: 3507f976ee3869f46bea0ecdd6239985, type: 3}
 --- !u!1 &6052943453719495834
 GameObject:
   m_ObjectHideFlags: 0
