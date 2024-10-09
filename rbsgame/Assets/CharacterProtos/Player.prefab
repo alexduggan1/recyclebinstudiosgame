@@ -97,10 +97,10 @@ MonoBehaviour:
   pickupDelay: 0
   oneSoundPlayer: {fileID: 0}
   soundClips:
-    runSound: {fileID: 8300000, guid: d08b31eadef767347ba010f3578bcd34, type: 3}
+    runSound: {fileID: 8300000, guid: 3aef66dc1e359124e9a4dfc3c7a4b878, type: 3}
     jumpSound: {fileID: 8300000, guid: 5ffb5bdd48468cf439ebb656dff9fbd8, type: 3}
     landSound: {fileID: 8300000, guid: 1a733eb3ece8a6945becda69b631094b, type: 3}
-    launchSound: {fileID: 8300000, guid: 7c31353d243d12a4d974618c763af632, type: 3}
+    launchSound: {fileID: 8300000, guid: 41966b00b5025c241b5cf552fe526df5, type: 3}
     hitSound: {fileID: 8300000, guid: ae75d58ca034dbe4b98d1b509a6e1840, type: 3}
     dieSound: {fileID: 8300000, guid: 8fa25e09461f35b4bbf4682777864e15, type: 3}
     pickupSound: {fileID: 8300000, guid: ae75d58ca034dbe4b98d1b509a6e1840, type: 3}
